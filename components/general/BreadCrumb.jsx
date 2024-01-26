@@ -19,7 +19,7 @@ const Breadcrumbs = () => {
         {pathSegments.map((segment, index) => (
           <li key={index} className="inline-flex items-center">
             {index !== pathSegments.length - 1 ? (
-              <Link href={segment.href} passHref>
+              <Link href={segment.href} passHref legacyBehavior>
                 <a className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
                   {index === 0 ? (
                     <svg
