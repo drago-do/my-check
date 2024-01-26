@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "./../components/general/Container";
-import NavBarIndex from "./../components/index/NavBarIndex";
+import NavBarIndex from "../components/general/NavBar";
 import DrawerDownContainer from "./../components/general/DrawerDownContainer";
 import SelectFunction from "./../components/index/SelectFunction";
 import PendentTickets from "@/components/index/PendentTickets";

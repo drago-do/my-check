@@ -1,9 +1,19 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
-import MaterialIcon from "./../general/MaterialIcon";
-import ListGroupMenu from "./../general/ListGroupMenu";
+import MaterialIcon from "./MaterialIcon";
+import ListGroupMenu from "./ListGroupMenu";
+
 export default function NavBarIndex() {
+  const pathname = usePathname();
+  //Get page name with pathname
+  const pageName = (pathname?.split("/")[1] || "My Check")
+    .replace(/-/g, " ") // Reemplaza los guiones por espacios
+    .split(" ") // Divide la cadena en palabras
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza cada palabra
+    .join(" "); // Une las palabras en una cadena
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef(); // Referencia al menú desplegable
@@ -49,7 +59,7 @@ export default function NavBarIndex() {
               height={40}
               className="rounded-full"
             />
-            <span>My check</span>
+            <span>{pageName}</span>
           </a>
         </div>
 
