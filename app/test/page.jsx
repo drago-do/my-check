@@ -1,24 +1,82 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Typography from "../../components/general/Typography";
-import Skeleton from "./../../components/general/Skeleton";
-import Container from "@/components/general/Container";
-import MaterialIcon from "@/components/general/MaterialIcon";
-import Image from "next/image";
-import Badge from "./../../components/general/Badge";
-import { useRouter } from "next/navigation";
-import PendentTickets from "./../../components/index/PendentTickets";
-import CompleteTickets from "./../../components/index/CompleteTickets";
+import ModalCRUD from "@/components/general/ModalCRUD";
+import { useForm } from "react-hook-form";
 
-
-
+import InputForm from "@/components/general/formsElements/InputForm";
+import UploadPicture from "../../components/general/formsElements/UploadPicture";
 export default function Test() {
+  const methods = useForm({ mode: "all" });
+
+  const [showModal, setShowModal] = useState(false);
+  const handleModal = () => setShowModal(!showModal);
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  //!UploadPicture
+  const [pictureData, setPictureData] = React.useState(() => {
+    const foto = methods.getValues("foto");
+    return foto && Object.keys(foto).length > 0 ? foto : null;
+  });
+
+  const handlePictureData = (data) => {
+    methods.setValue("foto", { ...data });
+  };
+
   return (
     <div>
       Pagina de pruebas
       <section>
-        <PendentTickets listOfTickets={listOfTickets} />
-        <CompleteTickets listOfTickets={listOfTickets} />
+        <button onClick={handleModal}>hola dmaskfda</button>
+        <ModalCRUD title={"Test"} isOpen={showModal} handleClose={handleModal}>
+          Esto es un modal
+        </ModalCRUD>
+        <div className=" flex justify-between">
+          <form
+            noValidate
+            onSubmit={methods.handleSubmit(onSubmit)}
+            className="w-full"
+          >
+            <InputForm
+              name="nombre"
+              formName="Texto"
+              placeholder="Introduce tu nombre"
+              required
+              useFormMethods={methods}
+              errors={methods.formState.errors}
+            />
+            <InputForm
+              name="number"
+              formName="Numero"
+              placeholder="Introduce tu number"
+              required
+              number={true}
+              useFormMethods={methods}
+              errors={methods.formState.errors}
+            />
+            <InputForm
+              name="email"
+              formName="Correo"
+              placeholder="Introduce tu correo"
+              required
+              useFormMethods={methods}
+              errors={methods.formState.errors}
+              validators={{
+                pattern: {
+                  value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                  message: "El correo no es valido.",
+                },
+              }}
+            />
+            <UploadPicture
+              handlePictureData={handlePictureData}
+              pictureData={pictureData}
+            />
+            <button type="submit">Listo</button>
+          </form>
+        </div>
       </section>
     </div>
   );

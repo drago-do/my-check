@@ -7,7 +7,7 @@ export default function page() {
     <div className="flex flex-col flex-nowrap w-full">
       <Typography variant={"title"}>Configuraciones</Typography>
       <ButtonLink
-        title="Añadir a inventario"
+        title="Gestión productos y categorías"
         subtitle="Agrega al inventario productos o categorías"
         icon={<MaterialIcon iconName="box_add" />}
         href="/settings/products-and-categories"

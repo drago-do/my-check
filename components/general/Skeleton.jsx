@@ -4,45 +4,45 @@ export default function Skeleton({ variant }) {
   function getVariant() {
     if (variant === "title") {
       return (
-        <div class="h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+        <div className="h-5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
       );
     }
     if (variant === "subtitle") {
       return (
-        <div class="h-4 bg-gray-200 rounded-full dark:bg-gray-700 w-36 mb-4"></div>
+        <div className="h-4 bg-gray-200 rounded-full dark:bg-gray-700 w-36 mb-4"></div>
       );
     }
     if (variant === "caption") {
       return (
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 w-24 mb-4"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 w-24 mb-4"></div>
       );
     }
     if (variant === "p") {
       return (
-        <div role="status" class="space-y-2.5 animate-pulse max-w-lg">
-          <div class="flex items-center w-full">
-            <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32"></div>
-            <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
-            <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+        <div role="status" className="space-y-2.5 animate-pulse max-w-lg">
+          <div className="flex items-center w-full">
+            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32"></div>
+            <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+            <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
           </div>
-          <div class="flex items-center w-full max-w-[480px]">
-            <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></div>
-            <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
-            <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+          <div className="flex items-center w-full max-w-[480px]">
+            <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></div>
+            <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+            <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
           </div>
-          <div class="flex items-center w-full max-w-[400px]">
-            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
-            <div class="h-2.5 ms-2 bg-gray-200 rounded-full dark:bg-gray-700 w-80"></div>
-            <div class="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+          <div className="flex items-center w-full max-w-[400px]">
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+            <div className="h-2.5 ms-2 bg-gray-200 rounded-full dark:bg-gray-700 w-80"></div>
+            <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
           </div>
         </div>
       );
     }
     if (variant === "image") {
       return (
-        <div class="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+        <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
           <svg
-            class="w-10 h-10 text-gray-200 dark:text-gray-600"
+            className="w-10 h-10 text-gray-200 dark:text-gray-600"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -57,44 +57,44 @@ export default function Skeleton({ variant }) {
       return (
         <div
           role="status"
-          class="w-full p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+          className="w-full p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
         >
-          <div class="flex items-center justify-between">
+          <div className="flex items-center justify-between">
             <div>
-              <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-              <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+              <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+              <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
             </div>
-            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
           </div>
-          <div class="flex items-center justify-between pt-4">
+          <div className="flex items-center justify-between pt-4">
             <div>
-              <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-              <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+              <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+              <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
             </div>
-            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
           </div>
-          <div class="flex items-center justify-between pt-4">
+          <div className="flex items-center justify-between pt-4">
             <div>
-              <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-              <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+              <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+              <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
             </div>
-            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
           </div>
-          <div class="flex items-center justify-between pt-4">
+          <div className="flex items-center justify-between pt-4">
             <div>
-              <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-              <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+              <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+              <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
             </div>
-            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
           </div>
-          <div class="flex items-center justify-between pt-4">
+          <div className="flex items-center justify-between pt-4">
             <div>
-              <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-              <div class="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+              <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+              <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
             </div>
-            <div class="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
           </div>
-          <span class="sr-only">Loading...</span>
+          <span className="sr-only">Loading...</span>
         </div>
       );
     }
@@ -102,37 +102,53 @@ export default function Skeleton({ variant }) {
       return (
         <div
           role="status"
-          class="w-full p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700"
+          className="w-full p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700"
         >
-          <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2.5"></div>
-          <div class="w-48 h-2 mb-10 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-          <div class="flex items-baseline mt-4">
-            <div class="w-full bg-gray-200 rounded-t-lg h-72 dark:bg-gray-700"></div>
-            <div class="w-full h-56 ms-6 bg-gray-200 rounded-t-lg dark:bg-gray-700"></div>
-            <div class="w-full bg-gray-200 rounded-t-lg h-72 ms-6 dark:bg-gray-700"></div>
-            <div class="w-full h-64 ms-6 bg-gray-200 rounded-t-lg dark:bg-gray-700"></div>
-            <div class="w-full bg-gray-200 rounded-t-lg h-80 ms-6 dark:bg-gray-700"></div>
-            <div class="w-full bg-gray-200 rounded-t-lg h-72 ms-6 dark:bg-gray-700"></div>
-            <div class="w-full bg-gray-200 rounded-t-lg h-80 ms-6 dark:bg-gray-700"></div>
+          <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2.5"></div>
+          <div className="w-48 h-2 mb-10 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+          <div className="flex items-baseline mt-4">
+            <div className="w-full bg-gray-200 rounded-t-lg h-72 dark:bg-gray-700"></div>
+            <div className="w-full h-56 ms-6 bg-gray-200 rounded-t-lg dark:bg-gray-700"></div>
+            <div className="w-full bg-gray-200 rounded-t-lg h-72 ms-6 dark:bg-gray-700"></div>
+            <div className="w-full h-64 ms-6 bg-gray-200 rounded-t-lg dark:bg-gray-700"></div>
+            <div className="w-full bg-gray-200 rounded-t-lg h-80 ms-6 dark:bg-gray-700"></div>
+            <div className="w-full bg-gray-200 rounded-t-lg h-72 ms-6 dark:bg-gray-700"></div>
+            <div className="w-full bg-gray-200 rounded-t-lg h-80 ms-6 dark:bg-gray-700"></div>
           </div>
-          <span class="sr-only">Loading...</span>
+          <span className="sr-only">Loading...</span>
+        </div>
+      );
+    }
+    if (variant === "autocompleteInput") {
+      return (
+        <div
+          role="status"
+          className="w-full p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
+              <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+            </div>
+            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-12"></div>
+          </div>
         </div>
       );
     }
     return (
       <>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-        <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
       </>
     );
   }
   return (
-    <div role="status" class="my-3 px-2 w-full animate-pulse">
+    <div role="status" className="my-3 px-2 w-full animate-pulse">
       {getVariant()}
-      <span class="sr-only">Loading...</span>
+      <span className="sr-only">Loading...</span>
     </div>
   );
 }

@@ -31,7 +31,7 @@ const Badge = ({
   const badgeStyle = colorStyles[color] ? colorStyles[color] : colorStyles.blue;
 
   return loading ? (
-    <span class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
+    <span className="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
       Cargando...
     </span>
   ) : (
@@ -50,7 +50,7 @@ const Badge = ({
       {onDelete && (
         <span className="pl-2 z-10" onClick={onDelete}>
           <svg
-            class="w-3 h-3 "
+            className="w-3 h-3 "
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
