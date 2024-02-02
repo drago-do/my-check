@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import InputForm from "@/components/general/formsElements/InputForm";
 import UploadPicture from "../../components/general/formsElements/UploadPicture";
 import SelectForm from "@/components/general/formsElements/SelectForm";
+import ButtonFunction from "@/components/general/ButtonFunction";
 
 export default function Test() {
   const methods = useForm({ mode: "all" });
@@ -39,9 +40,9 @@ export default function Test() {
       Pagina de pruebas
       <section>
         <button onClick={handleModal}>hola dmaskfda</button>
-        <ModalCRUD title={"Test"} isOpen={showModal} handleClose={handleModal}>
-          Esto es un modal
-        </ModalCRUD>
+      </section>
+      <ModalCRUD title={"Test"} isOpen={showModal} handleClose={handleModal}>
+        Esto es un modal
         <div className=" flex justify-between">
           <form
             noValidate
@@ -61,6 +62,38 @@ export default function Test() {
               formName="Numero"
               placeholder="Introduce tu number"
               required
+              number={true}
+              useFormMethods={methods}
+              errors={methods.formState.errors}
+            />
+            <InputForm
+              name="number"
+              formName="Numero"
+              placeholder="Introduce tu number"
+              number={true}
+              useFormMethods={methods}
+              errors={methods.formState.errors}
+            />
+            <InputForm
+              name="number"
+              formName="Numero"
+              placeholder="Introduce tu number"
+              number={true}
+              useFormMethods={methods}
+              errors={methods.formState.errors}
+            />
+            <InputForm
+              name="number"
+              formName="Numero"
+              placeholder="Introduce tu number"
+              number={true}
+              useFormMethods={methods}
+              errors={methods.formState.errors}
+            />
+            <InputForm
+              name="number"
+              formName="Numero"
+              placeholder="Introduce tu number"
               number={true}
               useFormMethods={methods}
               errors={methods.formState.errors}
@@ -92,10 +125,12 @@ export default function Test() {
               errors={methods.formState.errors}
               useFormMethods={methods}
             />
-            <button type="submit">Listo</button>
+            <ButtonFunction type="submit" variant="green">
+              Subir
+            </ButtonFunction>
           </form>
         </div>
-      </section>
+      </ModalCRUD>
     </div>
   );
 }
