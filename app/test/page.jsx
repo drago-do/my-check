@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 
 import InputForm from "@/components/general/formsElements/InputForm";
 import UploadPicture from "../../components/general/formsElements/UploadPicture";
+import SelectForm from "@/components/general/formsElements/SelectForm";
+
 export default function Test() {
   const methods = useForm({ mode: "all" });
 
@@ -24,6 +26,13 @@ export default function Test() {
   const handlePictureData = (data) => {
     methods.setValue("foto", { ...data });
   };
+
+  const countries = [
+    { value: "US", label: "United States" },
+    { value: "CA", label: "Canada" },
+    { value: "FR", label: "France" },
+    { value: "DE", label: "Germany" },
+  ];
 
   return (
     <div>
@@ -73,6 +82,15 @@ export default function Test() {
             <UploadPicture
               handlePictureData={handlePictureData}
               pictureData={pictureData}
+            />
+            <SelectForm
+              name="Países"
+              formName="countries"
+              placeholder="Selecciona un país"
+              required
+              options={countries}
+              errors={methods.formState.errors}
+              useFormMethods={methods}
             />
             <button type="submit">Listo</button>
           </form>
