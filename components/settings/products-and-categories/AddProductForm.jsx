@@ -40,7 +40,7 @@ export default function ProductForm({ handleClose, productInfo }) {
 
   //!UploadPicture
   const [pictureData, setPictureData] = React.useState(() => {
-    const image = methods.getValues("image") || productInfo.image;
+    const image = methods.getValues("image") || productInfo?.image;
     return image && Object.keys(image).length > 0 ? image : null;
   });
 
@@ -51,6 +51,8 @@ export default function ProductForm({ handleClose, productInfo }) {
   useEffect(() => {
     if (productInfo) {
       methods.reset(productInfo);
+    } else {
+      methods.reset();
     }
   }, [productInfo, methods]);
 

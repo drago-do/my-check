@@ -34,15 +34,17 @@ export default function Products() {
   const [productToAction, setProductToAction] = useState(null);
 
   const handleAddProduct = () => {
+    setProductToAction(null);
     setAddProductModal(!addProductModal);
   };
+
   const handleDeleteProduct = () => {
     setDeleteProductModal(!deleteProductModal);
   };
 
   const handleEdit = (product) => {
     setProductToAction(product);
-    handleAddProduct();
+    setAddProductModal(true);
   };
 
   const handleDelete = (product) => {
