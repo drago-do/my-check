@@ -5,6 +5,7 @@ const ButtonFunction = ({
   variant = "default",
   type = "button",
   onClick,
+  onLoading = false,
 }) => {
   const baseStyles =
     "focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2";
@@ -28,13 +29,26 @@ const ButtonFunction = ({
   const variantStyles = variants[variant] || variants.default;
 
   return (
-    <button
-      type={type}
-      className={`${baseStyles} ${variantStyles} my-4`}
-      onClick={onClick}
-    >
-      {children}
-    </button>
+    <>
+      {onLoading ? (
+        <button
+          type={type}
+          className={`${baseStyles} ${variantStyles} my-4 grid grid-flow-col gap-4 justify-center items-center`}
+          onClick={onClick}
+          disabled
+        >
+          <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
+        </button>
+      ) : (
+        <button
+          type={type}
+          className={`${baseStyles} ${variantStyles} my-4 grid grid-flow-col gap-4 justify-center items-center`}
+          onClick={onClick}
+        >
+          {children}
+        </button>
+      )}
+    </>
   );
 };
 

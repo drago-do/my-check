@@ -1,9 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import SearchField from "../../../../components/general/SearchField";
 import MaterialIcon from "@/components/general/MaterialIcon";
 import Typography from "@/components/general/Typography";
 import ProductsTable from "@/components/settings/products-and-categories/ProductsTable";
+import Modal from "@/components/general/ModalCRUD";
+import AddProductForm from "@/components/settings/products-and-categories/AddProductForm";
 
 //TODO delete this example list
 const listOfprod = [
@@ -170,9 +172,11 @@ const listOfprod = [
   },
 ];
 
-export default function page() {
+export default function Products() {
+  const [addProductModal, setAddProductModal] = useState(false);
+
   const handleAddProduct = () => {
-    console.log("he");
+    setAddProductModal(!addProductModal);
   };
 
   return (
@@ -187,6 +191,13 @@ export default function page() {
         />
       </section>
       <ProductsTable products={listOfprod} />
+      <Modal
+        title={"Agrega un producto"}
+        isOpen={addProductModal}
+        handleClose={handleAddProduct}
+      >
+        <AddProductForm handleClose={handleAddProduct} />
+      </Modal>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import MaterialIcon from "./MaterialIcon";
 
-const ModalCURD = ({ children, title, isOpen, handleClose }) => {
+const Modal = ({ children, title, isOpen, handleClose }) => {
   const handleBackdropClick = (event) => {
     if (event.target === event.currentTarget) {
       handleClose();
@@ -13,10 +13,10 @@ const ModalCURD = ({ children, title, isOpen, handleClose }) => {
       {isOpen && (
         <div
           onClick={handleBackdropClick}
-          className="fixed inset-0 z-50 flex justify-center items-center px-4 py-8 overflow-y-auto overflow-x-hidden bg-gray-500 bg-opacity-50"
+          className="w-full fixed inset-0 z-50 flex justify-center items-center px-4 py-8 overflow-y-auto overflow-x-hidden bg-gray-500 bg-opacity-50"
         >
-          <div className="relative w-full max-w-md mx-auto h-auto bg-white rounded-lg shadow dark:bg-gray-700">
-            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+          <div className="relative w-full max-w-5xl md:m-16 h-auto bg-white rounded-lg shadow dark:bg-gray-700">
+            <div className="w-full flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                 {title || "Modal Title"}
               </h3>
@@ -41,4 +41,4 @@ const ModalCURD = ({ children, title, isOpen, handleClose }) => {
   );
 };
 
-export default ModalCURD;
+export default Modal;

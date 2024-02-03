@@ -54,7 +54,7 @@ export default function UploadPicture({
   return (
     <>
       <div
-        className=" text-center flex flex-col  max-w-sm p-5 m-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+        className="w-full text-center flex flex-col  max-w-sm p-5 m-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
         color="secondary"
       >
         {fotoData && (
