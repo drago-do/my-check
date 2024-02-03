@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Typography from "../../general/Typography";
 import InputForm from "./../../general/formsElements/InputForm";
@@ -25,7 +25,7 @@ const categoryOptions = [
   },
 ];
 
-export default function ProductForm({ handleClose }) {
+export default function ProductForm({ handleClose, productInfo }) {
   const methods = useForm({ mode: "all" });
   const [loading, setLoading] = useState(false);
 
@@ -40,13 +40,19 @@ export default function ProductForm({ handleClose }) {
 
   //!UploadPicture
   const [pictureData, setPictureData] = React.useState(() => {
-    const image = methods.getValues("image");
+    const image = methods.getValues("image") || productInfo.image;
     return image && Object.keys(image).length > 0 ? image : null;
   });
 
   const handlePictureData = (data) => {
     methods.setValue("image", { ...data });
   };
+
+  useEffect(() => {
+    if (productInfo) {
+      methods.reset(productInfo);
+    }
+  }, [productInfo, methods]);
 
   return (
     <form
@@ -103,7 +109,7 @@ export default function ProductForm({ handleClose }) {
         <Typography variant={"subtitle"}>Tamaño de producto</Typography>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-items-stretch items-center">
           <InputForm
-            name="size"
+            name="UnitMeasurementAndPrice.size"
             formName="Cantidad"
             placeholder="Introduce la cantidad en la que vendes el producto."
             required
@@ -118,8 +124,8 @@ export default function ProductForm({ handleClose }) {
             }}
           />
           <SelectForm
-            name="Unidad de medida"
-            formName="UnitMeasurement"
+            name="UnitMeasurementAndPrice.UnitMeasurement"
+            formName="Unidad de medida"
             placeholder="Selecciona la unidad de medida."
             required
             errors={methods.formState.errors}
@@ -127,7 +133,7 @@ export default function ProductForm({ handleClose }) {
             options={UnitMeasure}
           />
           <InputForm
-            name="price"
+            name="UnitMeasurementAndPrice.price"
             formName="Precio del producto"
             placeholder="Introduce el precio en formato numérico."
             required
@@ -145,8 +151,8 @@ export default function ProductForm({ handleClose }) {
       </div>
       <div className="flex flex-col-reverse m-2">
         <SelectForm
-          name="Categoría"
-          formName="category"
+          name="category"
+          formName="Categoría"
           placeholder="Selecciona una categoría."
           required
           errors={methods.formState.errors}

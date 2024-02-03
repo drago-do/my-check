@@ -25,14 +25,14 @@ const SelectForm = ({
       {useFormMethods && errors && options ? (
         <div>
           <label
-            htmlFor={formName}
+            htmlFor={name}
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
-            {name}
+            {formName}
           </label>
           <select
-            id={formName}
-            name={formName}
+            id={name}
+            name={name}
             {...useFormMethods.register(name, {
               required: required ? `Campo requerido.` : false,
               ...validators,

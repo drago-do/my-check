@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import PaginationButtons from "@/components/general/PaginationButtons";
 
-const ProductsTable = ({ products }) => {
+const ProductsTable = ({ products, onEdit, onDelete }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(1);
   const componentsHeaderSize = 200;
@@ -68,18 +68,20 @@ const ProductsTable = ({ products }) => {
                 <td className="px-6 py-2">Pomos</td>
                 <td className="px-6 py-2">{product.size}</td>
                 <td className="flex items-center px-6 py-2">
-                  <a
-                    href="#"
+                  <button
+                    onClick={() => onEdit(product)}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
-                    Edit
-                  </a>
-                  <a
-                    href="#"
+                    Editar
+                  </button>
+                  <button
+                    onClick={() => {
+                      onDelete(product);
+                    }}
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
-                    Remove
-                  </a>
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             ))}

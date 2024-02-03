@@ -6,177 +6,48 @@ import Typography from "@/components/general/Typography";
 import ProductsTable from "@/components/settings/products-and-categories/ProductsTable";
 import Modal from "@/components/general/ModalCRUD";
 import AddProductForm from "@/components/settings/products-and-categories/AddProductForm";
+import DeleteProductForm from "@/components/settings/products-and-categories/DeleteProductForm";
 
 //TODO delete this example list
 const listOfprod = [
   {
-    _id: "63acc1a5d344f1e651a22935",
-    name: "Caguama",
-    description: "Cerveza de 1.2l",
-    price: "70",
-    image:
-      "https://www.grupoelvalor.com/wp-content/uploads/2018/12/corona-caguama-familiar.png",
-    units: "5",
-    category: "63acbba13bd411f44a60d04f",
-    size: "1.2 L",
-  },
-  {
     _id: "63acc1dcd344f1e651a22937",
     name: "Cerveza",
     description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
+    UnitMeasurementAndPrice: {
+      size: "500",
+      price: "30",
+      UnitMeasurement: "ml",
+    },
+    image: {
+      url: true,
+      link: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
+    },
     units: "50",
     category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
-  },
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    price: "30",
-    image: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-    size: "250 ml",
   },
 ];
 
 export default function Products() {
   const [addProductModal, setAddProductModal] = useState(false);
+  const [deleteProductModal, setDeleteProductModal] = useState(false);
+  const [productToAction, setProductToAction] = useState(null);
 
   const handleAddProduct = () => {
     setAddProductModal(!addProductModal);
+  };
+  const handleDeleteProduct = () => {
+    setDeleteProductModal(!deleteProductModal);
+  };
+
+  const handleEdit = (product) => {
+    setProductToAction(product);
+    handleAddProduct();
+  };
+
+  const handleDelete = (product) => {
+    setProductToAction(product);
+    handleDeleteProduct();
   };
 
   return (
@@ -190,13 +61,30 @@ export default function Products() {
           icon={<MaterialIcon iconName="add" />}
         />
       </section>
-      <ProductsTable products={listOfprod} />
+      <ProductsTable
+        products={listOfprod}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
       <Modal
         title={"Agrega un producto"}
         isOpen={addProductModal}
         handleClose={handleAddProduct}
       >
-        <AddProductForm handleClose={handleAddProduct} />
+        <AddProductForm
+          handleClose={handleAddProduct}
+          productInfo={productToAction}
+        />
+      </Modal>
+      <Modal
+        title={"Eliminar producto"}
+        isOpen={deleteProductModal}
+        handleClose={handleDeleteProduct}
+      >
+        <DeleteProductForm
+          handleClose={handleDeleteProduct}
+          productInfo={productToAction}
+        />
       </Modal>
     </div>
   );
