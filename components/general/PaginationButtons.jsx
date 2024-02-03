@@ -6,11 +6,13 @@ export default function PaginationButtons({
   totalPages = 1,
   onPageChange,
 }) {
+  // Asegurar que solo se avance si la página actual es menor que el total de páginas
   const onNextPage = () =>
-    currentPage <= totalPages ? onPageChange(currentPage + 1) : null;
+    currentPage < totalPages ? onPageChange(currentPage + 1) : null;
 
   const onPreviousPage = () =>
     currentPage > 1 ? onPageChange(currentPage - 1) : null;
+
   return (
     <>
       <div className="flex flex-col items-center">
