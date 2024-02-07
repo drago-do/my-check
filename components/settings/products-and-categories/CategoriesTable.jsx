@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import PaginationButtons from "@/components/general/PaginationButtons";
 
-const ProductsTable = ({ products, onEdit, onDelete }) => {
+const CategoriesTable = ({ categories, onEdit, onDelete }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(1);
   const componentsHeaderSize = 200;
@@ -20,12 +20,21 @@ const ProductsTable = ({ products, onEdit, onDelete }) => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = categories.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const totalPages = Math.ceil(categories.length / itemsPerPage);
 
   const onPageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  //Search parent name categoric
+  const searchParent = (id) => {
+    let parent = categories.find((category) => category._id === id);
+    if (parent) {
+      return parent.name;
+    }
+    return "No tiene";
   };
 
   return (
@@ -35,49 +44,40 @@ const ProductsTable = ({ products, onEdit, onDelete }) => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Nombre del producto
+                Nombre de categoría
               </th>
               <th scope="col" className="px-6 py-3">
-                Precio y tamaño
+                Descripcion
               </th>
               <th scope="col" className="px-6 py-3">
-                Unidades en inventario
+                Elemento padre
               </th>
-              <th scope="col" className="px-6 py-3">
-                Categoría
-              </th>
-
               <th scope="col" className="px-6 py-3">
                 Action
               </th>
             </tr>
           </thead>
           <tbody>
-            {currentItems.map((product, index) => (
+            {currentItems.map((category, index) => (
               <tr
                 key={index}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <td className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {product.name}
+                  {category.name}
                 </td>
-                <td className="px-6 py-2">
-                  ${product.UnitMeasurementAndPrice.price} por{" "}
-                  {product.UnitMeasurementAndPrice.size}{" "}
-                  {product.UnitMeasurementAndPrice.UnitMeasurement}
-                </td>
-                <td className="px-6 py-2">{product.units}</td>
-                <td className="px-6 py-2">Pomos</td>
+                <td className="px-6 py-2">{category.description}</td>
+                <td className="px-6 py-2">{searchParent(category.parent)}</td>
                 <td className="flex items-center px-6 py-2">
                   <button
-                    onClick={() => onEdit(product)}
+                    onClick={() => onEdit(category)}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Editar
                   </button>
                   <button
                     onClick={() => {
-                      onDelete(product);
+                      onDelete(category);
                     }}
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
@@ -101,4 +101,4 @@ const ProductsTable = ({ products, onEdit, onDelete }) => {
   );
 };
 
-export default ProductsTable;
+export default CategoriesTable;

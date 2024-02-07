@@ -7,28 +7,10 @@ import ProductsTable from "@/components/settings/products-and-categories/Product
 import Modal from "@/components/general/ModalCRUD";
 import AddProductForm from "@/components/settings/products-and-categories/AddProductForm";
 import DeleteProductForm from "@/components/settings/products-and-categories/DeleteProductForm";
+//TODO realizar carga real caudno este el backend
+import Products from "@/utils/products";
 
-//TODO delete this example list
-const listOfprod = [
-  {
-    _id: "63acc1dcd344f1e651a22937",
-    name: "Cerveza",
-    description: "Cerveza de 250 ml",
-    UnitMeasurementAndPrice: {
-      size: "500",
-      price: "30",
-      UnitMeasurement: "ml",
-    },
-    image: {
-      url: true,
-      link: "https://m.media-amazon.com/images/I/61vYdM6juBL.jpg",
-    },
-    units: "50",
-    category: "63acbba13bd411f44a60d04f",
-  },
-];
-
-export default function Products() {
+export default function ProductsPage() {
   const [addProductModal, setAddProductModal] = useState(false);
   const [deleteProductModal, setDeleteProductModal] = useState(false);
   const [productToAction, setProductToAction] = useState(null);
@@ -64,7 +46,7 @@ export default function Products() {
         />
       </section>
       <ProductsTable
-        products={listOfprod}
+        products={Products}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
