@@ -1,17 +1,36 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import SearchField from "../../../../components/general/SearchField";
 import MaterialIcon from "@/components/general/MaterialIcon";
 import Typography from "@/components/general/Typography";
 import CategoriesTable from "@/components/settings/products-and-categories/CategoriesTable";
+import Modal from "@/components/general/ModalCRUD";
+import AddCategoryForm from "@/components/settings/products-and-categories/AddCategoryForm";
+import DeleteCategoryForm from "@/components/settings/products-and-categories/DeleteCategoryForm";
 //TODO realizar carga real caudno este el backend
-import Categories from "@/utils/categories";
+import Categories from "@/utils/Categories";
 
-export default function page() {
-  console.log(Categories);
-  // const [categoriesTable, setCategoriesTable] = useState(null)
+export default function CategoriesPage() {
+  const [addCategoryModal, setAddCategoryModal] = useState(false);
+  const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
+  const [categoryToAction, setCategoryToAction] = useState(null);
+
   const handleAddCategories = () => {
-    console.log("he");
+    setCategoryToAction(null);
+    setAddCategoryModal(!addCategoryModal);
+  };
+
+  const handleDeleteCategories = () => {
+    setDeleteCategoryModal(!deleteCategoryModal);
+  };
+  const handleEdit = (category) => {
+    setCategoryToAction(category);
+    setAddCategoryModal(true);
+  };
+
+  const handleDelete = (category) => {
+    setCategoryToAction(category);
+    handleDeleteCategories();
   };
 
   return (
@@ -25,7 +44,31 @@ export default function page() {
           icon={<MaterialIcon iconName="add" />}
         />
       </section>
-      <CategoriesTable categories={Categories} />
+      <CategoriesTable
+        categories={Categories}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+      <Modal
+        title={"Agrega una categoría"}
+        isOpen={addCategoryModal}
+        handleClose={handleAddCategories}
+      >
+        <AddCategoryForm
+          handleClose={handleAddCategories}
+          categoriesInfo={categoryToAction}
+        />
+      </Modal>
+      <Modal
+        title={"Eliminar categoría"}
+        isOpen={deleteCategoryModal}
+        handleClose={handleDeleteCategories}
+      >
+        <DeleteCategoryForm
+          handleClose={handleDeleteCategories}
+          categoriesInfo={categoryToAction}
+        />
+      </Modal>
     </div>
   );
 }
