@@ -8,6 +8,8 @@ import UploadPicture from "../../components/general/formsElements/UploadPicture"
 import SelectForm from "@/components/general/formsElements/SelectForm";
 import ButtonFunction from "@/components/general/ButtonFunction";
 
+import UserList from "@/components/settings/users/UserList";
+
 export default function Test() {
   const methods = useForm({ mode: "all" });
 
@@ -40,6 +42,7 @@ export default function Test() {
       Pagina de pruebas
       <section>
         <button onClick={handleModal}>hola dmaskfda</button>
+        <UserList />
       </section>
       <ModalCRUD title={"Test"} isOpen={showModal} handleClose={handleModal}>
         Esto es un modal

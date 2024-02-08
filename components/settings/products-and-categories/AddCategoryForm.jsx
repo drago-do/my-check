@@ -40,17 +40,12 @@ export default function CategoriesForm({ handleClose, categoriesInfo }) {
   };
 
   useEffect(() => {
-    console.log(categoriesInfo);
     if (categoriesInfo) {
       methods.reset(categoriesInfo);
     } else {
       methods.reset();
     }
   }, [categoriesInfo, methods]);
-
-  useEffect(() => {
-    console.log(methods.watch());
-  }, [methods.watch()]);
 
   return (
     <form

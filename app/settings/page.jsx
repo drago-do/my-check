@@ -16,7 +16,7 @@ export default function page() {
         title="Gestión de usuarios"
         subtitle="Crea, elimina o cambia cuentas de usuario"
         icon={<MaterialIcon iconName="account_circle" />}
-        href="/settings/accounts"
+        href="/settings/users"
       />
       <ButtonLink
         title="Mapa de mesas"
