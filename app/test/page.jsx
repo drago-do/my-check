@@ -9,6 +9,7 @@ import SelectForm from "@/components/general/formsElements/SelectForm";
 import ButtonFunction from "@/components/general/ButtonFunction";
 
 import UserList from "@/components/settings/users/UserList";
+import UserJSON from "./../../utils/UserJSON";
 
 export default function Test() {
   const methods = useForm({ mode: "all" });
@@ -17,7 +18,7 @@ export default function Test() {
   const handleModal = () => setShowModal(!showModal);
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
   };
 
   //!UploadPicture
@@ -42,7 +43,7 @@ export default function Test() {
       Pagina de pruebas
       <section>
         <button onClick={handleModal}>hola dmaskfda</button>
-        <UserList />
+        <UserList userList={UserJSON} />
       </section>
       <ModalCRUD title={"Test"} isOpen={showModal} handleClose={handleModal}>
         Esto es un modal
