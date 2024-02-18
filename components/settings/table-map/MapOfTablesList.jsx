@@ -1,64 +1,62 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import Skeleton from "./../../general/Skeleton";
-import ImageViewer from "./../../general/ImageViewer";
-import Badge from "./../../general/Badge";
-import MaterialIcon from "./../../general/MaterialIcon";
-import ContextualContainer from "../../general/ContextualContainer";
-import Modal from "./../../general/Modal";
+import Skeleton from "../../general/Skeleton";
+import SmallImageViewer from "../../general/ImageViewer";
+import Badge from "../../general/Badge";
+import MaterialIcon from "../../general/MaterialIcon";
+import ContextualContainer from "./../../general/ContextualContainer";
+import Modal from "../../general/Modal";
+import ImageViewer from "react-simple-image-viewer";
 
 //ModalForms
-import UserForm from "./UserForm";
-import UserRoleChangeForm from "./UserRoleChangeForm";
-import DeleteUserForm from "./DeleteUserForm";
+import MapOfTablesForm from "./MapOfTablesForm";
+import MapOfTablesDelete from "./MapOfTablesDelete";
+import MapOfTablesView from "./MapOfTablesView";
 
-const colorRole = {
-  admin: "green",
-  mesero: "blue",
-  chef: "yellow",
-  cajero: "indigo",
-};
+export default function MapOfTablesList({ mapOfTablesList }) {
+  const [currentImage, setCurrentImage] = useState(["/404.png"]);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
 
-export default function UserList({ userList }) {
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isMenuOpen, setIsUserMenuOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({
     title: "Default",
     body: "default  modal body text.",
     isOpen: false,
   });
 
-  const getUserFromId = (id) => {
-    return userList.find((user) => user._id === id);
+  const getTableFromId = (id) => {
+    return mapOfTablesList.find((tableMap) => tableMap._id === id);
   };
 
   const handleDelete = (id) => {
-    const user = getUserFromId(id);
+    const tableMap = getTableFromId(id);
     setModalInfo({
       ...modalInfo,
-      title: `Eliminar a ${user.firstName}`,
-      body: <DeleteUserForm handleClose={handleClose} userInfo={user} />,
+      title: `Eliminar ${tableMap.name}`,
+      body: <MapOfTablesDelete tableMap={tableMap} handleClose={handleClose} />,
       isOpen: true,
     });
   };
 
   const handleEdit = (id) => {
-    const user = getUserFromId(id);
+    const tableMap = getTableFromId(id);
     setModalInfo({
       ...modalInfo,
-      title: `Editar a ${user.firstName}`,
-      body: <UserForm user={user} handleClose={handleClose} userInfo={user} />,
+      title: `Editar ${tableMap.name}`,
+      body: <MapOfTablesForm tableMap={tableMap} handleClose={handleClose} />,
       isOpen: true,
     });
   };
 
-  const handleChangeRole = (id) => {
-    const user = getUserFromId(id);
-    setModalInfo({
-      ...modalInfo,
-      title: `Cambiar rol`,
-      body: <UserRoleChangeForm handleClose={handleClose} userInfo={user} />,
-      isOpen: true,
-    });
+  const handleView = (id) => {
+    console.log("handleView", id);
+    if (isViewerOpen) {
+      setIsViewerOpen(false);
+    } else {
+      const tableMap = getTableFromId(id);
+      setCurrentImage([tableMap.image.link]);
+      setIsViewerOpen(true);
+    }
   };
 
   const handleClose = () => {
@@ -67,6 +65,15 @@ export default function UserList({ userList }) {
 
   return (
     <div className="w-full">
+      {isViewerOpen && (
+        <ImageViewer
+          src={currentImage}
+          currentIndex={0}
+          disableScroll={true}
+          closeOnClickOutside={true}
+          onClose={handleView}
+        />
+      )}
       <ul
         role="list"
         className="divide-y divide-gray-200 dark:divide-gray-700 p-2 m-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
@@ -78,29 +85,31 @@ export default function UserList({ userList }) {
         >
           {modalInfo.body}
         </Modal>
-        {userList ? (
-          userList.length > 0 ? (
-            userList.map((user, index) => (
-              <li key={user._id} className="py-3 px-3 sm:py-4">
+        {mapOfTablesList ? (
+          mapOfTablesList.length > 0 ? (
+            mapOfTablesList.map((tableMap) => (
+              <li key={tableMap._id} className="py-3 px-3 sm:py-4">
                 <div className="flex items-center max-h-24">
                   <div className="flex-shrink-0 max-h-24 overflow-hidden">
-                    <ImageViewer
-                      fotoData={user?.image}
-                      className={"rounded-full max-h-24"}
+                    <SmallImageViewer
+                      fotoData={tableMap?.image}
+                      className={"max-h-24 max-w-24"}
                     />
                   </div>
                   <div className="flex-1 min-w-0 ms-4">
                     <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      {`${user.firstName} ${user.lastName}`}
+                      {`${tableMap.name}`}
                     </p>
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                      {user.email}
+                      {tableMap.description}
                     </p>
-                    <Badge color={colorRole[user.role]}>{user.role}</Badge>
+                    <Badge color="indigo">
+                      {`Mesas: ${tableMap.totalTables}`}
+                    </Badge>
                   </div>
                   <button
                     onClick={() =>
-                      setIsUserMenuOpen(isUserMenuOpen ? null : user._id)
+                      setIsUserMenuOpen(isMenuOpen ? null : tableMap._id)
                     }
                     type="button"
                     className="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500"
@@ -111,14 +120,14 @@ export default function UserList({ userList }) {
                   <ContextualContainer
                     menuItems={[
                       {
-                        onClick: handleChangeRole,
-                        icon: <MaterialIcon iconName="admin_panel_settings" />,
-                        name: "Cambiar rol",
+                        onClick: handleView,
+                        icon: <MaterialIcon iconName="visibility" />,
+                        name: "Ver Mapa de mesas",
                       },
                       {
                         onClick: handleEdit,
-                        icon: <MaterialIcon iconName="person" />,
-                        name: "Editar usuario",
+                        icon: <MaterialIcon iconName="border_color" />,
+                        name: "Editar mapa de mesas",
                       },
                       {
                         onClick: handleDelete,
@@ -126,9 +135,9 @@ export default function UserList({ userList }) {
                         name: "Eliminar",
                       },
                     ]}
-                    idForOnClick={user._id}
+                    idForOnClick={tableMap._id}
                     setIsContextualOpen={setIsUserMenuOpen}
-                    isContextualOpen={isUserMenuOpen === user._id}
+                    isContextualOpen={isMenuOpen === tableMap._id}
                   />
                 </div>
               </li>
@@ -140,7 +149,7 @@ export default function UserList({ userList }) {
         -center justify-center"
               >
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
-                  No hay usuarios
+                  No hay mapas de mesas aun
                 </p>
               </div>
             </li>

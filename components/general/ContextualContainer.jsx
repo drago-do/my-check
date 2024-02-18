@@ -1,12 +1,12 @@
 // UserMenu.js
 import React, { useEffect, useState, useRef } from "react";
-import ListGroupMenu from "./../../general/ListGroupMenu";
+import ListGroupMenu from "./ListGroupMenu";
 
 const negativeMenuXPosition = 220;
 
-const UserOptionsMenu = ({
-  isMenuOpen,
-  setIsMenuOpen,
+const ContextualContainer = ({
+  isContextualOpen,
+  setIsContextualOpen,
   menuItems,
   idForOnClick,
 }) => {
@@ -16,7 +16,7 @@ const UserOptionsMenu = ({
   useEffect(() => {
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
+        setIsContextualOpen(false);
       }
     }
 
@@ -24,20 +24,20 @@ const UserOptionsMenu = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [setIsMenuOpen, setMenuPosition]);
+  }, [setIsContextualOpen, setMenuPosition]);
 
   const handleCloseListGroupMenu = () => {
-    setIsMenuOpen(false);
+    setIsContextualOpen(false);
   };
 
   useEffect(() => {
-    if (isMenuOpen) {
+    if (isContextualOpen) {
       const { x, y, height } = menuRef.current.getBoundingClientRect();
       setMenuPosition({ x: x - negativeMenuXPosition, y: y + height });
     }
-  }, [isMenuOpen]);
+  }, [isContextualOpen]);
 
-  return isMenuOpen ? (
+  return isContextualOpen ? (
     <div
       className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
       ref={menuRef}
@@ -52,4 +52,4 @@ const UserOptionsMenu = ({
   ) : null;
 };
 
-export default UserOptionsMenu;
+export default ContextualContainer;

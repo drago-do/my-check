@@ -1,12 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import Typography from "@/components/general/Typography";
-import MapOfTables from "@/components/settings/table-map/MapOfTablesForm";
+import MapOfTablesInsert from "@/components/settings/table-map/MapOfTablesForm";
+import MapOfTablesList from "@/components/settings/table-map/MapOfTablesList";
 import Modal from "@/components/general/Modal";
 import MaterialIcon from "@/components/general/MaterialIcon";
+import MapOfTablesJSON from "@/utils/MapOfTablesJSON";
+
 
 export default function TableMap() {
   const [isOpenMapOfTables, setIsOpenMapOfTables] = useState(false);
+  const [mapOfTables, setMapOfTables] = useState(MapOfTablesJSON);
 
   const handleCloseMapOfTables = () => {
     setIsOpenMapOfTables(!isOpenMapOfTables);
@@ -17,16 +21,17 @@ export default function TableMap() {
       <section className="w-full my-3 flex justify-between flex-nowrap">
         <ButtonAdd
           onClick={handleCloseMapOfTables}
-          text={"Mapa de mesas"}
+          text={"Agregar Mapa de mesas"}
           icon={<MaterialIcon iconName="add" />}
         />
       </section>
+      <MapOfTablesList mapOfTablesList={mapOfTables} />
       <Modal
         title={"Nuevo mapa de mesas"}
         isOpen={isOpenMapOfTables}
         handleClose={handleCloseMapOfTables}
       >
-        <MapOfTables handleClose={handleCloseMapOfTables} />
+        <MapOfTablesInsert handleClose={handleCloseMapOfTables} />
       </Modal>
     </div>
   );
