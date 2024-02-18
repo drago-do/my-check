@@ -10,7 +10,7 @@ const SwipeableDrawer = ({ children, title, icon }) => {
 
   const drawerBaseStyles =
     "fixed inset-x-0 bottom-0 z-40 w-full bg-white border-t border-gray-200 rounded-t-lg shadow-lg dark:border-gray-700 dark:bg-gray-800 transition-all duration-300 ease-in-out";
-  const drawerOpenStyles = "h-[90vh] overflow-y-auto";
+  const drawerOpenStyles = "h-[85vh] overflow-y-auto";
   const drawerClosedStyles = "h-[4rem] overflow-hidden";
 
   const drawerStyles = `${drawerBaseStyles} ${
