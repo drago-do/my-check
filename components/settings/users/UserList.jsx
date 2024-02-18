@@ -23,7 +23,7 @@ export default function UserList({ userList }) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [modalInfo, setModalInfo] = useState({
     title: "Default",
-    body: "default modal body text.",
+    body: "default  modal body text.",
     isOpen: false,
   });
 
