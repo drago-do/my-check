@@ -5,7 +5,10 @@ import Image from "next/image";
 import MaterialIcon from "./MaterialIcon";
 import ListGroupMenu from "./ListGroupMenu";
 
+const negativeMenuXPosition = 220;
+
 export default function NavBarIndex() {
+  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const pathname = usePathname();
   //Get page name with pathname
   const pageName = (pathname?.split("/")[1] || "My Check")
@@ -25,6 +28,13 @@ export default function NavBarIndex() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  useEffect(() => {
+    if (isUserMenuOpen) {
+      const { x, y, height } = userMenuRef.current.getBoundingClientRect();
+      setMenuPosition({ x: x - negativeMenuXPosition, y: y + height });
+    }
+  }, [isUserMenuOpen]);
 
   // Evento para cerrar el menú cuando se hace clic fuera de él
   useEffect(() => {
@@ -107,6 +117,7 @@ export default function NavBarIndex() {
                     name: "Cerrar sesión",
                   },
                 ]}
+                menuPosition={menuPosition}
               />
             </div>
           )}

@@ -5,19 +5,45 @@ import ImageViewer from "./../../general/ImageViewer";
 import Badge from "./../../general/Badge";
 import MaterialIcon from "./../../general/MaterialIcon";
 import UserOptionsMenu from "./UserOptionsMenu";
+import Modal from "./../../general/Modal";
+
+//ModalForms
+import UserForm from "./UserForm";
+
+const colorRole = {
+  admin: "green",
+  mesero: "blue",
+  chef: "yellow",
+  cajero: "indigo",
+};
 
 export default function UserList({ userList }) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [modalInfo, setModalInfo] = useState({
+    title: "Default",
+    body: "default modal body text.",
+    isOpen: false,
+  });
 
-  const colorRole = {
-    admin: "green",
-    mesero: "blue",
-    chef: "yellow",
-    cajero: "indigo",
+  const handleDelete = (id) => {
+    console.log("Borrar: ");
+    console.log(id);
   };
 
-  const handleDelete = (_id) => {
-    console.log("Borrar: " + _id);
+  const handleEdit = (id) => {
+    //Busca el usuario con el id en userList
+    const user = userList.find((user) => user._id === id);
+
+    setModalInfo({
+      ...modalInfo,
+      title: `Editar a ${user.firstName}`,
+      body: <UserForm user={user} handleClose={handleClose} userInfo={user} />,
+      isOpen: true,
+    });
+  };
+
+  const handleClose = () => {
+    setModalInfo((prevModalInfo) => ({ ...prevModalInfo, isOpen: false }));
   };
 
   return (
@@ -25,6 +51,13 @@ export default function UserList({ userList }) {
       role="list"
       className="divide-y divide-gray-200 dark:divide-gray-700 max-w-2xl p-2 m-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
     >
+      <Modal
+        title={modalInfo.title}
+        handleClose={handleClose}
+        isOpen={modalInfo.isOpen}
+      >
+        {modalInfo.body}
+      </Modal>
       {userList ? (
         userList.length > 0 ? (
           userList.map((user, index) => (
@@ -63,7 +96,7 @@ export default function UserList({ userList }) {
                       name: "Cambiar rol",
                     },
                     {
-                      onClick: handleDelete,
+                      onClick: handleEdit,
                       icon: <MaterialIcon iconName="person" />,
                       name: "Editar usuario",
                     },
@@ -73,6 +106,7 @@ export default function UserList({ userList }) {
                       name: "Eliminar",
                     },
                   ]}
+                  idForOnClick={user._id}
                   setIsMenuOpen={setIsUserMenuOpen}
                   isMenuOpen={isUserMenuOpen === user._id}
                 />

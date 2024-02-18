@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import ModalCRUD from "@/components/general/ModalCRUD";
+import ModalCRUD from "@/components/general/Modal";
 import { useForm } from "react-hook-form";
 
 import InputForm from "@/components/general/formsElements/InputForm";
@@ -10,6 +10,7 @@ import ButtonFunction from "@/components/general/ButtonFunction";
 
 import UserList from "@/components/settings/users/UserList";
 import UserJSON from "./../../utils/UserJSON";
+import UserForm from "@/components/settings/users/UserForm";
 
 export default function Test() {
   const methods = useForm({ mode: "all" });
@@ -18,7 +19,7 @@ export default function Test() {
   const handleModal = () => setShowModal(!showModal);
 
   const onSubmit = (data) => {
-    // console.log(data);
+    console.log(data);
   };
 
   //!UploadPicture
@@ -46,94 +47,7 @@ export default function Test() {
         <UserList userList={UserJSON} />
       </section>
       <ModalCRUD title={"Test"} isOpen={showModal} handleClose={handleModal}>
-        Esto es un modal
-        <div className=" flex justify-between">
-          <form
-            noValidate
-            onSubmit={methods.handleSubmit(onSubmit)}
-            className="w-full"
-          >
-            <InputForm
-              name="nombre"
-              formName="Texto"
-              placeholder="Introduce tu nombre"
-              required
-              useFormMethods={methods}
-              errors={methods.formState.errors}
-            />
-            <InputForm
-              name="number"
-              formName="Numero"
-              placeholder="Introduce tu number"
-              required
-              number={true}
-              useFormMethods={methods}
-              errors={methods.formState.errors}
-            />
-            <InputForm
-              name="number"
-              formName="Numero"
-              placeholder="Introduce tu number"
-              number={true}
-              useFormMethods={methods}
-              errors={methods.formState.errors}
-            />
-            <InputForm
-              name="number"
-              formName="Numero"
-              placeholder="Introduce tu number"
-              number={true}
-              useFormMethods={methods}
-              errors={methods.formState.errors}
-            />
-            <InputForm
-              name="number"
-              formName="Numero"
-              placeholder="Introduce tu number"
-              number={true}
-              useFormMethods={methods}
-              errors={methods.formState.errors}
-            />
-            <InputForm
-              name="number"
-              formName="Numero"
-              placeholder="Introduce tu number"
-              number={true}
-              useFormMethods={methods}
-              errors={methods.formState.errors}
-            />
-            <InputForm
-              name="email"
-              formName="Correo"
-              placeholder="Introduce tu correo"
-              required
-              useFormMethods={methods}
-              errors={methods.formState.errors}
-              validators={{
-                pattern: {
-                  value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-                  message: "El correo no es valido.",
-                },
-              }}
-            />
-            <UploadPicture
-              handlePictureData={handlePictureData}
-              pictureData={pictureData}
-            />
-            <SelectForm
-              name="Países"
-              formName="countries"
-              placeholder="Selecciona un país"
-              required
-              options={countries}
-              errors={methods.formState.errors}
-              useFormMethods={methods}
-            />
-            <ButtonFunction type="submit" variant="green">
-              Subir
-            </ButtonFunction>
-          </form>
-        </div>
+        <UserForm handleClose={handleModal} />
       </ModalCRUD>
     </div>
   );

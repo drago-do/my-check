@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 
 import { Dropzone, FileMosaic } from "@files-ui/react";
-import Dialog from "./../ModalCRUD";
+import Dialog from "../Modal";
 import Image from "next/image";
 import ErrorBoxInfo from "./../AlertItem";
 import Typography from "./../Typography";
@@ -85,6 +85,7 @@ export default function UploadPicture({
           <>
             <div className="flex w-full justify-around mb-5">
               <button
+                type="button"
                 onClick={() => handleClickDialog("local")}
                 className="flex flex-col text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center  items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500"
               >
@@ -92,6 +93,7 @@ export default function UploadPicture({
                 <p className="hidden md:block">Subir fotografía</p>
               </button>
               <button
+                type="button"
                 onClick={() => handleClickDialog("web")}
                 className="flex flex-col text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center  items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500"
               >
@@ -236,6 +238,7 @@ const RenderSearchResults = ({
             try {
               return (
                 <button
+                  type="button"
                   className="w-full overflow-hidden text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500"
                   key={index}
                   onClick={() => handleSelectImage(imagen)}
@@ -261,6 +264,7 @@ const RenderSearchResults = ({
 
       {displayedImages < searchArray.length && (
         <button
+          type="button"
           className="col-span-2 md:col-span-4 text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500"
           onClick={loadMoreImages}
         >
@@ -318,6 +322,7 @@ function LocalUploadDialog({ handleCloseDialog }) {
         accept="image/*"
         maxFiles={1}
         localization="ES-es"
+        uploadConfig={{ autoUpload: false }}
       >
         {files.map((file) => (
           <FileMosaic
@@ -332,6 +337,7 @@ function LocalUploadDialog({ handleCloseDialog }) {
         ))}
       </Dropzone>
       <button
+        type="button"
         className={`${
           files.length > 0 ? "block" : "hidden"
         } mt-4 w-full items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800`}

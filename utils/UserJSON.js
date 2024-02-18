@@ -6,7 +6,7 @@ const UserJSON = [
     email: "alejandro.gonzalez@example.com",
     isActive: true,
     username: "alejogonza",
-    password: "hashed_password",
+    password: 2134,
     role: "mesero",
     image: {
       data: "",
@@ -25,7 +25,7 @@ const UserJSON = [
     email: "beatriz.lopez@example.com",
     isActive: true,
     username: "beatrizlopez",
-    password: "hashed_password",
+    password: 2134,
     role: "chef",
     image: {
       data: "",
@@ -44,7 +44,7 @@ const UserJSON = [
     email: "carlos.martinez@example.com",
     isActive: true,
     username: "carlosmartinez",
-    password: "hashed_password",
+    password: 2134,
     role: "cajero",
     image: {
       data: "",
@@ -63,7 +63,7 @@ const UserJSON = [
     email: "drago.do@example.com",
     isActive: true,
     username: "drago.do",
-    password: "hashed_password",
+    password: 2134,
     role: "admin",
     image: {
       data: "",
@@ -82,7 +82,7 @@ const UserJSON = [
     email: "pepe@example.com",
     isActive: false,
     username: "pepedes",
-    password: "hashed_password",
+    password: 2134,
     role: "cajero",
     image: {
       data: "",

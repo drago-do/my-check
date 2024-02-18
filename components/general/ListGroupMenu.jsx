@@ -1,13 +1,17 @@
 import Link from "next/link";
 import React from "react";
 
-export default function ListGroupMenu({ menuItems, menuPosition }) {
+export default function ListGroupMenu({
+  menuItems,
+  menuPosition,
+  idForOnClick,
+  handleCloseListGroupMenu,
+}) {
   return (
     <div
       className="w-48 text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white fixed z-10"
       style={{ top: menuPosition.y, left: menuPosition.x }}
     >
-      {console.log(menuItems)}
       {menuItems.map((item, index) =>
         item.href ? (
           <Link
@@ -22,7 +26,10 @@ export default function ListGroupMenu({ menuItems, menuPosition }) {
           <button
             key={index}
             type="button"
-            onClick={item.onClick}
+            onClick={() => {
+              item.onClick(idForOnClick);
+              handleCloseListGroupMenu();
+            }}
             className={`${
               item.name === "Eliminar"
                 ? "relative inline-flex items-center w-full px-4 py-2 text-sm font-medium text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg  dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"

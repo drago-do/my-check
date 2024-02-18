@@ -4,7 +4,12 @@ import ListGroupMenu from "./../../general/ListGroupMenu";
 
 const negativeMenuXPosition = 220;
 
-const UserOptionsMenu = ({ isMenuOpen, setIsMenuOpen, menuItems }) => {
+const UserOptionsMenu = ({
+  isMenuOpen,
+  setIsMenuOpen,
+  menuItems,
+  idForOnClick,
+}) => {
   const menuRef = useRef();
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
 
@@ -21,6 +26,10 @@ const UserOptionsMenu = ({ isMenuOpen, setIsMenuOpen, menuItems }) => {
     };
   }, [setIsMenuOpen, setMenuPosition]);
 
+  const handleCloseListGroupMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   useEffect(() => {
     if (isMenuOpen) {
       const { x, y, height } = menuRef.current.getBoundingClientRect();
@@ -33,7 +42,12 @@ const UserOptionsMenu = ({ isMenuOpen, setIsMenuOpen, menuItems }) => {
       className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
       ref={menuRef}
     >
-      <ListGroupMenu menuItems={menuItems} menuPosition={menuPosition} />
+      <ListGroupMenu
+        menuItems={menuItems}
+        idForOnClick={idForOnClick}
+        menuPosition={menuPosition}
+        handleCloseListGroupMenu={handleCloseListGroupMenu}
+      />
     </div>
   ) : null;
 };
