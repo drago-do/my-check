@@ -9,6 +9,8 @@ import Modal from "./../../general/Modal";
 
 //ModalForms
 import UserForm from "./UserForm";
+import UserRoleChangeForm from "./UserRoleChangeForm";
+import DeleteUserForm from "./DeleteUserForm";
 
 const colorRole = {
   admin: "green",
@@ -25,19 +27,36 @@ export default function UserList({ userList }) {
     isOpen: false,
   });
 
+  const getUserFromId = (id) => {
+    return userList.find((user) => user._id === id);
+  };
+
   const handleDelete = (id) => {
-    console.log("Borrar: ");
-    console.log(id);
+    const user = getUserFromId(id);
+    setModalInfo({
+      ...modalInfo,
+      title: `Eliminar a ${user.firstName}`,
+      body: <DeleteUserForm handleClose={handleClose} userInfo={user} />,
+      isOpen: true,
+    });
   };
 
   const handleEdit = (id) => {
-    //Busca el usuario con el id en userList
-    const user = userList.find((user) => user._id === id);
-
+    const user = getUserFromId(id);
     setModalInfo({
       ...modalInfo,
       title: `Editar a ${user.firstName}`,
       body: <UserForm user={user} handleClose={handleClose} userInfo={user} />,
+      isOpen: true,
+    });
+  };
+
+  const handleChangeRole = (id) => {
+    const user = getUserFromId(id);
+    setModalInfo({
+      ...modalInfo,
+      title: `Cambiar rol`,
+      body: <UserRoleChangeForm handleClose={handleClose} userInfo={user} />,
       isOpen: true,
     });
   };
@@ -91,7 +110,7 @@ export default function UserList({ userList }) {
                 <UserOptionsMenu
                   menuItems={[
                     {
-                      onClick: handleDelete,
+                      onClick: handleChangeRole,
                       icon: <MaterialIcon iconName="admin_panel_settings" />,
                       name: "Cambiar rol",
                     },

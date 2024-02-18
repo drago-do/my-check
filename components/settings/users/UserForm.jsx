@@ -25,7 +25,7 @@ export default function UserForm({ handleClose, userInfo }) {
     setTimeout(() => {
       console.log(data);
       setLoading(false);
-      // handleClose();
+      handleClose();
     }, 3000);
   };
 
