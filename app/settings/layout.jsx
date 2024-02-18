@@ -11,7 +11,9 @@ export default function layout({ children }) {
         <div className="w-full flex justify-around">
           <BreadCrumb />
         </div>
-        {children}
+        <main className="flex items-start w-10/12 mt-6 mx-auto">
+          {children}
+        </main>
       </Container>
     </>
   );

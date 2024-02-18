@@ -11,8 +11,8 @@ const ImageViewer = ({ fotoData, className }) => {
           : `data:${fotoData.contentType};base64, ${fotoData.data}`
       }
       alt="Selected image"
-      width={200}
-      height={200}
+      width={500}
+      height={500}
       style={{ objectFit: "cover", width: "100%", height: "100%" }}
     />
   );

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import ModalCRUD from "@/components/general/Modal";
+import Modal from "@/components/general/Modal";
 import { useForm } from "react-hook-form";
 
 import InputForm from "@/components/general/formsElements/InputForm";
@@ -46,9 +46,9 @@ export default function Test() {
         <button onClick={handleModal}>hola dmaskfda</button>
         <UserList userList={UserJSON} />
       </section>
-      <ModalCRUD title={"Test"} isOpen={showModal} handleClose={handleModal}>
+      <Modal title={"Test"} isOpen={showModal} handleClose={handleModal}>
         <UserForm handleClose={handleModal} />
-      </ModalCRUD>
+      </Modal>
     </div>
   );
 }

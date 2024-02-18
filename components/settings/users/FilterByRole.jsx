@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Skeleton from "./../../general/Skeleton";
+import RoleJSON from "@/utils/RoleJSON";
 
 export default function FilterByRole({ userList, onFilterChange }) {
-  const roles = userList.map((user) => user.role);
+  const roles = RoleJSON.map((user) => user.value);
   const uniqueRoles = [...new Set(roles)];
   return (
     <div className="w-full">

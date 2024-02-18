@@ -4,7 +4,7 @@ import SearchField from "../../../../components/general/SearchField";
 import MaterialIcon from "@/components/general/MaterialIcon";
 import Typography from "@/components/general/Typography";
 import CategoriesTable from "@/components/settings/products-and-categories/CategoriesTable";
-import Modal from "@/components/general/ModalCRUD";
+import Modal from "@/components/general/Modal";
 import AddCategoryForm from "@/components/settings/products-and-categories/AddCategoryForm";
 import DeleteCategoryForm from "@/components/settings/products-and-categories/DeleteCategoryForm";
 //TODO realizar carga real caudno este el backend
