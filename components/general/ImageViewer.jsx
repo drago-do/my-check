@@ -6,9 +6,11 @@ const ImageViewer = ({ fotoData, className }) => {
     <Image
       className={className}
       src={
-        fotoData.url
-          ? fotoData.link
-          : `data:${fotoData.contentType};base64, ${fotoData.data}`
+        fotoData
+          ? fotoData.url
+            ? fotoData.link
+            : `data:${fotoData.contentType};base64, ${fotoData.data}`
+          : "/404.png"
       }
       alt="Selected image"
       width={500}
