@@ -45,7 +45,7 @@ const Badge = ({
     // Esperar hasta que la animación se complete y luego desactivarla
     setTimeout(() => {
       setAnimate(false);
-    }, 400); // 400ms es la duración de la animación
+    }, 300); // 400ms es la duración de la animación
   };
 
   return loading ? (

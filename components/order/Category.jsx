@@ -12,7 +12,7 @@ const Category = ({ category }) => {
       <div>
         <ImageViewer
           fotoData={category.image}
-          className={"max-h-44 object-cover object-center"}
+          className={"max-h-44 object-cover object-center rounded-md"}
         />
         <Typography variant="subtitle">{category?.name}</Typography>
         <Typography variant={"p"}>{category?.description}</Typography>
