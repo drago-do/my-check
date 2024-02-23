@@ -15,6 +15,16 @@ const Products = [
         price: "12",
         UnitMeasurement: "ml",
       },
+      {
+        size: "800",
+        price: "22",
+        UnitMeasurement: "ml",
+      },
+      {
+        size: "1200",
+        price: "52",
+        UnitMeasurement: "ml",
+      },
     ],
   },
   {
@@ -25,7 +35,7 @@ const Products = [
       url: true,
       link: "https://craftbeerclub.com/cdn/shop/files/OriginalCraftBeerClub-6_5bf7915b-1ac3-47df-b5b4-e60348b385f9.png?v=1689008792&width=1500",
     },
-    units: "200",
+    units: "0",
     category: "63acbba13bd411f44a600002",
     UnitMeasurementAndPrice: [
       {

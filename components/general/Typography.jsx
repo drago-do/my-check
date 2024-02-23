@@ -1,9 +1,10 @@
 import React from "react";
 
-export default function Typography({ variant, children }) {
+export default function Typography({ variant, children, className }) {
   const classTypography = {
     title: "my-4 text-4xl font-bold text-gray-800 dark:text-gray-100",
     subtitle: "my-4 text-2xl font-bold text-gray-800 dark:text-gray-100",
+    subtitle2: "my-4 text-lg font-bold text-gray-800 dark:text-gray-100",
     caption: "text-sm text-italic text-gray-500 dark:text-gray-400",
     p: "my-2 text-base font-normal text-gray-800 dark:text-gray-100",
   };
@@ -22,5 +23,7 @@ export default function Typography({ variant, children }) {
       return classTypography.p;
     }
   }
-  return <div className={getVariant(variant)}>{children}</div>;
+  return (
+    <div className={`${getVariant(variant)} ${className}`}>{children}</div>
+  );
 }
