@@ -58,6 +58,19 @@ const Categories = [
       link: "https://assets.bonappetit.com/photos/63c9ca80547b22fd4139d853/master/pass/0123_Non-Alc.jpg",
     },
   },
+  {
+    _id: "63acbba13bd411f44a600006",
+    parent: "63acbba13bd411f44a600005",
+    name: "Soda",
+    description:
+      "A variety of Sodas beverages, including sodas, mocktails, and juices.",
+    image: {
+      data: "",
+      contentType: "",
+      url: true,
+      link: "https://www.fodors.com/wp-content/uploads/2019/03/HERO_Worlds_Best_Soda_Bundaberg_shutterstock_679079920.jpg",
+    },
+  },
 ];
 
 export default Categories;

@@ -99,6 +99,24 @@ const Products = [
       },
     ],
   },
+  {
+    _id: "63acbba13bd411f44a60d054",
+    name: "Virgin Piña Colada",
+    description: "A tropical blend of pineapple and coconut without alcohol",
+    image: {
+      url: true,
+      link: "https://platedcravings.com/wp-content/uploads/2022/06/Virgin-Pina-Colada-Plated-Cravings-9.jpg",
+    },
+    units: "100",
+    category: "63acbba13bd411f44a600006",
+    UnitMeasurementAndPrice: [
+      {
+        size: "450",
+        price: "7",
+        UnitMeasurement: "ml",
+      },
+    ],
+  },
 ];
 
 export default Products;
