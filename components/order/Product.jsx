@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "../general/Typography";
 import ImageViewer from "../general/ImageViewer";
 import ButtonFunction from "../general/ButtonFunction";
@@ -7,11 +7,16 @@ import Badge from "../general/Badge";
 
 export default function Product({ product }) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isAvailable, setIsAvailable] = useState(true);
 
   const handleInternalClick = (e) => {
     e.stopPropagation();
     console.log("Internal click");
   };
+
+  useEffect(() => {
+    setIsAvailable(parseInt(product?.units) >= 1);
+  }, [product]);
 
   return (
     <div
@@ -40,12 +45,14 @@ export default function Product({ product }) {
             {product?.description}
           </Typography>
           <div className="flex flex-nowrap justify-between overflow-hidden">
-            <Badge color={parseInt(product?.units) >= 1 ? "green" : "red"}>
-              {parseInt(product?.units) >= 1 ? "Disponible" : "Terminado"}
+            <Badge color={isAvailable ? "green" : "red"}>
+              {isAvailable ? "Disponible" : "Terminado"}
             </Badge>
           </div>
         </div>
-        {product && product?.UnitMeasurementAndPrice.length === 1 ? (
+        {isAvailable &&
+        product &&
+        product?.UnitMeasurementAndPrice.length === 1 ? (
           <ButtonFunction
             animateButton
             variant="alternative"
