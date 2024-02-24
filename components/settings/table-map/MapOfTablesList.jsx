@@ -90,10 +90,12 @@ export default function MapOfTablesList({ mapOfTablesList }) {
             mapOfTablesList.map((tableMap) => (
               <li key={tableMap._id} className="py-3 px-3 sm:py-4">
                 <div className="flex items-center max-h-24">
-                  <div className="flex-shrink-0 max-h-24 overflow-hidden">
+                  <div className="overflow-hidden">
                     <SmallImageViewer
                       fotoData={tableMap?.image}
-                      className={"max-h-24 max-w-24"}
+                      className={
+                        "max-h-16 max-w-16 aspect-square	 object-cover rounded-md"
+                      }
                     />
                   </div>
                   <div className="flex-1 min-w-0 ms-4">
@@ -103,9 +105,11 @@ export default function MapOfTablesList({ mapOfTablesList }) {
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                       {tableMap.description}
                     </p>
-                    <Badge color="indigo">
-                      {`Mesas: ${tableMap.totalTables}`}
-                    </Badge>
+                    <div style={{ maxWidth: "8rem" }}>
+                      <Badge color="indigo" className="max-w-1/3">
+                        {`Mesas: ${tableMap.totalTables}`}
+                      </Badge>
+                    </div>
                   </div>
                   <button
                     onClick={() =>
