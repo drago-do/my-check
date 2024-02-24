@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ButtonFunction = ({
   children,
@@ -6,7 +6,10 @@ const ButtonFunction = ({
   type = "button",
   onClick,
   onLoading = false,
+  animateButton,
 }) => {
+  const [animate, setAnimate] = useState(false);
+
   const baseStyles =
     "focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2";
   const variants = {
@@ -27,14 +30,27 @@ const ButtonFunction = ({
   };
 
   const variantStyles = variants[variant] || variants.default;
+  // Función para manejar el evento de clic y activar la animación
+  const handleClick = (event) => {
+    // Si hay una función onClick pasada en las props, ejecútala
+    if (onClick) {
+      onClick(event);
+    }
 
+    // Activar la animación
+    setAnimate(true);
+
+    // Esperar hasta que la animación se complete y luego desactivarla
+    setTimeout(() => {
+      setAnimate(false);
+    }, 300); // 400ms es la duración de la animación
+  };
   return (
     <>
       {onLoading ? (
         <button
           type={type}
-          className={`${baseStyles} ${variantStyles} my-4 grid grid-flow-col gap-4 justify-center items-center`}
-          onClick={onClick}
+          className={`${baseStyles} ${variantStyles}  my-4 grid grid-flow-col gap-4 justify-center items-center`}
           disabled
         >
           <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
@@ -42,8 +58,13 @@ const ButtonFunction = ({
       ) : (
         <button
           type={type}
-          className={`${baseStyles} ${variantStyles} my-4 grid grid-flow-col gap-4 justify-center items-center`}
-          onClick={onClick}
+          className={`${baseStyles} ${variantStyles} ${
+            animate ? "click-animate" : ""
+          } my-4 grid grid-flow-col gap-4 justify-center items-center`}
+          onClick={(e) => {
+            animateButton ? handleClick(e) : null;
+            onClick;
+          }}
         >
           {children}
         </button>

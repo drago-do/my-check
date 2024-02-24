@@ -46,7 +46,11 @@ export default function Product({ product }) {
           </div>
         </div>
         {product && product?.UnitMeasurementAndPrice.length === 1 ? (
-          <ButtonFunction variant="alternative" onClick={handleInternalClick}>
+          <ButtonFunction
+            animateButton
+            variant="alternative"
+            onClick={handleInternalClick}
+          >
             <MaterialIcon iconName="playlist_add" />
           </ButtonFunction>
         ) : null}
