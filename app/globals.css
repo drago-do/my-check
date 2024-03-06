@@ -22,6 +22,9 @@ div:focus {
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background));
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 
 input[type="number"]::-webkit-inner-spin-button,

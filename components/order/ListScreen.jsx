@@ -38,7 +38,7 @@ export default function ListScreen({ categories, products }) {
       {loading ? (
         <Skeleton variant={"list"} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-4 place-content-around w-full">
+        <div className="mb-24 grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 gap-4 place-content-around w-full">
           {categoriesToShow.map((category) => (
             <Category key={category._id} category={category} />
           ))}

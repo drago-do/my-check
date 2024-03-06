@@ -16,7 +16,7 @@ const ButtonFunction = ({
     default:
       "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800",
     alternative:
-      "py-2.5 px-5 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700",
+      "py-2.5 px-5 text-sm font-medium text-white-900 bg-white rounded-lg border border-teal-200 hover:bg-teal-100 hover:text-white-700 focus:z-10 focus:ring-4 focus:ring-teal-200 dark:focus:ring-teal-700 dark:bg-teal-800 dark:text-white-400 dark:border-teal-600 dark:hover:text-white dark:hover:bg-teal-700",
     dark: "text-white bg-gray-800 hover:bg-gray-900 focus:ring-4 focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700",
     light:
       "text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700",
@@ -63,7 +63,7 @@ const ButtonFunction = ({
           } my-4 grid grid-flow-col gap-4 justify-center items-center`}
           onClick={(e) => {
             animateButton ? handleClick(e) : null;
-            onClick;
+            onClick(e);
           }}
         >
           {children}
