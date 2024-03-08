@@ -8,7 +8,7 @@ import Modal from "@/components/general/Modal";
 import AddProductForm from "@/components/settings/products-and-categories/AddProductForm";
 import DeleteProductForm from "@/components/settings/products-and-categories/DeleteProductForm";
 //TODO realizar carga real caudno este el backend
-import Products from "@/utils/products";
+import Products from "./../../../../utils/Products";
 
 export default function ProductsPage() {
   const [addProductModal, setAddProductModal] = useState(false);

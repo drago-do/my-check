@@ -31,7 +31,7 @@ export default function UploadPicture({
 
   useEffect(() => {
     handlePictureData(fotoData);
-  }, [fotoData]);
+  }, [fotoData, handlePictureData]);
 
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedValue, setSelectedValue] = useState(
@@ -243,7 +243,7 @@ const RenderSearchResults = ({
                   key={index}
                   onClick={() => handleSelectImage(imagen)}
                 >
-                  <img
+                  <Image
                     className="rounded object-contain transition-opacity opacity-0 duration-[1s]"
                     src={imagen?.url}
                     alt={"image" + index}

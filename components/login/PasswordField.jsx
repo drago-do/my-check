@@ -35,7 +35,7 @@ export default function VerificationCodeInput({ handlePin, error }) {
       handlePin(`${pin.code1}${pin.code2}${pin.code3}${pin.code4}`);
       // Aquí puedes enviar el pin al servidor
     }
-  }, [pin, error]);
+  }, [pin, error, arrayReference]);
 
   const cleanOnError = () => {
     setPin(defaultPinCode);
