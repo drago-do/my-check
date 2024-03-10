@@ -7,6 +7,7 @@ import MaterialIcon from "../../general/MaterialIcon";
 import Badge from "../../general/Badge";
 import obtenerHoraDesdeISO8601 from "../../../utils/ConvertDateTime";
 import Modal from "./../../general/Modal";
+import { toast } from "sonner";
 
 import useActualOrder from "./../../../hooks/useActualOrder";
 
@@ -28,6 +29,9 @@ export default function Product({ product }) {
     }
     //Verifica si el producto no fue entregado ni pagado
     if (!product?.deliver && !product?.paid) {
+      toast.error("Producto eliminado", {
+        description: `${product?.product?.name} fue eliminado de la orden actual`,
+      });
       deleteProduct(product?.addedAT);
     }
     // setOpenDeleteProduct(!openDeleteProduct);
@@ -74,7 +78,7 @@ export default function Product({ product }) {
           <ButtonFunction
             animateButton
             variant="red"
-            onClick={(e)=>handleDeleteProduct(e, product)}
+            onClick={(e) => handleDeleteProduct(e, product)}
           >
             <MaterialIcon iconName="delete" />
           </ButtonFunction>

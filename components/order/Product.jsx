@@ -4,6 +4,7 @@ import ImageViewer from "../general/ImageViewer";
 import ButtonFunction from "../general/ButtonFunction";
 import MaterialIcon from "../general/MaterialIcon";
 import Badge from "../general/Badge";
+import { toast } from "sonner";
 
 import useActualOrder from "./../../hooks/useActualOrder";
 
@@ -29,6 +30,9 @@ export default function Product({ product }) {
       UnitMeasurementAndPrice: unit
         ? unit
         : product?.UnitMeasurementAndPrice[0],
+    });
+    toast.success("Producto agregado", {
+      description: `${product?.name} fue agregado de la orden actual`,
     });
   };
 
@@ -80,7 +84,7 @@ export default function Product({ product }) {
           </ButtonFunction>
         ) : null}
       </div>
-      <div className="z-20">
+      <div>
         {isExpanded && product?.UnitMeasurementAndPrice.length !== 1 ? (
           <ListOfSizeOfProducts
             product={product}
