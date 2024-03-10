@@ -63,7 +63,6 @@ const ButtonFunction = ({
           } my-4 grid grid-flow-col gap-4 justify-center items-center`}
           onClick={(e) => {
             animateButton ? handleClick(e) : null;
-            onClick(e);
           }}
         >
           {children}

@@ -8,21 +8,29 @@ import Badge from "../../general/Badge";
 import obtenerHoraDesdeISO8601 from "../../../utils/ConvertDateTime";
 import Modal from "./../../general/Modal";
 
+import useActualOrder from "./../../../hooks/useActualOrder";
+
 export default function Product({ product }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [openDeleteProduct, setOpenDeleteProduct] = useState(false);
-  const addedAt = obtenerHoraDesdeISO8601(product?.addedAT);
+  const legibleAddedAt = obtenerHoraDesdeISO8601(product?.addedAT);
+
+  const { deleteProduct } = useActualOrder();
 
   const handleInternalClick = (e) => {
     e.stopPropagation();
     console.log("Internal click");
   };
 
-  const handleDeleteProduct = (e) => {
+  const handleDeleteProduct = (e, product) => {
     if (e) {
       e.stopPropagation();
     }
-    setOpenDeleteProduct(!openDeleteProduct);
+    //Verifica si el producto no fue entregado ni pagado
+    if (!product?.deliver && !product?.paid) {
+      deleteProduct(product?.addedAT);
+    }
+    // setOpenDeleteProduct(!openDeleteProduct);
   };
 
   return (
@@ -66,7 +74,7 @@ export default function Product({ product }) {
           <ButtonFunction
             animateButton
             variant="red"
-            onClick={handleDeleteProduct}
+            onClick={(e)=>handleDeleteProduct(e, product)}
           >
             <MaterialIcon iconName="delete" />
           </ButtonFunction>
@@ -74,7 +82,7 @@ export default function Product({ product }) {
         <div className="z-20">
           {isExpanded ? (
             <MoreInformation
-              addedAt={addedAt}
+              addedAt={legibleAddedAt}
               addedBy={product?.addedBy?.username}
               comments={product?.comments}
             />

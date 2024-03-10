@@ -5,8 +5,12 @@ import Container from "@/components/general/Container";
 import BreadCrumb from "@/components/general/BreadCrumb";
 import SwipeDrawer from "@/components/general/SwipeDrawer";
 import MaterialIcon from "@/components/general/MaterialIcon";
+import ActualOrder from "@/components/order/ActualOrder/ActualOrder";
 
-export default function layout({ children }) {
+import useActualOrder from "@/hooks/useActualOrder";
+
+export default function Layout({ children }) {
+  const { actualOrder } = useActualOrder();
   return (
     <>
       <NavBarIndex />
@@ -23,7 +27,7 @@ export default function layout({ children }) {
               </>
             }
           >
-            no content
+            <ActualOrder order={actualOrder} />
           </SwipeDrawer>
         </main>
       </Container>

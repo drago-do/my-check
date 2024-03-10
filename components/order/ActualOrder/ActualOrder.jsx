@@ -8,10 +8,9 @@ import ProductItem from "./../ActualOrder/ProductItem";
 //TODO delete this import mockup
 import ActualOrderJSON from "../../../utils/ActualOrderJSON";
 
-export default function ActualOrder() {
-  const [order, setOrder] = useState(ActualOrderJSON);
+export default function ActualOrder({ order = ActualOrderJSON }) {
   return (
-    <div className="w-full flex flex-col flex-nowrap">
+    <div className="w-full flex flex-col flex-nowrap px-1 md:px-8">
       <HeaderOrder
         name={order.orderName}
         madeBy={order.madeBy.username}

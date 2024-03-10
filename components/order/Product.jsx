@@ -5,13 +5,31 @@ import ButtonFunction from "../general/ButtonFunction";
 import MaterialIcon from "../general/MaterialIcon";
 import Badge from "../general/Badge";
 
+import useActualOrder from "./../../hooks/useActualOrder";
+
 export default function Product({ product }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAvailable, setIsAvailable] = useState(true);
 
-  const handleInternalClick = (e) => {
+  const { addProduct } = useActualOrder();
+
+  const handleClickAddProduct = (e, product, unit = null) => {
     e.stopPropagation();
-    console.log("Internal click");
+    addProduct({
+      product: {
+        id: product?.id,
+        name: product?.name,
+        image: product?.image,
+      },
+      addedAT: new Date().toISOString(),
+      deliver: false,
+      paid: false,
+      comments: "",
+      addedBy: { _id: "3", username: "carlosmartinez" },
+      UnitMeasurementAndPrice: unit
+        ? unit
+        : product?.UnitMeasurementAndPrice[0],
+    });
   };
 
   useEffect(() => {
@@ -56,7 +74,7 @@ export default function Product({ product }) {
           <ButtonFunction
             animateButton
             variant="alternative"
-            onClick={handleInternalClick}
+            onClick={(e) => handleClickAddProduct(e, product)}
           >
             <MaterialIcon iconName="playlist_add" />
           </ButtonFunction>
@@ -66,7 +84,7 @@ export default function Product({ product }) {
         {isExpanded && product?.UnitMeasurementAndPrice.length !== 1 ? (
           <ListOfSizeOfProducts
             product={product}
-            onClick={handleInternalClick}
+            onClick={handleClickAddProduct}
           />
         ) : null}
       </div>
@@ -86,7 +104,7 @@ const ListOfSizeOfProducts = ({ product, onClick }) => {
             className={"my-2"}
             color="blue"
             key={index}
-            onClick={onClick}
+            onClick={(e) => onClick(e, product, unit)}
             icon={<MaterialIcon iconName="playlist_add" />}
           >
             {unit?.size} {unit?.UnitMeasurement} ${unit?.price}
