@@ -7,34 +7,18 @@ import MaterialIcon from "../../general/MaterialIcon";
 import Badge from "../../general/Badge";
 import obtenerHoraDesdeISO8601 from "../../../utils/ConvertDateTime";
 import Modal from "./../../general/Modal";
-import { toast } from "sonner";
-
-import useActualOrder from "./../../../hooks/useActualOrder";
+import DeleteItem from "./DeleteItem";
 
 export default function Product({ product }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [openDeleteProduct, setOpenDeleteProduct] = useState(false);
   const legibleAddedAt = obtenerHoraDesdeISO8601(product?.addedAT);
 
-  const { deleteProduct } = useActualOrder();
-
-  const handleInternalClick = (e) => {
-    e.stopPropagation();
-    console.log("Internal click");
-  };
-
-  const handleDeleteProduct = (e, product) => {
+  const handleDeleteProduct = (e) => {
     if (e) {
       e.stopPropagation();
     }
-    //Verifica si el producto no fue entregado ni pagado
-    if (!product?.deliver && !product?.paid) {
-      toast.error("Producto eliminado", {
-        description: `${product?.product?.name} fue eliminado de la orden actual`,
-      });
-      deleteProduct(product?.addedAT);
-    }
-    // setOpenDeleteProduct(!openDeleteProduct);
+    setOpenDeleteProduct(!openDeleteProduct);
   };
 
   return (
@@ -97,7 +81,9 @@ export default function Product({ product }) {
         title={"Eliminar producto"}
         isOpen={openDeleteProduct}
         handleClose={handleDeleteProduct}
-      ></Modal>
+      >
+        <DeleteItem handleClose={handleDeleteProduct} product={product} />
+      </Modal>
     </>
   );
 }
