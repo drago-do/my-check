@@ -1,11 +1,18 @@
 "use client";
-import React from "react";
-import ActualOrder from "@/components/order/ActualOrder/ActualOrder";
+import React, { useEffect } from "react";
+
+import useActualOrder from "@/hooks/useActualOrder";
 
 export default function Test() {
+  const { actualOrder } = useActualOrder();
+
+  useEffect(() => {
+    console.log(actualOrder);
+  }, []);
+
   return (
     <>
-      <ActualOrder />
+      <p>Test</p>
     </>
   );
 }

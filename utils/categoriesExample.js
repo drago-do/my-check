@@ -1,4 +1,4 @@
-const Categories = [
+const categoriesExample = [
   {
     _id: "63acbba13bd411f44a600001",
     name: "Cocktails",
@@ -123,4 +123,4 @@ const Categories = [
   },
 ];
 
-export default Categories;
+export default categoriesExample;

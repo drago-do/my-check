@@ -7,10 +7,11 @@ import CategoriesTable from "@/components/settings/products-and-categories/Categ
 import Modal from "@/components/general/Modal";
 import AddCategoryForm from "@/components/settings/products-and-categories/AddCategoryForm";
 import DeleteCategoryForm from "@/components/settings/products-and-categories/DeleteCategoryForm";
-//TODO realizar carga real caudno este el backend
-import Categories from "@/utils/Categories";
+
+import useCategories from "@/hooks/useCategories";
 
 export default function CategoriesPage() {
+  const { categories } = useCategories();
   const [addCategoryModal, setAddCategoryModal] = useState(false);
   const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
   const [categoryToAction, setCategoryToAction] = useState(null);
@@ -45,7 +46,7 @@ export default function CategoriesPage() {
         />
       </section>
       <CategoriesTable
-        categories={Categories}
+        categories={categories}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />

@@ -1,25 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
+import actualOrderExample from "../utils/actualOrderExample";
+// const DefaultState = {
+//   _id: "",
+//   madeBy: { _id: "", username: "" },
+//   location: {
+//     mapTable: {
+//       _id: "",
+//       name: "Default Table Name",
+//     },
+//     position: [0, 0],
+//   },
+//   orderName: "Default Order Name",
+//   creationDate: "2023-11-04T10:00:01Z",
+//   products: [],
+//   total: 0,
+// };
 
-const DefaultState = {
-  _id: "",
-  madeBy: { _id: "", username: "" },
-  location: {
-    mapTable: {
-      _id: "",
-      name: "Default Table Name",
-    },
-    position: [0, 0],
-  },
-  orderName: "Default Order Name",
-  creationDate: "2023-11-04T10:00:01Z",
-  products: [],
-  total: 0,
-};
+const DefaultState = actualOrderExample;
 
 const initialState = (() => {
-  const state = localStorage.getItem("my__checks");
-  if (state) {
-    return JSON.parse(state).actualOrder;
+  if (typeof window !== "undefined") {
+    const state = localStorage.getItem("my__checks");
+    if (state) {
+      return JSON.parse(state).actualOrder;
+    }
   }
   return DefaultState;
 })();

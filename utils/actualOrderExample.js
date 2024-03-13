@@ -1,4 +1,4 @@
-const ActualOrder = {
+const actualOrderExample = {
   _id: "123456789",
   madeBy: { _id: "3", username: "carlosmartinez" }, // ID de usuario with populate
   location: {
@@ -54,4 +54,4 @@ const ActualOrder = {
   ],
   total: 150,
 };
-export default ActualOrder;
+export default actualOrderExample;

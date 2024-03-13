@@ -1,4 +1,4 @@
-const Products = [
+const ProductsExample = [
   {
     _id: "63acbba13bd411f44a60d050",
     name: "Classic Mojito",
@@ -119,4 +119,4 @@ const Products = [
   },
 ];
 
-export default Products;
+export default ProductsExample;

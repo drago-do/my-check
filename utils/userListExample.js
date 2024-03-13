@@ -1,4 +1,4 @@
-const UserJSON = [
+const userListExample = [
   {
     _id: "1",
     firstName: "Alejandro",
@@ -96,4 +96,4 @@ const UserJSON = [
   },
 ];
 
-export default UserJSON;
+export default userListExample;

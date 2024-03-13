@@ -6,9 +6,9 @@ import Badge from "../../general/Badge";
 import ProductItem from "./../ActualOrder/ProductItem";
 
 //TODO delete this import mockup
-import ActualOrderJSON from "../../../utils/ActualOrderJSON";
+import ActualOrderExample from "../../../utils/actualOrderExample";
 
-export default function ActualOrder({ order = ActualOrderJSON }) {
+export default function ActualOrder({ order = ActualOrderExample }) {
   return (
     <div className="w-full flex flex-col flex-nowrap px-1 md:px-8">
       <HeaderOrder
