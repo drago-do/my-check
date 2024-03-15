@@ -3,7 +3,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/general/Container";
-import NavBarIndex from "@/components/general/NavBar";
 import SelectFunction from "@/components/index/SelectFunction";
 import PendentTickets from "@/components/index/PendentTickets";
 import CompleteTickets from "@/components/index/CompleteTickets";
@@ -19,7 +18,6 @@ export default function Home() {
 
   return (
     <>
-      <NavBarIndex />
       <Container className="flex flex-col items-center">
         <SelectFunction handleSelect={setLinkTo} />
         <Link href={`/${linkTo}`}>
