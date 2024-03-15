@@ -6,19 +6,18 @@ import UserList from "@/components/settings/users/UserList";
 import MaterialIcon from "@/components/general/MaterialIcon";
 import UserForm from "@/components/settings/users/UserForm";
 import Modal from "@/components/general/Modal";
+import useUsersList from "@/hooks/useUsersList";
 
-import UserJSON from "@/utils/UserJSON";
 export default function UsersPage() {
-  //TODO change for a real user list
-  const [userList, setUserList] = useState(UserJSON);
+  const { usersList, getUserPerRole } = useUsersList();
+  const [userListState, setUserListState] = useState(usersList);
   const [addUserModal, setAddUserModal] = useState(false);
 
   const handleFilterChange = (role) => {
     if (role === "all") {
-      setUserList(UserJSON);
+      setUserListState(usersList);
     } else {
-      const filteredList = UserJSON.filter((user) => user.role === role);
-      setUserList(filteredList);
+      setUserListState(getUserPerRole(role));
     }
   };
 
@@ -36,8 +35,11 @@ export default function UsersPage() {
           icon={<MaterialIcon iconName="add" />}
         />
       </section>
-      <FilterByRole userList={userList} onFilterChange={handleFilterChange} />
-      <UserList userList={userList} />
+      <FilterByRole
+        userList={userListState}
+        onFilterChange={handleFilterChange}
+      />
+      <UserList userList={userListState} />
       <Modal
         title={"Añadir nuevo usuario"}
         handleClose={handleAddUser}

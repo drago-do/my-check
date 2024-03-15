@@ -4,9 +4,11 @@ import ProductsExample from "../utils/ProductsExample";
 const DefaultState = ProductsExample;
 
 const initialState = (() => {
-  const state = localStorage.getItem("my__checks");
-  if (state) {
-    return JSON.parse(state).products;
+  if (typeof window !== "undefined") {
+    const state = localStorage.getItem("my__checks");
+    if (state) {
+      return JSON.parse(state).products;
+    }
   }
   return DefaultState;
 })();

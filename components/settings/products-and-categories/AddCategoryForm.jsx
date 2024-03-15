@@ -8,14 +8,14 @@ import UnitMeasure from "../../../utils/UnitsMeasure";
 import ButtonFunction from "../../general/ButtonFunction";
 import MaterialIcon from "@/components/general/MaterialIcon";
 
-//TODO delete this example list and replace with real data.
-import Categories from "../../../utils/Categories";
+import useCategories from "../../../hooks/useCategories";
 
 export default function CategoriesForm({ handleClose, categoriesInfo }) {
+  const { categories } = useCategories();
   const methods = useForm({ mode: "all" });
   const [loading, setLoading] = useState(false);
   const [categoriesOptions, _] = useState(
-    Categories.map((category) => {
+    categories.map((category) => {
       return { value: category._id, label: category.name };
     })
   );

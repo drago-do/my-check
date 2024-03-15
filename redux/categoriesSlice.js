@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import CategoriesExample from "../utils/categoriesExample";
+import CategoriesExample from "./../utils/categoriesExample";
 
 const DefaultState = CategoriesExample;
 
 const initialState = (() => {
-  const state = localStorage.getItem("my__checks");
-  if (state) {
-    return JSON.parse(state).categories;
+  if (typeof window !== "undefined") {
+    const state = localStorage.getItem("my__checks");
+    if (state) {
+      return JSON.parse(state).categories;
+    } else {
+      return DefaultState;
+    }
   }
   return DefaultState;
 })();
@@ -16,7 +20,7 @@ export const categoriesSlice = createSlice({
   initialState: initialState,
   reducers: {
     setCategories_: (state, action) => {
-      state.orderName = action.payload;
+      state.categories = action.payload;
     },
   },
 });

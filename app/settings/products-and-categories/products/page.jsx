@@ -7,10 +7,12 @@ import ProductsTable from "@/components/settings/products-and-categories/Product
 import Modal from "@/components/general/Modal";
 import AddProductForm from "@/components/settings/products-and-categories/AddProductForm";
 import DeleteProductForm from "@/components/settings/products-and-categories/DeleteProductForm";
-//TODO realizar carga real caudno este el backend
-import Products from "./../../../../utils/Products";
+
+
+import useProducts from "@/hooks/useProducts";
 
 export default function ProductsPage() {
+  const { products: Products } = useProducts();
   const [addProductModal, setAddProductModal] = useState(false);
   const [deleteProductModal, setDeleteProductModal] = useState(false);
   const [productToAction, setProductToAction] = useState(null);

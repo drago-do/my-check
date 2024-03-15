@@ -4,15 +4,17 @@ import actualUserExample from "../utils/actualUserExample";
 const DefaultState = actualUserExample;
 
 const initialState = (() => {
-  const state = localStorage.getItem("my__checks");
-  if (state) {
-    return JSON.parse(state).actualUser;
+  if (typeof window !== "undefined") {
+    const state = localStorage.getItem("my__checks");
+    if (state) {
+      return JSON.parse(state).actualUser;
+    }
   }
   return DefaultState;
 })();
 
 export const actualUserSlice = createSlice({
-  name: "products",
+  name: "actualUser",
   initialState: initialState,
   reducers: {
     setActualUser_: (state, action) => {

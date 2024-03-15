@@ -5,8 +5,8 @@ export const useCategories = () => {
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories);
 
-  const setCategories = () => {
-    dispatch(setCategories_());
+  const setCategories = (newCategories) => {
+    dispatch(setCategories_(newCategories));
   };
 
   return { categories, setCategories };
