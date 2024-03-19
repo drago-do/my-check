@@ -13,7 +13,7 @@ const Badge = ({
 }) => {
   const [animate, setAnimate] = useState(false);
   const baseStyle =
-    "bg-gray-100 text-gray-800 font-medium flex  flex-nowrap  items-baseline items-center px-2.5 py-0.5 rounded me-1 dark:bg-gray-700 dark:text-gray-400 border border-gray-500 ";
+    "bg-gray-100  text-gray-800 font-medium flex  flex-nowrap  items-baseline items-center px-2.5 py-0.5 rounded me-1 dark:bg-gray-700 dark:text-gray-400 border border-gray-500 ";
   const pillStyle = pill ? "rounded-full" : "rounded";
   const colorStyles = {
     blue: "bg-blue-100 text-blue-800 font-medium  me-2 px-2.5 py-0.5 rounded dark:bg-blue-800 dark:text-blue-300",
@@ -56,7 +56,7 @@ const Badge = ({
     </span>
   ) : (
     <span
-      className={`select-none ${className} ${baseStyle} ${pillStyle} ${textSize} ${badgeStyle} ${
+      className={`select-none inline-flex ${className} ${baseStyle} ${pillStyle} ${textSize} ${badgeStyle} ${
         onClick ? "cursor-pointer" : ""
       }
       ${animate ? "click-animate" : ""} `}
