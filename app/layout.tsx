@@ -22,7 +22,7 @@ export default function RootLayout({
       <Provider store={store}>
         <body className={`${inter.className}`}>
           <NavBar />
-          <Container className={"mt-10 pt-12"}>
+          <Container className={"mt-10 pt-12"} style={""}>
             <div className="w-full flex justify-around">
               <BreadCrumb />
             </div>
