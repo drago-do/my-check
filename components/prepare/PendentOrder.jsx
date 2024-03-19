@@ -18,18 +18,17 @@ export default function PendentOrder() {
   return (
     <div className="w-full flex flex-col flex-nowrap ">
       <Typography variant="title">Ordenes Pendientes</Typography>
-      <Container
-        className="border-solid border-2 p-2 border-black dark:border-white rounded-xl overflow-y-auto"
-        style={{ maxHeight: "70vh" }}
-      >
-        {orderList ? (
-          orderList.map((order, index) => (
-            <OrderItem key={index} order={order} />
-          ))
-        ) : (
-          <Skeleton variant={"list"} />
-        )}
-      </Container>
+      <div style={{ maxHeight: "70vh" }}>
+        <Container className="border-solid border-2 p-2 border-black dark:border-white rounded-xl overflow-y-auto">
+          {orderList ? (
+            orderList.map((order, index) => (
+              <OrderItem key={index} order={order} />
+            ))
+          ) : (
+            <Skeleton variant={"list"} />
+          )}
+        </Container>
+      </div>
     </div>
   );
 }

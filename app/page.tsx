@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <>
-      <Container className="flex flex-col items-center" style={""}>
+      <Container className="flex flex-col items-center">
         <SelectFunction handleSelect={setLinkTo} />
         <Link href={`/${linkTo}`}>
           <Image
