@@ -26,7 +26,7 @@ export default function RootLayout({
             <div className="w-full flex justify-around">
               <BreadCrumb />
             </div>
-            <main className="flex flex-col flex-nowrap w-full px-2 py-2 md:px-4 md:py-4">
+            <main className="flex flex-col flex-nowrap w-full px-2 pb-2 md:px-4 md:pb-4">
               {children}
             </main>
           </Container>
