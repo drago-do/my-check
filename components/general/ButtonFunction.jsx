@@ -6,12 +6,12 @@ const ButtonFunction = ({
   type = "button",
   onClick,
   onLoading = false,
-  animateButton,
+  className = "*:",
 }) => {
   const [animate, setAnimate] = useState(false);
 
   const baseStyles =
-    "focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2";
+    "focus:outline-none font-medium rounded-lg text-sm px-5 me-2 mb-2";
   const variants = {
     default:
       "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800",
@@ -50,7 +50,7 @@ const ButtonFunction = ({
       {onLoading ? (
         <button
           type={type}
-          className={`${baseStyles} ${variantStyles}  my-4 grid grid-flow-col gap-4 justify-center items-center`}
+          className={`${baseStyles} ${variantStyles} ${className} grid grid-flow-col gap-4 justify-center items-center`}
           disabled
         >
           <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
@@ -60,7 +60,7 @@ const ButtonFunction = ({
           type={type}
           className={`${baseStyles} ${variantStyles} ${
             animate ? "click-animate" : ""
-          } my-4 grid grid-flow-col gap-4 justify-center items-center`}
+          } grid grid-flow-col gap-4 justify-center items-center ${className}`}
           onClick={(e) => {
             handleClick(e);
           }}

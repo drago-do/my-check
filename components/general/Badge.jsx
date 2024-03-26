@@ -13,18 +13,18 @@ const Badge = ({
 }) => {
   const [animate, setAnimate] = useState(false);
   const baseStyle =
-    "bg-gray-100  text-gray-800 font-medium flex  flex-nowrap  items-baseline items-center px-2.5 py-0.5 rounded me-1 dark:bg-gray-700 dark:text-gray-400 border border-gray-500 ";
+    "px-1  bg-gray-100  text-gray-800 font-medium flex  flex-nowrap  items-baseline items-center  rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500 ";
   const pillStyle = pill ? "rounded-full" : "rounded";
   const colorStyles = {
-    blue: "bg-blue-100 text-blue-800 font-medium  me-2 px-2.5 py-0.5 rounded dark:bg-blue-800 dark:text-blue-300",
-    dark: "bg-gray-100 text-gray-800 font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300",
-    red: "bg-red-100 text-red-800 font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300",
+    blue: "bg-blue-100 text-blue-800 font-medium    rounded dark:bg-blue-800 dark:text-blue-300",
+    dark: "bg-gray-100 text-gray-800 font-medium   rounded dark:bg-gray-700 dark:text-gray-300",
+    red: "bg-red-100 text-red-800 font-medium   rounded dark:bg-red-900 dark:text-red-300",
     green:
-      "bg-green-100 text-green-800 font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300",
+      "bg-green-100 text-green-800 font-medium   rounded dark:bg-green-900 dark:text-green-300",
     yellow:
-      "bg-yellow-100 text-yellow-800 font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300",
+      "bg-yellow-100 text-yellow-800 font-medium   rounded dark:bg-yellow-900 dark:text-yellow-300",
     indigo:
-      "bg-indigo-100 text-indigo-800 font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300",
+      "bg-indigo-100 text-indigo-800 font-medium   rounded dark:bg-indigo-900 dark:text-indigo-300",
   };
 
   const textSize = large ? "text-sm" : "text-xs";
@@ -50,7 +50,7 @@ const Badge = ({
 
   return loading ? (
     <span
-      className={`{bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300 ${className}`}
+      className={`${baseStyle} bg-gray-100 text-gray-800 text-sm font-medium   rounded dark:bg-gray-700 dark:text-gray-300 ${className}`}
     >
       Cargando...
     </span>
@@ -69,10 +69,10 @@ const Badge = ({
         className={`flex justify-center align-middle items-center ${className}`}
       >
         {icon}
-        <span className="px-2 ">{children}</span>
+        <span>{children}</span>
       </div>
       {onDelete && (
-        <span className="pl-2 z-10" onClick={onDelete}>
+        <span className="z-10" onClick={onDelete}>
           <svg
             className="w-3 h-3 "
             aria-hidden="true"
