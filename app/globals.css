@@ -14,6 +14,10 @@
   }
 }
 
+.google-signin-button:hover {
+  transform: scale(1.02);
+}
+
 div:focus {
   outline: none;
   box-shadow: none;
@@ -31,10 +35,6 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
 }
 
 @keyframes clickAnimation {

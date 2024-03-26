@@ -15,6 +15,7 @@
     "flowbite-react": "^0.7.2",
     "material-symbols": "^0.11.0",
     "next": "14.1.0",
+    "next-auth": "^4.24.7",
     "react": "^18",
     "react-device-detect": "^2.2.3",
     "react-dom": "^18",

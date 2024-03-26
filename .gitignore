@@ -38,3 +38,6 @@ next-env.d.ts
 
 # Diff changes commit
 changes.diff
+
+# Ignore all .env files
+.env*
