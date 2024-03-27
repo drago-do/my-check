@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import MaterialIcon from "./MaterialIcon";
 import ListGroupMenu from "./ListGroupMenu";
+import Link from "next/link";
 
 const negativeMenuXPosition = 220;
 
@@ -58,8 +59,8 @@ export default function NavBarIndex() {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         {/* Logo y enlace aquí */}
         <div className="flex items-center space-x-4 lg:order-1">
-          <a
-            href="/"
+          <Link
+            href="/main"
             className="flex items-center space-x-2 text-xl font-bold tracking-wide text-gray-800 dark:text-gray-50"
           >
             <Image
@@ -70,7 +71,7 @@ export default function NavBarIndex() {
               className="rounded-full"
             />
             <span>{pageName}</span>
-          </a>
+          </Link>
         </div>
 
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

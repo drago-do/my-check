@@ -11,10 +11,15 @@ import MaterialIcon from "@/components/general/MaterialIcon";
 
 import useOrderList from "@/hooks/useOrderList";
 
+import { signIn, useSession, signOut } from "next-auth/react";
+
 export default function Home() {
   const [linkTo, setLinkTo] = useState("order");
   const { getPendentOrders, getCompletedOrders, orderList } = useOrderList();
   const [listOfTickets, _] = useState(orderList);
+
+  const { data: session, status } = useSession();
+  console.log(session, status);
 
   return (
     <>
