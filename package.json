@@ -11,9 +11,11 @@
   "dependencies": {
     "@dropzone-ui/react": "^7.0.4",
     "@reduxjs/toolkit": "^2.2.1",
+    "axios": "^1.6.8",
     "flowbite": "^2.2.1",
     "flowbite-react": "^0.7.2",
     "material-symbols": "^0.11.0",
+    "mongoose": "^8.2.4",
     "next": "14.1.0",
     "next-auth": "^4.24.7",
     "react": "^18",

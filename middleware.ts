@@ -8,5 +8,6 @@ export const config = {
     "/prepare",
     "/profile",
     "/settings",
+    "/api",
   ],
 };
