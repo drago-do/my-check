@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 import { getUserModel } from "@/models/index"; // Ajusta la ruta según sea necesario
 
 export async function POST(request: Request) {
-  const userData = await request.json();
-  // const { db } = profile; // Suponiendo que 'db' indique el nombre de la base de datos a usar, si es necesario.
+  const { profile } = await request.json();
+  const { db } = profile; // Suponiendo que 'db' indique el nombre de la base de datos a usar, si es necesario.
 
   // Aquí ya no necesitas llamar a connect(db) porque getUserModel maneja la conexión internamente.
   // Nota: Si cada usuario tiene su propia DB basada en 'db', deberías ajustar getUserModel para aceptar 'db' como argumento.
@@ -12,22 +12,15 @@ export async function POST(request: Request) {
   // Obtén el modelo de usuario usando la función específica.
   const UserModel = await getUserModel();
 
-  //Usar UserModel para crear un nuevo usuario
-  const newUser = new UserModel(userData);
-
-  try {
-    await newUser.save();
+  // Ahora puedes usar UserModel para buscar en la base de datos.
+  let userFound = await UserModel.findOne({ email: profile.email });
+  if (userFound) {
     return NextResponse.json({
-      message: "User created successfully",
+      message: "User already exists",
     });
-  } catch (error) {
+  } else {
     return NextResponse.json({
-      message: "Error creating user",
-      error: error,
+      message: "User not found",
     });
   }
-}
-
-export async function GET(request: Request) {
-  return NextResponse.json({ message: "Hello World" });
 }

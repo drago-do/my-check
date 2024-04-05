@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userPermissions = mongoose.Schema({
+const userPermissions = new mongoose.Schema({
   role: { type: String, required: true },
   entity: {
     type: mongoose.Schema.Types.ObjectId,
@@ -9,7 +9,7 @@ const userPermissions = mongoose.Schema({
   },
 });
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   email: {
@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
   },
   isActive: { type: Boolean, default: true },
   username: { type: String, required: true, unique: true },
-  password: { type: Number, required: true },
+  password: { type: Number, required: true, match: /^[0-9]{4}$/ },
   permissions: [userPermissions],
   image: {
     data: { type: Buffer, default: "" },
@@ -36,5 +36,4 @@ const userSchema = mongoose.Schema({
   updateDate: { type: Date, default: Date.now },
 });
 
-const User = mongoose.models.user || mongoose.model("user", userSchema);
-export default User;
+export default userSchema;
