@@ -2,6 +2,25 @@ import { NextResponse } from "next/server";
 // Asumiendo que has exportado getUserModel desde tu archivo de modelos como se sugirió.
 import { getUserModel } from "@/models/index"; // Ajusta la ruta según sea necesario
 
+export async function GET() {
+  try {
+    const UserModel = await getUserModel();
+    const users = await UserModel.find().select(
+      "firstName lastName email username image"
+    );
+    return NextResponse.json({
+      success: true,
+      data: users,
+    });
+  } catch (error: any) {
+    return NextResponse.json({
+      success: false,
+      error: "Internal Server Error",
+      message: error.message,
+    });
+  }
+}
+
 export async function POST(request: Request) {
   const userData = await request.json();
   // const { db } = profile; // Suponiendo que 'db' indique el nombre de la base de datos a usar, si es necesario.
@@ -26,8 +45,4 @@ export async function POST(request: Request) {
       error: error,
     });
   }
-}
-
-export async function GET(request: Request) {
-  return NextResponse.json({ message: "Hello World" });
 }
