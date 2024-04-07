@@ -6,12 +6,18 @@ import UploadPicture from "./../general/formsElements/UploadPicture";
 import ButtonFunction from "./../general/ButtonFunction";
 import MaterialIcon from "@/components/general/MaterialIcon";
 
+import { useRouter } from "next/navigation";
+
+import useActualUser from "./../../hooks/useActualUser";
+
 export default function RegisterForm({
   email,
   firstName,
   lastName,
   imageUser,
 }) {
+  const { createNewUser } = useActualUser();
+  const { push } = useRouter();
   const methods = useForm({ mode: "all" });
   methods.register("email", { value: email, required: true });
   methods.register("firstName", { value: firstName, required: true });
@@ -20,13 +26,15 @@ export default function RegisterForm({
   const [loading, setLoading] = useState(false);
 
   const onSubmit = (data) => {
-    //TODO replace with real data transaction.
     setLoading(true);
-    setTimeout(() => {
-      console.log(data);
-      setLoading(false);
-      handleClose();
-    }, 3000);
+    createNewUser(data)
+      .then(() => {
+        push("/");
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
   };
 
   //!UploadPicture
@@ -143,10 +151,10 @@ export default function RegisterForm({
         />
       </div>
 
-      <div className="w-full flex justify-end lg:col-span-4 md:col-span-3 ">
-        <ButtonFunction type="submit" onLoading={loading}>
-          <MaterialIcon iconName="category" />
-          Crear nueva categoría
+      <div className="w-full flex justify-end lg:col-span-4 md:col-span-3 mb-8">
+        <ButtonFunction type="submit" onLoading={loading} className="py-3">
+          <MaterialIcon iconName="person_add" />
+          Registrarme
         </ButtonFunction>
       </div>
     </form>

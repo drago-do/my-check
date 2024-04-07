@@ -33,9 +33,10 @@ const handler = NextAuth({
         const response = await axios.post(`${API_URL}/api/user/exist`, {
           email: email,
         });
-        const {
-          data: { result: isRegistered },
-        } = response;
+        console.log(response.data);
+
+        const { data: isRegistered } = response;
+        console.log("isRegistered", isRegistered);
         if (isRegistered) {
           return true;
         } else {
@@ -46,6 +47,9 @@ const handler = NextAuth({
         console.error(error);
         return "/";
       }
+    },
+    async redirect({ url, baseUrl }) {
+      return `${baseUrl}/businessAccess`;
     },
   },
 });

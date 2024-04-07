@@ -35,14 +35,19 @@ export async function POST(request: Request) {
   const newUser = new UserModel(userData);
 
   try {
-    await newUser.save();
+    const newUserData = await newUser.save();
+    //Eliminar el campo password antes de devolver los datos
+    newUserData.password = 0;
+
     return NextResponse.json({
-      message: "User created successfully",
+      success: true,
+      data: newUserData,
     });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({
-      message: "Error creating user",
-      error: error,
+      success: false,
+      error: "Internal Server Error",
+      message: error.message,
     });
   }
 }
