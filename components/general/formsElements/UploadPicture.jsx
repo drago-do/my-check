@@ -8,6 +8,8 @@ import Typography from "./../Typography";
 import InputForm from "./InputForm";
 import MaterialIcon from "../MaterialIcon";
 import Skeleton from "./../Skeleton";
+import ButtonFunction from "./../ButtonFunction";
+import useSystem from "./../../../hooks/useSystem";
 
 const FotoData = createContext();
 
@@ -136,27 +138,36 @@ function LocalOrWebImage({ onClose, open, selectedValue }) {
 
 const WebUploadDialog = ({ handleCloseDialog }) => {
   //TODO, agregar hook del sistema para obtener imágenes de internet
-  // const { getSearchResults } = useSystem();
+  const { getImagesFromServer } = useSystem();
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState("inicio");
+  const [message, setMessage] = useState(false);
+
+  const handleSearch = (e) => {
+    if (query !== "" && query.length > 0) {
+      setSearchResults("cargando");
+      e.preventDefault();
+      getImagesFromServer(query)
+        .then((res) => {
+          const {
+            data: { images_results },
+          } = res;
+          let imagesObject = images_results.map((image) => ({
+            thumbnail: image.thumbnail,
+            url: image.original,
+          }));
+          setSearchResults(imagesObject);
+          console.log(imagesObject);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setMessage(true);
+    }
+  };
 
   useEffect(() => {
-    if (query !== "" && query.length > 3) {
-      setSearchResults("cargando");
-      setTimeout(() => {
-        console.log("cargando");
-      }, 2000);
-      console.log(query);
-      //TODO agregar lógica para asignación de imágenes
-      // getSearchResults(query)
-      //   .then((response) => setSearchResults(response))
-      //   .catch((err) => {
-      //     console.log(err);
-      //     let errorForUser = `${err.code}: ${err.message}`;
-      //     setSearchResults([{ error: errorForUser }]);
-      //   });
-    }
     query === "" && setSearchResults("inicio");
+    setMessage(false);
   }, [query]);
 
   const deleteImage = (index) => {
@@ -167,9 +178,15 @@ const WebUploadDialog = ({ handleCloseDialog }) => {
 
   return (
     <div className="px-5 pb-5 h-4/5">
-      <InputForm
-        extraProperties={{ onChange: (e) => setQuery(e.target.value) }}
-      />
+      <div className="flex flex-nowrap w-full justify-between">
+        <InputForm
+          extraProperties={{ onChange: (e) => setQuery(e.target.value) }}
+          placeholder="Buscar imagen"
+        />
+        <ButtonFunction className="py-3 m-0 mb-0 ml-3" onClick={handleSearch}>
+          <MaterialIcon iconName="search" />
+        </ButtonFunction>
+      </div>
       <div
         style={{
           opacity: query !== query ? 0.5 : 1,
@@ -181,6 +198,14 @@ const WebUploadDialog = ({ handleCloseDialog }) => {
           handleCloseDialog={handleCloseDialog}
         />
       </div>
+      {message && (
+        <Typography
+          variant="caption"
+          className={"text-red-600 dark:text-red-500"}
+        >
+          Tienes que escribir algo que buscar
+        </Typography>
+      )}
     </div>
   );
 };
@@ -245,7 +270,7 @@ const RenderSearchResults = ({
                 >
                   <Image
                     className="rounded object-contain transition-opacity opacity-0 duration-[1s]"
-                    src={imagen?.url}
+                    src={imagen?.thumbnail}
                     alt={"image" + index}
                     width={200}
                     height={200}
