@@ -30,7 +30,7 @@ const handler = NextAuth({
         picture: string;
       };
       try {
-        const response = await axios.post(`${API_URL}/api/user/exist`, {
+        const response = await axios.post(`${API_URL}/api/v1/user/exist`, {
           email: email,
         });
 
@@ -41,7 +41,6 @@ const handler = NextAuth({
         } = response;
         if (isRegistered) {
           // El usuario está registrado
-          user.image = userId;
           return true;
         } else {
           // El usuario no está registrado
@@ -51,6 +50,10 @@ const handler = NextAuth({
         console.error(error);
         return "/";
       }
+    },
+    //Redirect to the dashboard after sign in
+    async redirect({ baseUrl }) {
+      return Promise.resolve(baseUrl + "/businessAccess");
     },
   },
 });

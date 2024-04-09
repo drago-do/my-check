@@ -62,14 +62,19 @@ const imageSchema = new mongoose.Schema({
 const businessSchema = new mongoose.Schema({
   created_by: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: "users",
     required: true,
   },
-  delegatedOperators: [
+  invitedUser: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user",
-      required: true,
+      email: {
+        type: String,
+        required: true,
+        index: true,
+        unique: true,
+        match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+      },
+      role: { type: String, required: true },
     },
   ],
   name: { type: String, required: true, unique: true },

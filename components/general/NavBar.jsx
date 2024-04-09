@@ -5,6 +5,9 @@ import Image from "next/image";
 import MaterialIcon from "./MaterialIcon";
 import ListGroupMenu from "./ListGroupMenu";
 import Link from "next/link";
+import ImageViewer from "./ImageViewer";
+import SimpleSpinLoader from "./SimpleSpinLoader";
+
 
 import useActualUser from "@/hooks/useActualUser";
 
@@ -12,7 +15,14 @@ const negativeMenuXPosition = 220;
 
 export default function NavBarIndex() {
   const { actualUser } = useActualUser();
-  console.log(actualUser);
+  const [actualUserState, setActualUserState] = useState(null);
+
+  useEffect(() => {
+    if (actualUser) {
+      setActualUserState(actualUser);
+    }
+  }, [actualUser]);
+
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const pathname = usePathname();
   //Get page name with pathname
@@ -88,13 +98,18 @@ export default function NavBarIndex() {
           >
             {/* Imagen del usuario */}
             <span className="sr-only">Abrir menú de usuario</span>
-            <Image
-              className="w-8 h-8 rounded-full"
-              src="https://avatars.githubusercontent.com/u/18103336?v=4"
-              width={40}
-              height={40}
-              alt="Usuario"
-            />
+            <div className="w-10 h-10">
+              {actualUserState?.image ? (
+                <ImageViewer
+                  className="w-8 h-8 rounded-full"
+                  fotoData={actualUser?.image}
+                />
+              ) : (
+                <div className="flex justify-center items-center w-full h-full">
+                  <SimpleSpinLoader />
+                </div>
+              )}
+            </div>
           </button>
           {/* Menú desplegable del usuario */}
           {isUserMenuOpen && (
