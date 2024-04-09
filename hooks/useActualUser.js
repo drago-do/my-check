@@ -20,7 +20,7 @@ export const useActualUser = () => {
   const createNewUser = (data) => {
     return new Promise((resolve, reject) => {
       axios
-        .post("/api/v1/user", data)
+        .post("/api/user", data)
         .then((response) => {
           //setAsActualUser(response.data);
           console.log(response.data);

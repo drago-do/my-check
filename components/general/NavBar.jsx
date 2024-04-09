@@ -8,13 +8,12 @@ import Link from "next/link";
 import ImageViewer from "./ImageViewer";
 import SimpleSpinLoader from "./SimpleSpinLoader";
 
-
 import useActualUser from "@/hooks/useActualUser";
 
 const negativeMenuXPosition = 220;
 
 export default function NavBarIndex() {
-  const { actualUser } = useActualUser();
+  const { actualUser, singOutUser } = useActualUser();
   const [actualUserState, setActualUserState] = useState(null);
 
   useEffect(() => {
@@ -132,7 +131,12 @@ export default function NavBarIndex() {
                     name: "Configuración",
                   },
                   {
-                    href: "/logout",
+                    href: "/businessAccess",
+                    icon: <MaterialIcon iconName="domain" />,
+                    name: "Negocios",
+                  },
+                  {
+                    onClick: singOutUser,
                     icon: <MaterialIcon iconName="logout" />,
                     name: "Cerrar sesión",
                   },

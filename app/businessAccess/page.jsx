@@ -5,6 +5,7 @@ import useActualUser from "@/hooks/useActualUser";
 import Typography from "@/components/general/Typography";
 import Skeleton from "@/components/general/Skeleton";
 
+//!Todo Fix this page
 export default function Page() {
   //Get session auth from next-auth
   const { data: session } = useSession();

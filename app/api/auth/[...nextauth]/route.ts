@@ -30,7 +30,7 @@ const handler = NextAuth({
         picture: string;
       };
       try {
-        const response = await axios.post(`${API_URL}/api/v1/user/exist`, {
+        const response = await axios.post(`${API_URL}/api/user/exist`, {
           email: email,
         });
 
