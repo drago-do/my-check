@@ -18,7 +18,11 @@ export async function POST(request: Request) {
     if (userFound) {
       return NextResponse.json({
         success: true,
-        data: { result: true, message: "User already exists" },
+        data: {
+          result: true,
+          userId: userFound._id,
+          message: "User already exists",
+        },
       });
     } else {
       return NextResponse.json({

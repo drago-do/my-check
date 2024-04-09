@@ -17,7 +17,7 @@ const handler = NextAuth({
     signIn: "/",
   },
   callbacks: {
-    async signIn({ profile }) {
+    async signIn({ profile, user }) {
       const {
         email,
         given_name: firstName,
@@ -33,11 +33,15 @@ const handler = NextAuth({
         const response = await axios.post(`${API_URL}/api/user/exist`, {
           email: email,
         });
-        console.log(response.data);
 
-        const { data: isRegistered } = response;
-        console.log("isRegistered", isRegistered);
+        const {
+          data: {
+            data: { result: isRegistered, userId },
+          },
+        } = response;
         if (isRegistered) {
+          // El usuario está registrado
+          user.image = userId;
           return true;
         } else {
           // El usuario no está registrado
@@ -47,9 +51,6 @@ const handler = NextAuth({
         console.error(error);
         return "/";
       }
-    },
-    async redirect({ url, baseUrl }) {
-      return `${baseUrl}/businessAccess`;
     },
   },
 });

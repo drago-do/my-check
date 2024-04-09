@@ -12,6 +12,7 @@ const negativeMenuXPosition = 220;
 
 export default function NavBarIndex() {
   const { actualUser } = useActualUser();
+  console.log(actualUser);
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const pathname = usePathname();
   //Get page name with pathname

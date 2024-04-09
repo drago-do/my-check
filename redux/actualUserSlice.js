@@ -17,7 +17,7 @@ export const actualUserSlice = createSlice({
   initialState: initialState,
   reducers: {
     setActualUser_: (state, action) => {
-      state.orderName = action.payload;
+      return action.payload; // Actualiza el estado completo con los datos del usuario
     },
   },
 });

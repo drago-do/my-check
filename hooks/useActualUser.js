@@ -17,7 +17,7 @@ export const useActualUser = () => {
         .post("/api/user", data)
         .then((response) => {
           //setAsActualUser(response.data);
-          setActualUser(response.data);
+          console.log(response.data);
           toast.success("Usuario creado", {
             description: `Ahora puedes iniciar sesión.`,
           });

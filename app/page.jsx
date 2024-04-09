@@ -8,15 +8,17 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { push } = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session, status, update } = useSession();
   console.log(session, status);
 
   //Redirect to /main if user is logged in
-  useEffect(() => {
-    if (session) {
-      window.location.href = "/main";
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   // if (session) {
+  //   //   //Add hello message on session
+  //   //   // update({ ...session, hello: "Hello" });
+  //   //   window.location.href = "/main";
+  //   // }
+  // }, [session]);
 
   return (
     <div className="flex flex-col flex-nowrap items-center justify-center">
