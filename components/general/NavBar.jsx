@@ -6,9 +6,12 @@ import MaterialIcon from "./MaterialIcon";
 import ListGroupMenu from "./ListGroupMenu";
 import Link from "next/link";
 
+import useActualUser from "@/hooks/useActualUser";
+
 const negativeMenuXPosition = 220;
 
 export default function NavBarIndex() {
+  const { actualUser } = useActualUser();
   const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const pathname = usePathname();
   //Get page name with pathname

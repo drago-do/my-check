@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import actualUserExample from "../utils/actualUserExample";
 
-const DefaultState = actualUserExample;
+const DefaultState = null;
 
 const initialState = (() => {
   if (typeof window !== "undefined") {

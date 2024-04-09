@@ -18,7 +18,6 @@ export default function Page() {
     }
   }, [session]);
 
-
   return (
     <div className="flex flex-col flex-nowrap items-center justify-center">
       <div className="flex flex-col flex-nowrap items-center justify-center w-full sm:w-3/4">
