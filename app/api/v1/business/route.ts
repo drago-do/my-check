@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 import { getBusinessModel } from "@/models/index";
 
+
+//Get all businesses
 export async function GET() {
   try {
     const BusinessModel = await getBusinessModel();
@@ -21,6 +23,8 @@ export async function GET() {
   }
 }
 
+
+//Create a new business
 export async function POST(request: Request) {
   try {
     const businessData = await request.json();

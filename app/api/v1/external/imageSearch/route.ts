@@ -3,6 +3,8 @@ import { getJson } from "serpapi";
 
 const apiKeySearch = process.env.SERPAPI;
 
+
+//Get images from google
 export async function POST(request: Request) {
   const { imageQuery } = await request.json();
   try {

@@ -28,7 +28,7 @@ export default function ListGroupMenu({
             type="button"
             onClick={() => {
               item.onClick(idForOnClick);
-              handleCloseListGroupMenu();
+              handleCloseListGroupMenu && handleCloseListGroupMenu();
             }}
             className={`${
               item.name === "Eliminar"

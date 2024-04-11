@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import useActualUser from "@/hooks/useActualUser";
+import useActualUser from "./../../hooks/useActualUser";
 import Typography from "@/components/general/Typography";
 import Skeleton from "@/components/general/Skeleton";
 
@@ -21,7 +21,7 @@ export default function Page() {
         console.error(error);
       });
     }
-  }, []);
+  }, [session, actualUser]);
 
   useEffect(() => {
     if (actualUser) {
