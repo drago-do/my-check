@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import useActualUser from "./../../hooks/useActualUser";
+import useBusiness from "./../../hooks/useBusiness";
 import Typography from "@/components/general/Typography";
 import Skeleton from "@/components/general/Skeleton";
 
@@ -9,6 +10,7 @@ import Skeleton from "@/components/general/Skeleton";
 export default function Page() {
   //Get session auth from next-auth
   const { data: session } = useSession();
+  const { getUserBusinessInvitations } = useBusiness();
   const { getUserInfoOnLogIn, actualUser } = useActualUser();
   const [actualUserState, setActualUserState] = useState(null);
   const [userPermissions, setUserPermissions] = useState([]);
@@ -26,6 +28,11 @@ export default function Page() {
   useEffect(() => {
     if (actualUser) {
       setActualUserState(actualUser);
+      //Get user business invitations
+      getUserBusinessInvitations(actualUser?.email).then((response) => {
+        console.log(response);
+        setUserInvitations(response);
+      });
     }
   }, [actualUser]);
 
