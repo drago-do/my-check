@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const ImageViewer = ({ fotoData, className }) => {
+const ImageViewer = ({ fotoData, className, alt }) => {
   return (
     <Image
       className={className}
@@ -12,7 +12,7 @@ const ImageViewer = ({ fotoData, className }) => {
             : `data:${fotoData.contentType};base64, ${fotoData.data}`
           : "/404.png"
       }
-      alt="Selected image"
+      alt={alt}
       width={500}
       height={500}
       style={{ objectFit: "cover", width: "100%", height: "100%" }}

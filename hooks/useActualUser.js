@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { setActualUser_ } from "../redux/actualUserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useSession, signOut } from "next-auth/react";
@@ -6,94 +7,57 @@ import { toast } from "sonner";
 
 export const useActualUser = () => {
   const dispatch = useDispatch();
+  const { data: session } = useSession();
   const actualUser = useSelector((state) => state.actualUser);
 
-  const setActualUser = (userData) => {
-    dispatch(setActualUser_(userData));
+  // Solo ejecuta la petición si no hay información del usuario actual en Redux y hay sesión activa
+  useEffect(() => {
+    if (!actualUser && session?.user?.email) {
+      fetchAndSetUserInfo(session.user.email);
+    }
+  }, [session, actualUser, dispatch]);
+
+  const fetchAndSetUserInfo = async (email) => {
+    try {
+      const response = await axios.get(`/api/v1/user/get-one/${email}`);
+      dispatch(setActualUser_(response.data.data)); // Asume que response.data.data contiene la info del usuario
+    } catch (error) {
+      console.error("Error al obtener información de usuario:", error);
+      const errorMessage = error?.message || "Error desconocido";
+      toast.error("Error al obtener información de usuario", {
+        description: errorMessage,
+      });
+    }
   };
 
-  const singOutUser = () => {
+  const signOutUser = () => {
     signOut();
-    setActualUser(null);
+    dispatch(setActualUser_(null)); // Limpia el usuario actual de Redux al cerrar sesión
   };
-
-  const createNewUser = (data) => {
-    return new Promise((resolve, reject) => {
-      axios
-        .post("/api/user", data)
-        .then((response) => {
-          //setAsActualUser(response.data);
-          console.log(response.data);
-          toast.success("Usuario creado", {
-            description: `Ahora puedes iniciar sesión.`,
-          });
-          resolve(response);
-        })
-        .catch((error) => {
-          console.error(error);
-          //Obtiene el mensaje de error de la respuesta
-          const message = error?.message || "Error desconocido";
-
-          toast.error("Error al crear usuario", {
-            description: `Parece que hubo un error al crear usuario.
-            ${message}`,
-          });
-          reject(error);
-        });
-    });
-  };
-
-  const checkUserBusinessAccess = (userId) => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(`/api/v1/user/businessAccess/${userId}`)
-        .then((response) => {
-          resolve(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-          //Obtiene el mensaje de error de la respuesta
-          const message = error?.message || "Error desconocido";
-
-          toast.error("Error al obtener acceso a negocios", {
-            description: `Parece que hubo un error al obtener acceso a negocios.
-            ${message}`,
-          });
-          reject(error);
-        });
-    });
-  };
-
-  const getUserInfoOnLogIn = (email) => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(`/api/v1/user/getOne/${email}`)
-        .then((response) => {
-          console.log(response.data.data);
-          setActualUser(response.data.data);
-          resolve(response.data);
-        })
-        .catch((error) => {
-          console.error(error);
-          //Obtiene el mensaje de error de la respuesta
-          const message = error?.message || "Error desconocido";
-
-          toast.error("Error al obtener información de usuario", {
-            description: `Parece que hubo un error al obtener información de usuario.
-             ${message}`,
-          });
-          reject(error);
-        });
-    });
+  const createNewUser = async (data) => {
+    try {
+      const response = await axios.post("/api/user", data);
+      console.log(response.data);
+      toast.success("Usuario creado", {
+        description: `Ahora puedes iniciar sesión.`,
+      });
+      // Actualizar el usuario actual en Redux con la respuesta de la API
+      dispatch(setActualUser_(response.data));
+      return response;
+    } catch (error) {
+      console.error(error);
+      const message = error?.message || "Error desconocido";
+      toast.error("Error al crear usuario", {
+        description: `Parece que hubo un error al crear usuario. ${message}`,
+      });
+      throw error;
+    }
   };
 
   return {
     actualUser,
-    setActualUser,
+    signOutUser,
     createNewUser,
-    checkUserBusinessAccess,
-    getUserInfoOnLogIn,
-    singOutUser,
   };
 };
 

@@ -4,8 +4,14 @@ export default function MaterialIcon({
   iconName = "face",
   type = "outlined",
   className = "",
+  fontSize = 24,
 }) {
   return (
-    <span className={`material-symbols-${type} ${className}`}>{iconName}</span>
+    <span
+      style={{ fontSize: `${fontSize}px` }}
+      className={`material-symbols-${type} ${className}`}
+    >
+      {iconName}
+    </span>
   );
 }

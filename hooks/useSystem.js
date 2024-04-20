@@ -4,7 +4,7 @@ import { toast } from "sonner";
 export const useSystem = () => {
   const getImagesFromServer = async (query) => {
     const response = await axios
-      .post("/api/v1/external/imageSearch", { imageQuery: query })
+      .post("/api/v1/external/image-search", { imageQuery: query })
       .then((res) => res)
       .catch((err) => {
         console.log(err);

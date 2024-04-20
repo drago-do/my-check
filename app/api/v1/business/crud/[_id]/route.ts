@@ -1,21 +1,18 @@
 import { NextResponse } from "next/server";
+
 import { getBusinessModel } from "@/models/index";
 
+//Get one business
 export async function GET(
   request: Request,
-  { params }: { params: { userId: string } }
+  { params }: { params: { _id: string } }
 ) {
   try {
     const BusinessModel = await getBusinessModel();
-    const userAreAccessTo = await BusinessModel.find({
-      $or: [
-        { delegatedOperators: params.userId }, // Verifica si el usuario está en la lista de delegatedOperators
-        { created_by: params.userId }, // Verifica si el usuario es el creador del negocio
-      ],
-    }).select("name description category logo");
+    const businesses = await BusinessModel.findById(params._id);
     return NextResponse.json({
       success: true,
-      data: userAreAccessTo,
+      data: businesses,
     });
   } catch (error: any) {
     return NextResponse.json({

@@ -6,51 +6,40 @@ import useBusiness from "./../../hooks/useBusiness";
 import Typography from "@/components/general/Typography";
 import Skeleton from "@/components/general/Skeleton";
 
-//!Todo Fix this page
+//Components
+import BusinessInvitations from "@/components/businessAccess/BusinessInvitations";
+
 export default function Page() {
-  //Get session auth from next-auth
   const { data: session } = useSession();
-  const { getUserBusinessInvitations } = useBusiness();
-  const { getUserInfoOnLogIn, actualUser } = useActualUser();
-  const [actualUserState, setActualUserState] = useState(null);
-  const [userPermissions, setUserPermissions] = useState([]);
-  const [userInvitations, setUserInvitations] = useState([]);
+  const { actualUser } = useActualUser();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!actualUser && session) {
-      //Check if user has business access
-      getUserInfoOnLogIn(session.user.email).catch((error) => {
-        console.error(error);
-      });
+    if (actualUser || !session) {
+      setLoading(false);
     }
-  }, [session, actualUser]);
+  }, [actualUser, session]);
 
-  useEffect(() => {
-    if (actualUser) {
-      setActualUserState(actualUser);
-      //Get user business invitations
-      getUserBusinessInvitations(actualUser?.email).then((response) => {
-        console.log(response);
-        setUserInvitations(response);
-      });
-    }
-  }, [actualUser]);
+  if (loading) {
+    return <LoadingSkeleton />;
+  }
 
   return (
     <div>
-      {actualUserState?.firstName ? (
-        <>
-          <Typography variant="title">
-            Hola {actualUserState?.firstName}
-          </Typography>
-          <Typography variant="p">Bienvenido de nuevo.</Typography>
-        </>
-      ) : (
-        <>
-          <Skeleton variant="title" />
-          <Skeleton variant={"caption"} />
-        </>
-      )}
+      <>
+        <Typography variant="title">Hola {actualUser?.firstName}</Typography>
+        <Typography variant="p">Bienvenido de nuevo.</Typography>
+      </>
+      <BusinessInvitations />
     </div>
   );
 }
+
+const LoadingSkeleton = () => {
+  return (
+    <>
+      <Skeleton variant="title" />
+      <Skeleton variant={"caption"} />
+    </>
+  );
+};

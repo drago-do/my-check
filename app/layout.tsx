@@ -25,7 +25,7 @@ export default function RootLayout({
   const [isIndex, _] = useState(pathname === "/login" || pathname === "/");
 
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning={true}>
       <Provider store={store}>
         <SessionProvider>
           <body className={`${inter.className}`}>

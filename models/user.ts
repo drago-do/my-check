@@ -5,6 +5,7 @@ const userPermissions = new mongoose.Schema({
   entity: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
+    unique: true,
     ref: "bussinesses",
   },
 });
