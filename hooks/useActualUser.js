@@ -1,26 +1,32 @@
-import { useEffect } from "react";
-import { setActualUser_ } from "../redux/actualUserSlice";
-import { useDispatch, useSelector } from "react-redux";
+"use client";
+import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import axios from "axios";
 import { toast } from "sonner";
 
 export const useActualUser = () => {
-  const dispatch = useDispatch();
   const { data: session } = useSession();
-  const actualUser = useSelector((state) => state.actualUser);
+  const [actualUser, setActualUser] = useState(() => {
+    // Intentar recuperar los datos del usuario de sessionStorage al inicializar
+    try {
+      const savedUserData = sessionStorage?.getItem("userInfo");
+      return savedUserData ? JSON.parse(savedUserData) : null;
+    } catch (_) {}
+  });
 
-  // Solo ejecuta la petición si no hay información del usuario actual en Redux y hay sesión activa
   useEffect(() => {
+    // Si no hay datos en actualUser y hay sesión, intenta cargar los datos
     if (!actualUser && session?.user?.email) {
       fetchAndSetUserInfo(session.user.email);
     }
-  }, [session, actualUser, dispatch]);
+  }, [session]);
 
   const fetchAndSetUserInfo = async (email) => {
     try {
       const response = await axios.get(`/api/v1/user/get-one/${email}`);
-      dispatch(setActualUser_(response.data.data)); // Asume que response.data.data contiene la info del usuario
+      // Almacenar la información del usuario en el estado y en sessionStorage
+      setActualUser(response.data.data);
+      sessionStorage.setItem("userInfo", JSON.stringify(response.data.data));
     } catch (error) {
       console.error("Error al obtener información de usuario:", error);
       const errorMessage = error?.message || "Error desconocido";
@@ -32,8 +38,11 @@ export const useActualUser = () => {
 
   const signOutUser = () => {
     signOut();
-    dispatch(setActualUser_(null)); // Limpia el usuario actual de Redux al cerrar sesión
+    // Limpiar sessionStorage y estado al cerrar sesión
+    sessionStorage.removeItem("userInfo");
+    setActualUser(null);
   };
+
   const createNewUser = async (data) => {
     try {
       const response = await axios.post("/api/user", data);
@@ -41,8 +50,9 @@ export const useActualUser = () => {
       toast.success("Usuario creado", {
         description: `Ahora puedes iniciar sesión.`,
       });
-      // Actualizar el usuario actual en Redux con la respuesta de la API
-      dispatch(setActualUser_(response.data));
+      // Actualiza la información del usuario en el estado y sessionStorage
+      setActualUser(response.data);
+      sessionStorage.setItem("userInfo", JSON.stringify(response.data));
       return response;
     } catch (error) {
       console.error(error);

@@ -11,17 +11,9 @@ import BusinessInvitations from "@/components/businessAccess/BusinessInvitations
 import BusinessAccess from "@/components/businessAccess/BusinessAccess";
 
 export default function Page() {
-  const { data: session } = useSession();
   const { actualUser } = useActualUser();
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (actualUser || !session) {
-      setLoading(false);
-    }
-  }, [actualUser, session]);
-
-  if (loading) {
+  if (!actualUser) {
     return <LoadingSkeleton />;
   }
 

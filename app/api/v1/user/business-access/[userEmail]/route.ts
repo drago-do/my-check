@@ -6,8 +6,6 @@ export async function GET(
   { params }: { params: { userEmail: string } }
 ) {
   try {
-    console.log("params", params);
-
     const UserModel = await getUserModel();
     const BusinessModel = await getBusinessModel();
     const userAreAccessTo = await UserModel.findOne({
