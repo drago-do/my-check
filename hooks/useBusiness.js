@@ -7,6 +7,8 @@ import { toast } from "sonner";
 export const useActualBusiness = () => {
   const dispatch = useDispatch();
   const actualBusiness = useSelector((state) => state.actualBusiness);
+  const { data: session } = useSession();
+  const email = session?.user?.email;
 
   const setActualBusiness = (businessData) => {
     dispatch(setActualBusiness_(businessData));
@@ -46,11 +48,29 @@ export const useActualBusiness = () => {
     });
   };
 
+  const getUserBusinessAccess = () => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/business/user-access/${email}`)
+        .then((response) => {
+          resolve(response.data.data);
+        })
+        .catch((error) => {
+          toast.error("Error al obtener accesos", {
+            description: `Parece que hubo un error.
+            ${message}`,
+          });
+          reject(error);
+        });
+    });
+  };
+
   return {
     actualBusiness,
     setActualBusiness,
     getUserBusinessInvitations,
     acceptBusinessInvitation,
+    getUserBusinessAccess,
   };
 };
 

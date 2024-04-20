@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getUserModel } from "@/models/index";
+import { getUserModel, getBusinessModel } from "@/models/index";
 
 export async function GET(
   request: Request,
@@ -9,9 +9,15 @@ export async function GET(
     console.log("params", params);
 
     const UserModel = await getUserModel();
+    const BusinessModel = await getBusinessModel();
     const userAreAccessTo = await UserModel.findOne({
       email: params.userEmail,
-    }).select("permissions");
+    })
+      .select("permissions")
+      .populate({
+        path: "permissions.entity",
+        select: "name description category logo",
+      });
     return NextResponse.json({
       success: true,
       data: userAreAccessTo,
