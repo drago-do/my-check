@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import useBusiness from "./../../hooks/useBusiness";
 import useActualUser from "./../../hooks/useActualUser";
@@ -6,8 +7,9 @@ import Typography from "../general/Typography";
 import MaterialIcon from "../general/MaterialIcon";
 
 export default function BusinessInvitations() {
-  const { getUserBusinessInvitations } = useBusiness();
-  const { getUserInfoOnLogIn, actualUser } = useActualUser();
+  const { getUserBusinessInvitations, acceptBusinessInvitation } =
+    useBusiness();
+  const {  actualUser } = useActualUser();
   const [loading, setLoading] = useState(true);
   const [userInvitations, setUserInvitations] = useState([]);
   useEffect(() => {
@@ -25,7 +27,14 @@ export default function BusinessInvitations() {
   }, []);
 
   const handleAccept = (invitation) => {
-    console.log("Aceptar", invitation);
+    acceptBusinessInvitation(invitation)
+      .then((response) => {
+        //Recargar la página
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleDecline = (invitation) => {

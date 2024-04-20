@@ -50,6 +50,7 @@ export const useActualBusiness = () => {
     actualBusiness,
     setActualBusiness,
     getUserBusinessInvitations,
+    acceptBusinessInvitation,
   };
 };
 
