@@ -6,7 +6,7 @@ const initialState = (() => {
   if (typeof window !== "undefined") {
     const state = localStorage.getItem("my__checks");
     if (state) {
-      return JSON.parse(state).actualUser;
+      return JSON.parse(state).actualBusiness;
     }
   }
   return DefaultState;

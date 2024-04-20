@@ -1,14 +1,15 @@
 import { setActualBusiness_ } from "../redux/actualBusinessSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useSession } from "next-auth/react";
 import axios from "axios";
 import { toast } from "sonner";
 
+import useActualUser from "./useActualUser";
+
 export const useActualBusiness = () => {
+  const { actualUser } = useActualUser();
+  const { email } = actualUser || {};
   const dispatch = useDispatch();
   const actualBusiness = useSelector((state) => state.actualBusiness);
-  const { data: session } = useSession();
-  const email = session?.user?.email;
 
   const setActualBusiness = (businessData) => {
     dispatch(setActualBusiness_(businessData));
@@ -24,7 +25,7 @@ export const useActualBusiness = () => {
         .catch((error) => {
           toast.error("Error al obtener invitaciones", {
             description: `Parece que hubo un error.
-            ${message}`,
+            ${error.message}`,
           });
           reject(error);
         });
@@ -41,7 +42,7 @@ export const useActualBusiness = () => {
         .catch((error) => {
           toast.error("Error al aceptar la invitación", {
             description: `Parece que hubo un error.
-            ${message}`,
+            ${error.message}`,
           });
           reject(error);
         });
@@ -51,14 +52,32 @@ export const useActualBusiness = () => {
   const getUserBusinessAccess = () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(`/api/v1/business/user-access/${email}`)
+        .get(`/api/v1/user/business-access/${email}`)
         .then((response) => {
           resolve(response.data.data);
         })
         .catch((error) => {
           toast.error("Error al obtener accesos", {
             description: `Parece que hubo un error.
-            ${message}`,
+            ${error.message}`,
+          });
+          reject(error);
+        });
+    });
+  };
+
+  const choseActualBusiness = (_idBusiness) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/business/crud/${_idBusiness}`)
+        .then((response) => {
+          setActualBusiness(response.data.data);
+          resolve(response.data.data);
+        })
+        .catch((error) => {
+          toast.error("Error al obtener el negocio", {
+            description: `Parece que hubo un error.
+            ${error.message}`,
           });
           reject(error);
         });
@@ -71,6 +90,7 @@ export const useActualBusiness = () => {
     getUserBusinessInvitations,
     acceptBusinessInvitation,
     getUserBusinessAccess,
+    choseActualBusiness,
   };
 };
 

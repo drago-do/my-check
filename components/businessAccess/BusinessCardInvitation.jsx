@@ -25,7 +25,6 @@ const BusinessCardInvitation = ({
   };
 
   const handleLocalAccept = () => {
-    setLoading(true);
     handleAccept({ _id: _id, email: userEmail, role: role });
   };
 

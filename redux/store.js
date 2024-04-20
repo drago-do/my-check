@@ -5,6 +5,7 @@ import categoriesReducer from "./categoriesSlice";
 import ordersReducer from "./orderListSlice";
 import productsReducer from "./productsSlice";
 import usersListReducer from "./usersListSlice";
+import actualBusinessReducer from "./actualBusinessSlice";
 
 const persistentLocalStorage = (store) => (next) => (action) => {
   next(action);
@@ -19,6 +20,7 @@ export const store = configureStore({
     orderList: ordersReducer,
     actualUser: actualUserReducer,
     usersList: usersListReducer,
+    actualBusiness: actualBusinessReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(persistentLocalStorage),

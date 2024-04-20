@@ -8,6 +8,7 @@ import Skeleton from "@/components/general/Skeleton";
 
 //Components
 import BusinessInvitations from "@/components/businessAccess/BusinessInvitations";
+import BusinessAccess from "@/components/businessAccess/BusinessAccess";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -31,6 +32,7 @@ export default function Page() {
         <Typography variant="p">Bienvenido de nuevo.</Typography>
       </>
       <BusinessInvitations />
+      <BusinessAccess />
     </div>
   );
 }

@@ -3,33 +3,42 @@ import ImageViewer from "../general/ImageViewer";
 import Badge from "../general/Badge";
 import ButtonFunction from "../general/ButtonFunction";
 import MaterialIcon from "../general/MaterialIcon";
+import { useRouter } from "next/navigation";
+import useBusiness from "../../hooks/useBusiness";
 
-const BusinessCardInvitation = ({ data }) => {
-  const { name, description, logo, invitedUser, _id } = data;
+const BusinessCardAccess = ({ data, userId }) => {
+  const { push } = useRouter();
+  const { actualBusiness, choseActualBusiness } = useBusiness();
+  const { role, entity } = data;
+  const { name, description, logo, category } = entity;
   const [loading, setLoading] = useState(false);
-  const [role, setRole] = useState("");
-  //Function para recuperar el rol del usuario invitado
-  const getRole = () => {
-    let role = "";
-    invitedUser.forEach((user) => {
-      if (user.email === userEmail) {
-        role = user.role;
-      }
-    });
-    return role;
-  };
+  const [actualChoseBusiness, setActualChoseBusiness] = useState(false);
 
-  const handleLocalChose = () => {
+  const handleChoseBusiness = () => {
     setLoading(true);
-    handleAccept({ _id: _id, email: userEmail, role: role });
+    choseActualBusiness(entity._id)
+      .then((_) => {
+        push("/main");
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
   };
 
   useEffect(() => {
-    setRole(getRole());
-  }, []);
+    if (actualBusiness?._id === entity?._id) {
+      setActualChoseBusiness(true);
+    }
+  }, [actualBusiness, entity]);
 
   return (
-    <div className=" bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div
+      className={`
+     bg-white border-2 border-solid ${
+       actualChoseBusiness ? "dark:border-blue-400	 border-blue-500	" : ""
+     }  rounded-lg shadow dark:bg-gray-800 `}
+    >
       <div className="aspect-video  h-48 w-full object-cover">
         {/* Conditionally render image if logo.link is available */}
         <ImageViewer
@@ -48,34 +57,31 @@ const BusinessCardInvitation = ({ data }) => {
           {description}
         </p>
         <div className="flex justify-between w-full mb-3">
-          <p>Invitado como:</p>
+          <p>Rol de negocio:</p>
           <Badge color={"blue"}>{role}</Badge>
         </div>
         <div className="flex w-full flex-nowrap justify-between">
-          <ButtonFunction
-            className="py-2"
-            variant="green"
-            onLoading={loading}
-            onClick={handleLocalAccept}
-          >
-            <MaterialIcon iconName="done" /> Aceptar
-          </ButtonFunction>
-          <ButtonFunction
-            className="py-2"
-            variant="red"
-            onLoading={loading}
-            onClick={handleAccept}
-          >
-            <MaterialIcon iconName="cancel" />
-            Declinar
-          </ButtonFunction>
+          {actualChoseBusiness ? (
+            <p className="text-blue-500 dark:text-blue-400">
+              Negocio actualmente seleccionado
+            </p>
+          ) : (
+            <ButtonFunction
+              className="py-2"
+              variant="green"
+              onLoading={loading}
+              onClick={handleChoseBusiness}
+            >
+              <MaterialIcon iconName="done" /> Seleccionar
+            </ButtonFunction>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default BusinessCardInvitation;
+export default BusinessCardAccess;
 
 // Usage example:
 // <Card data={yourObject} />

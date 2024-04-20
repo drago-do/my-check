@@ -1,8 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import useBusiness from "../../hooks/useBusiness";
-import useActualUser from "../../hooks/useActualUser";
-import BusinessCardInvitation from "./BusinessCardInvitation";
+import BusinessCardAccess from "./BusinessCardAccess";
 import Typography from "../general/Typography";
 import MaterialIcon from "../general/MaterialIcon";
 
@@ -34,11 +33,15 @@ export default function BusinessAccess() {
 
   return (
     <div>
-      <Typography variant="subtitle"> Invitaciones de negocio</Typography>
+      <Typography variant="subtitle"> Accesos actuales</Typography>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-content-evenly ">
-        {userAccessBusiness && userAccessBusiness.length > 0 ? (
-          userAccessBusiness.map((accessInfo) => (
-            <BusinessCardInvitation data={accessInfo} key={accessInfo._id} />
+        {userAccessBusiness && userAccessBusiness?.permissions?.length > 0 ? (
+          userAccessBusiness?.permissions.map((accessInfo) => (
+            <BusinessCardAccess
+              data={accessInfo}
+              userId={userAccessBusiness._id}
+              key={accessInfo._id}
+            />
           ))
         ) : (
           <div className="w-full flex flex-col flex-nowrap justify-center dark:bg-gray-700 rounded-md">
