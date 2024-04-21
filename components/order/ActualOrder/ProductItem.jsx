@@ -35,6 +35,7 @@ export default function Product({ product }) {
             className={
               "max-w-16 max-h-16 min-h-16 min-w-16 rounded-xl object-cover object-center border-4 border-gray-200 dark:border-gray-700"
             }
+            alt="Product Image"
           />
           <div className="flex flex-nowrap flex-col overflow-hidden px-3 flex-grow">
             <Typography variant="subtitle2">

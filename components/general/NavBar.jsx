@@ -7,6 +7,7 @@ import ListGroupMenu from "./ListGroupMenu";
 import Link from "next/link";
 import ImageViewer from "./ImageViewer";
 import SimpleSpinLoader from "./SimpleSpinLoader";
+import ContextualContainer from "./ContextualContainer";
 
 import useActualUser from "@/hooks/useActualUser";
 
@@ -31,16 +32,11 @@ export default function NavBarIndex() {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza cada palabra
     .join(" "); // Une las palabras en una cadena
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef(); // Referencia al menú desplegable
 
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   useEffect(() => {
@@ -102,7 +98,7 @@ export default function NavBarIndex() {
                 <ImageViewer
                   className="w-8 h-8 rounded-full"
                   fotoData={actualUser?.image}
-                  alt={`${actualUser?.firstName} ${actualUser?.lastName}`}
+                  alt={`${actualUser?.firstName} ${actualUser?.lastName} profile picture`}
                 />
               ) : (
                 <div className="flex justify-center items-center w-full h-full">
@@ -119,7 +115,7 @@ export default function NavBarIndex() {
               ref={userMenuRef}
             >
               {/* Contenido del menú desplegable */}
-              <ListGroupMenu
+              <ContextualContainer
                 menuItems={[
                   {
                     href: "/profile",
@@ -142,7 +138,8 @@ export default function NavBarIndex() {
                     name: "Cerrar sesión",
                   },
                 ]}
-                menuPosition={menuPosition}
+                setIsContextualOpen={setIsUserMenuOpen}
+                isContextualOpen={isUserMenuOpen}
               />
             </div>
           )}
@@ -152,28 +149,5 @@ export default function NavBarIndex() {
   );
 }
 
-const MenuButton = () => {
-  return (
-    <>
-      <button
-        data-collapse-toggle="navbar-user"
-        type="button"
-        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        aria-controls="navbar-user"
-        aria-expanded={isMobileMenuOpen}
-        onClick={toggleMobileMenu}
-      >
-        {/* Ícono del menú */}
-        <MaterialIcon iconName="menu" />
-      </button>
-      {isMobileMenuOpen && (
-        <div
-          className="items-center justify-between w-full md:flex md:w-auto md:order-1"
-          id="navbar-user"
-        >
-          {/* Elementos del menú aquí */}
-        </div>
-      )}
-    </>
-  );
-};
+
+//TODO fix this stupid component.

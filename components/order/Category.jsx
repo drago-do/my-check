@@ -15,6 +15,7 @@ const Category = ({ category }) => {
         <ImageViewer
           fotoData={category.image}
           className={"max-h-44 object-cover object-center rounded-md"}
+          alt="category"
         />
         <Typography variant="subtitle">{category?.name}</Typography>
         <Typography variant={"p"}>{category?.description}</Typography>
