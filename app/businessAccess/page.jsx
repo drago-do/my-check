@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import useActualUser from "./../../hooks/useActualUser";
+import useUser from "../../hooks/useUser";
 import useBusiness from "./../../hooks/useBusiness";
 import Typography from "@/components/general/Typography";
 import Skeleton from "@/components/general/Skeleton";
@@ -11,7 +11,7 @@ import BusinessInvitations from "@/components/businessAccess/BusinessInvitations
 import BusinessAccess from "@/components/businessAccess/BusinessAccess";
 
 export default function Page() {
-  const { actualUser } = useActualUser();
+  const { actualUser } = useUser();
 
   if (!actualUser) {
     return <LoadingSkeleton />;

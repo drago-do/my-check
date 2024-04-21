@@ -8,18 +8,15 @@ import ImageViewer from "./ImageViewer";
 import SimpleSpinLoader from "./SimpleSpinLoader";
 import ContextualContainer from "./ContextualContainer";
 
-import useActualUser from "@/hooks/useActualUser";
+import useUser from "@/hooks/useUser";
 
 export default function NavBarIndex() {
-  const { actualUser, singOutUser } = useActualUser();
-  const [actualUserState, setActualUserState] = useState(null);
+  const { user, isLoading, singOutUser } = useUser();
   const [contextualMenu, setContextualMenu] = useState(false);
 
   useEffect(() => {
-    if (actualUser) {
-      setActualUserState(actualUser);
-    }
-  }, [actualUser]);
+    console.log("User data: ", user);
+  }, [user]);
 
   const pathname = usePathname();
   //Get page name with pathname
@@ -59,11 +56,11 @@ export default function NavBarIndex() {
             {/* Imagen del usuario */}
             <span className="sr-only">Abrir menú de usuario</span>
             <div className="w-10 h-10">
-              {actualUserState?.image ? (
+              {!isLoading ? (
                 <ImageViewer
                   className="w-8 h-8 rounded-full"
-                  fotoData={actualUser?.image}
-                  alt={`${actualUser?.firstName} ${actualUser?.lastName} profile picture`}
+                  fotoData={user?.image}
+                  alt={`${user?.firstName} ${user?.lastName} profile picture`}
                 />
               ) : (
                 <div className="flex justify-center items-center w-full h-full">

@@ -8,7 +8,7 @@ import MaterialIcon from "@/components/general/MaterialIcon";
 
 import { useRouter } from "next/navigation";
 
-import useActualUser from "./../../hooks/useActualUser";
+import useUser from "./../../hooks/useUser";
 
 export default function RegisterForm({
   email,
@@ -16,7 +16,7 @@ export default function RegisterForm({
   lastName,
   imageUser,
 }) {
-  const { createNewUser } = useActualUser();
+  const { createNewUser } = useUser();
   const { push } = useRouter();
   const methods = useForm({ mode: "all" });
   methods.register("email", { value: email, required: true });

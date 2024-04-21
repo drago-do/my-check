@@ -2,10 +2,10 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
 
-import useActualUser from "./useActualUser";
+import useUser from "./useUser";
 
 export const useActualBusiness = () => {
-  const { actualUser } = useActualUser();
+  const { actualUser } = useUser();
   const { email } = actualUser || {};
   const [actualBusiness, setActualBusiness] = useState(() => {
     try {

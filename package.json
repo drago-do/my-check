@@ -26,6 +26,7 @@
     "react-simple-image-viewer": "^1.2.2",
     "serpapi": "^2.1.0",
     "sonner": "^1.4.3",
+    "swr": "^2.2.5",
     "vaul": "^0.9.0"
   },
   "devDependencies": {

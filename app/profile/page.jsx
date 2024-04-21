@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import ImageViewer from "@/components/general/ImageViewer";
 import Typography from "@/components/general/Typography";
 import Badge from "@/components/general/Badge";
-import useActualUser from "@/hooks/useActualUser";
+import useUser from "@/hooks/useUser";
 import Skeleton from "@/components/general/Skeleton";
 import useActualBusiness from "@/hooks/useBusiness";
 
 export default function Profile() {
-  const { actualUser } = useActualUser();
+  const { actualUser } = useUser();
   const [actualUserState, setActualUserState] = useState(null);
   useEffect(() => {
     setActualUserState(actualUser);

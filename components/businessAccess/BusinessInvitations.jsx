@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import useBusiness from "./../../hooks/useBusiness";
-import useActualUser from "./../../hooks/useActualUser";
+import useUser from "../../hooks/useUser";
 import BusinessCardInvitation from "./BusinessCardInvitation";
 import Typography from "../general/Typography";
 import MaterialIcon from "../general/MaterialIcon";
@@ -9,7 +9,7 @@ import MaterialIcon from "../general/MaterialIcon";
 export default function BusinessInvitations() {
   const { getUserBusinessInvitations, acceptBusinessInvitation } =
     useBusiness();
-  const {  actualUser } = useActualUser();
+  const { actualUser } = useUser();
   const [loading, setLoading] = useState(true);
   const [userInvitations, setUserInvitations] = useState([]);
   useEffect(() => {

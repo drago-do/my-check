@@ -10,13 +10,23 @@ export async function GET(
     const user = await UserModel.findOne({ email: params.email }).select(
       "firstName lastName email isActive username permissions image"
     );
+    if (!user) {
+      return NextResponse.json({
+        error: "Not Found",
+        message: "User not found",
+      });
+    }
     return NextResponse.json({
-      success: true,
-      data: user,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      isActive: user.isActive,
+      username: user.username,
+      permissions: user.permissions,
+      image: user.image,
     });
   } catch (error: any) {
     return NextResponse.json({
-      success: false,
       error: "Internal Server Error",
       message: error.message,
     });
