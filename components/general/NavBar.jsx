@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import MaterialIcon from "./MaterialIcon";
-import ListGroupMenu from "./ListGroupMenu";
 import Link from "next/link";
 import ImageViewer from "./ImageViewer";
 import SimpleSpinLoader from "./SimpleSpinLoader";
@@ -11,11 +10,10 @@ import ContextualContainer from "./ContextualContainer";
 
 import useActualUser from "@/hooks/useActualUser";
 
-const negativeMenuXPosition = 220;
-
 export default function NavBarIndex() {
   const { actualUser, singOutUser } = useActualUser();
   const [actualUserState, setActualUserState] = useState(null);
+  const [contextualMenu, setContextualMenu] = useState(false);
 
   useEffect(() => {
     if (actualUser) {
@@ -23,7 +21,6 @@ export default function NavBarIndex() {
     }
   }, [actualUser]);
 
-  const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
   const pathname = usePathname();
   //Get page name with pathname
   const pageName = (pathname?.split("/")[1] || "My Check")
@@ -31,37 +28,6 @@ export default function NavBarIndex() {
     .split(" ") // Divide la cadena en palabras
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitaliza cada palabra
     .join(" "); // Une las palabras en una cadena
-
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const userMenuRef = useRef(); // Referencia al menú desplegable
-
-  const toggleUserMenu = () => {
-    setIsUserMenuOpen(!isUserMenuOpen);
-  };
-
-  useEffect(() => {
-    if (isUserMenuOpen) {
-      const { x, y, height } = userMenuRef.current.getBoundingClientRect();
-      setMenuPosition({ x: x - negativeMenuXPosition, y: y + height });
-    }
-  }, [isUserMenuOpen]);
-
-  // Evento para cerrar el menú cuando se hace clic fuera de él
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
-        setIsUserMenuOpen(false); // Cierra el menú si el clic fue fuera
-      }
-    }
-
-    // Agrega el listener al documento
-    document.addEventListener("mousedown", handleClickOutside);
-
-    // Elimina el listener al limpiar el componente
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [userMenuRef]); // Solo vuelve a suscribir si la ref cambia
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900 absolute top-0 w-full">
@@ -88,8 +54,7 @@ export default function NavBarIndex() {
             type="button"
             className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
             id="user-menu-button"
-            aria-expanded={isUserMenuOpen}
-            onClick={toggleUserMenu}
+            onClick={() => setContextualMenu(true)}
           >
             {/* Imagen del usuario */}
             <span className="sr-only">Abrir menú de usuario</span>
@@ -107,47 +72,36 @@ export default function NavBarIndex() {
               )}
             </div>
           </button>
-          {/* Menú desplegable del usuario */}
-          {isUserMenuOpen && (
-            <div
-              className="z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-              id="user-dropdown"
-              ref={userMenuRef}
-            >
-              {/* Contenido del menú desplegable */}
-              <ContextualContainer
-                menuItems={[
-                  {
-                    href: "/profile",
-                    icon: <MaterialIcon iconName="person" />,
-                    name: "Perfil",
-                  },
-                  {
-                    href: "/settings",
-                    icon: <MaterialIcon iconName="settings" />,
-                    name: "Configuración",
-                  },
-                  {
-                    href: "/businessAccess",
-                    icon: <MaterialIcon iconName="domain" />,
-                    name: "Negocios",
-                  },
-                  {
-                    onClick: singOutUser,
-                    icon: <MaterialIcon iconName="logout" />,
-                    name: "Cerrar sesión",
-                  },
-                ]}
-                setIsContextualOpen={setIsUserMenuOpen}
-                isContextualOpen={isUserMenuOpen}
-              />
-            </div>
-          )}
+          <ContextualContainer
+            menuItems={[
+              {
+                href: "/profile",
+                icon: <MaterialIcon iconName="person" />,
+                name: "Perfil",
+              },
+              {
+                href: "/settings",
+                icon: <MaterialIcon iconName="settings" />,
+                name: "Configuración",
+              },
+              {
+                href: "/businessAccess",
+                icon: <MaterialIcon iconName="domain" />,
+                name: "Negocios",
+              },
+              {
+                onClick: singOutUser,
+                icon: <MaterialIcon iconName="logout" />,
+                name: "Cerrar sesión",
+              },
+            ]}
+            setIsContextualOpen={setContextualMenu}
+            isContextualOpen={contextualMenu}
+          />
         </div>
       </div>
     </nav>
   );
 }
-
 
 //TODO fix this stupid component.
