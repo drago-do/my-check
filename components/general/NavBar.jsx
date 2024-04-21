@@ -102,6 +102,7 @@ export default function NavBarIndex() {
                 <ImageViewer
                   className="w-8 h-8 rounded-full"
                   fotoData={actualUser?.image}
+                  alt={`${actualUser?.firstName} ${actualUser?.lastName}`}
                 />
               ) : (
                 <div className="flex justify-center items-center w-full h-full">

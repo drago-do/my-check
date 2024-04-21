@@ -1,51 +1,88 @@
 "use client";
-import React from "react";
-import ImagenTumblr from "@/components/general/ImagenTumblr";
+import React, { useEffect, useState } from "react";
+import ImageViewer from "@/components/general/ImageViewer";
 import Typography from "@/components/general/Typography";
 import Badge from "@/components/general/Badge";
+import useActualUser from "@/hooks/useActualUser";
+import Skeleton from "@/components/general/Skeleton";
+import useActualBusiness from "@/hooks/useBusiness";
 
 export default function Profile() {
+  const { actualUser } = useActualUser();
+  const [actualUserState, setActualUserState] = useState(null);
+  useEffect(() => {
+    setActualUserState(actualUser);
+  }, [actualUser]);
+
   return (
     <div className="flex flex-col w-full">
-      <ProfileHeader />
-      <DetailedInfo />
+      <ProfileHeader userInfo={actualUserState} />
+      <DetailedInfo userInfo={actualUserState} />
     </div>
   );
 }
 
-const ProfileHeader = ({ userInfo }) => {
-  return (
+const ProfileHeader = ({ userInfo }) => (
+  <>
     <div className="w-full flex flex-nowrap">
-      <ImagenTumblr />
+      <div className="w-16 h-16 mr-6 md:mr-16 bg-cover">
+        {userInfo?.image ? (
+          <ImageViewer
+            fotoData={userInfo.image}
+            className="rounded-lg"
+            alt="user image"
+          />
+        ) : (
+          <Skeleton variant="image" className="rounded-lg" />
+        )}
+      </div>
       <div className="flex flex-col flex-nowrap justify-between">
-        <Typography variant={"p"}>
-          {userInfo
-            ? `${userInfo.firstName || "desco"} ${
-                userInfo.lastName || "nocido"
-              }`
-            : `desconocido`}
-        </Typography>
-        <Typography variant={"caption"}>
-          {userInfo
-            ? `${userInfo.firstName || "Nombre desconocido"} ${
-                userInfo.lastName || "Apellido desconocido"
-              }`
-            : `desconocido@gmail.com`}
-        </Typography>
+        {userInfo ? (
+          <>
+            <Typography variant={"p"}>
+              {userInfo.firstName} {userInfo.lastName}
+            </Typography>
+            <Typography variant={"caption"}>{userInfo.email}</Typography>
+          </>
+        ) : (
+          <>
+            <Skeleton variant="subtitle" className="rounded-lg" />
+            <Skeleton variant="caption" className="rounded-lg" />
+          </>
+        )}
       </div>
     </div>
-  );
-};
+  </>
+);
 
 const DetailedInfo = ({ userInfo }) => {
+  const { actualBusiness } = useActualBusiness();
+  const [role, setRole] = useState(null);
+
+  useEffect(() => {
+    if (userInfo && actualBusiness._id) {
+      const business = userInfo.permissions.find(
+        (permission) => permission.entity === actualBusiness._id
+      );
+      setRole(business ? business.role : "No tiene permisos en este negocio");
+    }
+  }, [userInfo, actualBusiness]);
+
   return (
-    <div className="flex flex-col flex-nowrap justify-between mt-6">
-      <Typography variant={"subtitle"}>Rol</Typography>
-      <div className="w-full">
-        <Badge color={"yellow"}>
-          {userInfo?.role || "No se pudo obtener"}{" "}
-        </Badge>
-      </div>
-    </div>
+    <>
+      {userInfo && role ? (
+        <div className="flex flex-col flex-nowrap justify-between mt-6">
+          <Typography variant={"subtitle"}>Rol</Typography>
+          <div className="w-full">
+            <Badge color={"yellow"}>{role}</Badge>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col flex-nowrap justify-between mt-6">
+          <Skeleton variant="subtitle" />
+          <Skeleton variant="caption" />
+        </div>
+      )}
+    </>
   );
 };

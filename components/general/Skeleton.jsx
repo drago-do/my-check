@@ -40,9 +40,9 @@ export default function Skeleton({ variant }) {
     }
     if (variant === "image") {
       return (
-        <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+        <div className="bg-gray-300 rounded dark:bg-gray-700">
           <svg
-            className="w-10 h-10 text-gray-200 dark:text-gray-600"
+            className="text-gray-200 dark:text-gray-600"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
