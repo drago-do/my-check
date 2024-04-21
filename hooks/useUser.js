@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import axios from "axios";
 import { toast } from "sonner";
@@ -14,10 +13,19 @@ export const useUser = () => {
   } = useSWR(`/api/v1/user/get-one/${session?.user?.email}`);
 
   const signOutUser = () => {
-    signOut();
-    // Limpiar sessionStorage y estado al cerrar sesión
-    sessionStorage.removeItem("userInfo");
-    setActualUser(null);
+    signOut()
+      .then(() => {
+        console.log("Signed out");
+        //Force redirect to / page
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.error("Error signing out", error);
+        toast.error("Error al cerrar sesión", {
+          description:
+            "Parece que hubo un error al cerrar sesión. Por favor, intenta de nuevo.",
+        });
+      });
   };
 
   const createNewUser = async (data) => {

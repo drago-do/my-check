@@ -11,12 +11,8 @@ import ContextualContainer from "./ContextualContainer";
 import useUser from "@/hooks/useUser";
 
 export default function NavBarIndex() {
-  const { user, isLoading, singOutUser } = useUser();
+  const { user, isLoading, signOutUser } = useUser();
   const [contextualMenu, setContextualMenu] = useState(false);
-
-  useEffect(() => {
-    console.log("User data: ", user);
-  }, [user]);
 
   const pathname = usePathname();
   //Get page name with pathname
@@ -87,7 +83,7 @@ export default function NavBarIndex() {
                 name: "Negocios",
               },
               {
-                onClick: singOutUser,
+                onClick: signOutUser,
                 icon: <MaterialIcon iconName="logout" />,
                 name: "Cerrar sesión",
               },

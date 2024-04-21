@@ -30,7 +30,7 @@ export default function ListGroupMenu({
             key={index}
             type="button"
             onClick={() => {
-              item.onClick(idForOnClick);
+              item.onClick(idForOnClick || null);
               handleCloseListGroupMenu();
             }}
             className={`${
