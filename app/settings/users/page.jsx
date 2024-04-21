@@ -2,22 +2,21 @@
 import React, { useState, useEffect } from "react";
 import Typography from "@/components/general/Typography";
 import FilterByRole from "@/components/settings/users/FilterByRole";
-import UserList from "@/components/settings/users/UserList";
+// import UserList from "@/components/settings/users/UserList";
 import MaterialIcon from "@/components/general/MaterialIcon";
 import UserForm from "@/components/settings/users/UserForm";
 import Modal from "@/components/general/Modal";
-import useUsersList from "@/hooks/useUsersList";
 
 export default function UsersPage() {
-  const { usersList, getUserPerRole } = useUsersList();
-  const [userListState, setUserListState] = useState(usersList);
+  // const { usersList, getUserPerRole } = useUsersList();
+  // const [userListState, setUserListState] = useState(usersList);
   const [addUserModal, setAddUserModal] = useState(false);
 
   const handleFilterChange = (role) => {
     if (role === "all") {
-      setUserListState(usersList);
+      // setUserListState(usersList);
     } else {
-      setUserListState(getUserPerRole(role));
+      // setUserListState(getUserPerRole(role));
     }
   };
 
@@ -36,10 +35,10 @@ export default function UsersPage() {
         />
       </section>
       <FilterByRole
-        userList={userListState}
+        // userList={userListState}
         onFilterChange={handleFilterChange}
       />
-      <UserList userList={userListState} />
+      {/* <UserList userList={userListState} /> */}
       <Modal
         title={"Añadir nuevo usuario"}
         handleClose={handleAddUser}

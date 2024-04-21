@@ -1,27 +1,10 @@
 import React from "react";
-import { useRouter } from "next/router";
 
 const GoogleSignInButton = ({ signIn }) => {
   return (
     <button
       className="google-signin-button"
-      onClick={() =>
-        signIn("google")
-          .then((res) => {
-            console.log(res);
-            //TODO Fix redirect to the correct page
-            if (res?.url) {
-              window.location.href = res.url;
-            } else {
-              // Manually specify the redirect destination if needed.
-              router.push("/login");
-            }
-          })
-          .catch((error) => {
-            console.log("Error al iniciar sesión:", error);
-            // Manejar error de inicio de sesión aquí si es necesario
-          })
-      }
+      onClick={() => signIn("google")}
       style={{
         maxWidth: "320px",
         display: "flex",

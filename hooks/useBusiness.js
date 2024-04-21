@@ -1,12 +1,13 @@
 import axios from "axios";
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
+import useSWR from "swr";
 
 import useUser from "./useUser";
 
 export const useActualBusiness = () => {
-  const { actualUser } = useUser();
-  const { email } = actualUser || {};
+  const { user } = useUser();
+  const { email } = user || "";
   const [actualBusiness, setActualBusiness] = useState(() => {
     try {
       const savedBusinessData = sessionStorage.getItem("businessInfo");
@@ -15,6 +16,7 @@ export const useActualBusiness = () => {
   });
 
   useEffect(() => {
+    console.log(actualBusiness);
     if (!actualBusiness && email) {
       getUserBusinessAccess()
         .then((businesses) => {

@@ -15,8 +15,6 @@ export const useUser = () => {
   const signOutUser = () => {
     signOut()
       .then(() => {
-        console.log("Signed out");
-        //Force redirect to / page
         window.location.href = "/";
       })
       .catch((error) => {

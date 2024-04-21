@@ -29,6 +29,8 @@ const handler = NextAuth({
         family_name: string;
         picture: string;
       };
+      console.log("Sing in callback");
+
       try {
         const response = await axios.post(`${API_URL}/api/user/exist`, {
           email: email,
@@ -53,9 +55,12 @@ const handler = NextAuth({
     },
     //Redirect to the dashboard after sign in
     async redirect({ baseUrl }) {
+      console.log("Redirecting to businessAccess");
+
       return Promise.resolve(baseUrl + "/businessAccess");
     },
   },
+  debug: true,
 });
 
 export { handler as GET, handler as POST };

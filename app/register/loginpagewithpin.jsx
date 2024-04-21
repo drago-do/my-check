@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Container from "../../components/general/Container";
-import UserList from "../../components/login/UserSelect";
 import PasswordField from "../../components/login/PasswordField";
 
 const correct = false;
@@ -46,7 +45,7 @@ export default function Login() {
 
   return (
     <Container>
-      <UserList handleUserChange={handleUserChange} error={error} />
+      {/* <UserList handleUserChange={handleUserChange} error={error} /> */}
       <PasswordField handlePin={handlePin} error={error} />
     </Container>
   );
