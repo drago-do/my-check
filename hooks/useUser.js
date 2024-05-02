@@ -8,8 +8,8 @@ export const useUser = () => {
   const { data: session } = useSession();
   const {
     data: user,
-    error,
-    isLoading,
+    error: userError,
+    isLoading: userIsLoading,
   } = useSWR(`/api/v1/user/get-one/${session?.user?.email}`);
 
   const signOutUser = () => {
@@ -49,8 +49,8 @@ export const useUser = () => {
 
   return {
     user,
-    error,
-    isLoading,
+    userError,
+    userIsLoading,
     signOutUser,
     createNewUser,
   };

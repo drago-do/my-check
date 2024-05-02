@@ -11,7 +11,7 @@ export default function BusinessInvitations() {
     useBusiness();
 
   useEffect(() => {
-    console.log(businessInvitations);
+    console.log(businessInvitations?.businesses?.length);
   }, [businessInvitations]);
 
   if (isLoadingInvitations) {
@@ -23,14 +23,25 @@ export default function BusinessInvitations() {
     );
   }
   if (errorInvitations) {
-    console.log(errorInvitations);
+    return (
+      <div className="w-full flex flex-col flex-nowrap justify-center dark:bg-gray-700 rounded-md">
+        <MaterialIcon
+          iconName="error"
+          className="text-8xl text-center"
+          fontSize={55}
+        />
+        <Typography variant="p" className="text-center">
+          Error al cargar las invitaciones de negocio
+        </Typography>
+      </div>
+    );
   }
 
   return (
     <div>
       <Typography variant="subtitle"> Invitaciones de negocio</Typography>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-content-evenly ">
-        {businessInvitations ? (
+        {businessInvitations?.businesses?.length !== 0 ? (
           businessInvitations?.businesses?.map((invitation) => (
             <BusinessCardInvitation data={invitation} key={invitation._id} />
           ))

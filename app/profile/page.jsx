@@ -6,18 +6,45 @@ import Badge from "@/components/general/Badge";
 import useUser from "@/hooks/useUser";
 import Skeleton from "@/components/general/Skeleton";
 import useActualBusiness from "@/hooks/useBusiness";
+import useBusiness from "@/hooks/useBusiness";
 
 export default function Profile() {
-  const { actualUser } = useUser();
-  const [actualUserState, setActualUserState] = useState(null);
-  useEffect(() => {
-    setActualUserState(actualUser);
-  }, [actualUser]);
+  const { user, userError, userIsLoading } = useUser();
+
+  if (userIsLoading) {
+    return (
+      <>
+        <div className="w-full flex flex-nowrap">
+          <div className="w-16 h-16 mr-6 md:mr-16 bg-cover">
+            <Skeleton variant="image" className="rounded-lg" />
+          </div>
+          <div className="flex flex-col flex-nowrap justify-between">
+            <Skeleton variant="subtitle" className="rounded-lg" />
+            <Skeleton variant="caption" className="rounded-lg" />
+          </div>
+        </div>
+        <div className="flex flex-col flex-nowrap justify-between mt-6">
+          <Skeleton variant="subtitle" />
+          <Skeleton variant="caption" />
+        </div>
+      </>
+    );
+  }
+
+  if (userError) {
+    return (
+      <div className="w-full flex flex-nowrap">
+        <Typography variant={"p"}>
+          Error al cargar la información del usuario
+        </Typography>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col w-full">
-      <ProfileHeader userInfo={actualUserState} />
-      <DetailedInfo userInfo={actualUserState} />
+      <ProfileHeader userInfo={user} />
+      <DetailedInfo userInfo={user} />
     </div>
   );
 }
@@ -26,30 +53,17 @@ const ProfileHeader = ({ userInfo }) => (
   <>
     <div className="w-full flex flex-nowrap">
       <div className="w-16 h-16 mr-6 md:mr-16 bg-cover">
-        {userInfo?.image ? (
-          <ImageViewer
-            fotoData={userInfo.image}
-            className="rounded-lg"
-            alt="user image"
-          />
-        ) : (
-          <Skeleton variant="image" className="rounded-lg" />
-        )}
+        <ImageViewer
+          fotoData={userInfo.image}
+          className="rounded-lg"
+          alt="user image"
+        />
       </div>
       <div className="flex flex-col flex-nowrap justify-between">
-        {userInfo ? (
-          <>
-            <Typography variant={"p"}>
-              {userInfo.firstName} {userInfo.lastName}
-            </Typography>
-            <Typography variant={"caption"}>{userInfo.email}</Typography>
-          </>
-        ) : (
-          <>
-            <Skeleton variant="subtitle" className="rounded-lg" />
-            <Skeleton variant="caption" className="rounded-lg" />
-          </>
-        )}
+        <Typography variant={"p"}>
+          {userInfo.firstName} {userInfo.lastName}
+        </Typography>
+        <Typography variant={"caption"}>{userInfo.email}</Typography>
       </div>
     </div>
   </>
@@ -70,17 +84,12 @@ const DetailedInfo = ({ userInfo }) => {
 
   return (
     <>
-      {userInfo && role ? (
+      {userInfo && role && (
         <div className="flex flex-col flex-nowrap justify-between mt-6">
           <Typography variant={"subtitle"}>Rol</Typography>
           <div className="w-full">
             <Badge color={"yellow"}>{role}</Badge>
           </div>
-        </div>
-      ) : (
-        <div className="flex flex-col flex-nowrap justify-between mt-6">
-          <Skeleton variant="subtitle" />
-          <Skeleton variant="caption" />
         </div>
       )}
     </>

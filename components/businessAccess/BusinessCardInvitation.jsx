@@ -11,13 +11,9 @@ const BusinessCardInvitation = ({ data }) => {
   const { role, email, _id: _idInvitation } = invitedUser;
   const [loading, setLoading] = useState(false);
 
-  const handleLocalAccept = () => {
-    handleAccept({ _id: _id, email: email, role: role });
-  };
-
-  const handleAccept = (invitation) => {
+  const handleAccept = () => {
     setLoading(true);
-    acceptBusinessInvitation({ _id: _idInvitation, email: email, role: role })
+    acceptBusinessInvitation({ _id: _idBusiness, email: email, role: role })
       .then((_) => {
         //Recargar la página
         window.location.reload();
@@ -29,7 +25,7 @@ const BusinessCardInvitation = ({ data }) => {
   };
 
   const handleDecline = (invitation) => {
-   //TODO implement decline invitation logic
+    //TODO implement decline invitation logic
     console.log("Declinar", invitation);
   };
 
@@ -61,7 +57,7 @@ const BusinessCardInvitation = ({ data }) => {
             className="py-2"
             variant="green"
             onLoading={loading}
-            onClick={handleLocalAccept}
+            onClick={handleAccept}
           >
             <MaterialIcon iconName="done" /> Aceptar
           </ButtonFunction>
@@ -69,7 +65,7 @@ const BusinessCardInvitation = ({ data }) => {
             className="py-2"
             variant="red"
             onLoading={loading}
-            onClick={handleAccept}
+            onClick={handleDecline}
           >
             <MaterialIcon iconName="cancel" />
             Declinar
