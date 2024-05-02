@@ -3,34 +3,35 @@ import ImageViewer from "../general/ImageViewer";
 import Badge from "../general/Badge";
 import ButtonFunction from "../general/ButtonFunction";
 import MaterialIcon from "../general/MaterialIcon";
+import useBusiness from "../../hooks/useBusiness";
 
-const BusinessCardInvitation = ({
-  data,
-  userEmail,
-  handleAccept,
-  handleDecline,
-}) => {
-  const { name, description, logo, invitedUser, _id } = data;
+const BusinessCardInvitation = ({ data }) => {
+  const { acceptBusinessInvitation } = useBusiness();
+  const { name, description, logo, invitedUser, _id: _idBusiness } = data;
+  const { role, email, _id: _idInvitation } = invitedUser;
   const [loading, setLoading] = useState(false);
-  const [role, setRole] = useState("");
-  //Function para recuperar el rol del usuario invitado
-  const getRole = () => {
-    let role = "";
-    invitedUser.forEach((user) => {
-      if (user.email === userEmail) {
-        role = user.role;
-      }
-    });
-    return role;
-  };
 
   const handleLocalAccept = () => {
-    handleAccept({ _id: _id, email: userEmail, role: role });
+    handleAccept({ _id: _id, email: email, role: role });
   };
 
-  useEffect(() => {
-    setRole(getRole());
-  }, []);
+  const handleAccept = (invitation) => {
+    setLoading(true);
+    acceptBusinessInvitation({ _id: _idInvitation, email: email, role: role })
+      .then((_) => {
+        //Recargar la página
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  };
+
+  const handleDecline = (invitation) => {
+   //TODO implement decline invitation logic
+    console.log("Declinar", invitation);
+  };
 
   return (
     <div className=" bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

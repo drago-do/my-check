@@ -14,37 +14,16 @@ export const useActualBusiness = () => {
       return savedBusinessData ? JSON.parse(savedBusinessData) : null;
     } catch (_) {}
   });
-
-  useEffect(() => {
-    console.log(actualBusiness);
-    if (!actualBusiness && email) {
-      getUserBusinessAccess()
-        .then((businesses) => {
-          if (businesses.length > 0) {
-            setActualBusiness(businesses[0]);
-            sessionStorage.setItem(
-              "businessInfo",
-              JSON.stringify(businesses[0])
-            );
-          }
-        })
-        .catch((error) => console.error("Failed to fetch businesses:", error));
-    }
-  }, [email, actualBusiness]);
-
-  const getUserBusinessInvitations = async () => {
-    try {
-      const response = await axios.get(
-        `/api/v1/business/user-invited/${email}`
-      );
-      return response.data.data;
-    } catch (error) {
-      toast.error("Error al obtener invitaciones", {
-        description: `Parece que hubo un error. ${error.message}`,
-      });
-      throw error;
-    }
-  };
+  const {
+    data: businessesAccess,
+    error: errorBusinessesAccess,
+    isLoading: isLoadingBusinessesAccess,
+  } = useSWR(email ? `/api/v1/user/business-access/${email}` : null);
+  const {
+    data: businessInvitations,
+    error: errorInvitations,
+    isLoading: isLoadingInvitations,
+  } = useSWR(email ? `/api/v1/business/user-invited/${email}` : null);
 
   const acceptBusinessInvitation = async (businessObjetInvitation) => {
     try {
@@ -55,18 +34,6 @@ export const useActualBusiness = () => {
       return response.data.data;
     } catch (error) {
       toast.error("Error al aceptar la invitación", {
-        description: `Parece que hubo un error. ${error.message}`,
-      });
-      throw error;
-    }
-  };
-
-  const getUserBusinessAccess = async () => {
-    try {
-      const response = await axios.get(`/api/v1/user/business-access/${email}`);
-      return response.data.data;
-    } catch (error) {
-      toast.error("Error al obtener accesos", {
         description: `Parece que hubo un error. ${error.message}`,
       });
       throw error;
@@ -91,11 +58,15 @@ export const useActualBusiness = () => {
   };
 
   return {
+    businessesAccess,
+    errorBusinessesAccess,
+    isLoadingBusinessesAccess,
+    businessInvitations,
+    errorInvitations,
+    isLoadingInvitations,
     actualBusiness,
     setActualBusiness,
-    getUserBusinessInvitations,
     acceptBusinessInvitation,
-    getUserBusinessAccess,
     choseActualBusiness,
   };
 };

@@ -17,8 +17,7 @@ export async function GET(
         select: "name description category logo",
       });
     return NextResponse.json({
-      success: true,
-      data: userAreAccessTo,
+      permissions: userAreAccessTo?.permissions,
     });
   } catch (error: any) {
     return NextResponse.json({

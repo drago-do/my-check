@@ -6,23 +6,10 @@ import Typography from "../general/Typography";
 import MaterialIcon from "../general/MaterialIcon";
 
 export default function BusinessAccess() {
-  const { getUserBusinessAccess } = useBusiness();
-  const [loading, setLoading] = useState(true);
-  const [userAccessBusiness, setUserAccessBusiness] = useState([]);
+  const { businessesAccess, errorBusinessesAccess, isLoadingBusinessesAccess } =
+    useBusiness();
 
-  useEffect(() => {
-    getUserBusinessAccess()
-      .then((accessBusiness) => {
-        setUserAccessBusiness(accessBusiness);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.error(error);
-      });
-  }, []);
-
-  if (loading) {
+  if (isLoadingBusinessesAccess) {
     return (
       <>
         <Typography variant="subtitle"> Accesos actuales</Typography>
@@ -31,15 +18,33 @@ export default function BusinessAccess() {
     );
   }
 
+  if (errorBusinessesAccess) {
+    return (
+      <>
+        <Typography variant="subtitle"> Accesos actuales</Typography>
+        <div className="w-full flex flex-col flex-nowrap justify-center dark:bg-gray-700 rounded-md my-4">
+          <MaterialIcon
+            iconName="error"
+            className="text-8xl text-center"
+            fontSize={55}
+          />
+          <Typography variant="p" className="text-center">
+            Hubo un error al cargar los accesos
+          </Typography>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div>
       <Typography variant="subtitle"> Accesos actuales</Typography>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-content-evenly ">
-        {userAccessBusiness && userAccessBusiness?.permissions?.length > 0 ? (
-          userAccessBusiness?.permissions.map((accessInfo) => (
+        {businessesAccess && businessesAccess?.permissions?.length > 0 ? (
+          businessesAccess?.permissions.map((accessInfo) => (
             <BusinessCardAccess
               data={accessInfo}
-              userId={userAccessBusiness._id}
+              userId={businessesAccess._id}
               key={accessInfo._id}
             />
           ))

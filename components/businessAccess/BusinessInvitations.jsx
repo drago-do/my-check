@@ -7,41 +7,14 @@ import Typography from "../general/Typography";
 import MaterialIcon from "../general/MaterialIcon";
 
 export default function BusinessInvitations() {
-  const { getUserBusinessInvitations, acceptBusinessInvitation } =
+  const { businessInvitations, errorInvitations, isLoadingInvitations } =
     useBusiness();
-  const { actualUser } = useUser();
-  const [loading, setLoading] = useState(true);
-  const [userInvitations, setUserInvitations] = useState([]);
+
   useEffect(() => {
-    if (actualUser) {
-      getUserBusinessInvitations(actualUser?.email)
-        .then((invitations) => {
-          setUserInvitations(invitations);
-          setLoading(false);
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.error(error);
-        });
-    }
-  }, []);
+    console.log(businessInvitations);
+  }, [businessInvitations]);
 
-  const handleAccept = (invitation) => {
-    acceptBusinessInvitation(invitation)
-      .then((response) => {
-        //Recargar la página
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  const handleDecline = (invitation) => {
-    console.log("Declinar", invitation);
-  };
-
-  if (loading) {
+  if (isLoadingInvitations) {
     return (
       <>
         <Typography variant="subtitle"> Invitaciones de negocio</Typography>
@@ -49,20 +22,17 @@ export default function BusinessInvitations() {
       </>
     );
   }
+  if (errorInvitations) {
+    console.log(errorInvitations);
+  }
 
   return (
     <div>
       <Typography variant="subtitle"> Invitaciones de negocio</Typography>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-content-evenly ">
-        {userInvitations && userInvitations.length > 0 ? (
-          userInvitations.map((invitation) => (
-            <BusinessCardInvitation
-              data={invitation}
-              key={invitation._id}
-              userEmail={actualUser?.email}
-              handleAccept={handleAccept}
-              handleDecline={handleDecline}
-            />
+        {businessInvitations ? (
+          businessInvitations?.businesses?.map((invitation) => (
+            <BusinessCardInvitation data={invitation} key={invitation._id} />
           ))
         ) : (
           <div className="w-full flex flex-col flex-nowrap justify-center dark:bg-gray-700 rounded-md">
