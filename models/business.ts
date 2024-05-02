@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import Image, { IImage } from "./imageCommon";
+
 
 const locationSchema = new mongoose.Schema({
   address: { type: String, required: true },
@@ -49,16 +51,6 @@ const reviewSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
 });
 
-const imageSchema = new mongoose.Schema({
-  data: { type: Buffer, default: "" },
-  contentType: { type: String, default: "" },
-  url: { type: Boolean, default: true },
-  link: {
-    type: String,
-    default: "/defaultProfile.jpg",
-  },
-});
-
 const businessSchema = new mongoose.Schema({
   created_by: {
     type: mongoose.Schema.Types.ObjectId,
@@ -82,8 +74,8 @@ const businessSchema = new mongoose.Schema({
   category: { type: String, required: true },
   location: { type: locationSchema, required: true },
   schedules: [{ type: scheduleSchema, required: true }],
-  menu: [{ type: imageSchema }],
-  logo: { type: imageSchema },
+  menu: [{ type: Image }],
+  logo: { type: Image },
   rating: { type: Number, min: 1, max: 5 },
   reviews: [{ type: reviewSchema }],
   website: { type: String },

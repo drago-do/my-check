@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Image, { IImage } from "./imageCommon";
 
 const userPermissions = new mongoose.Schema({
   role: { type: String, required: true },
@@ -24,15 +25,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: Number, required: true, match: /^[0-9]{4}$/ },
   permissions: [userPermissions],
-  image: {
-    data: { type: Buffer, default: "" },
-    contentType: { type: String, default: "" },
-    url: { type: Boolean, default: true },
-    link: {
-      type: String,
-      default: "/defaultProfile.jpg",
-    },
-  },
+  image: Image,
   creationDate: { type: Date, default: Date.now },
   updateDate: { type: Date, default: Date.now },
 });

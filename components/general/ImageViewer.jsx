@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const ImageViewer = ({ fotoData, className, alt }) => {
+const ImageViewer = ({ fotoData, className, alt, priority = false }) => {
   return (
     <Image
       className={className}
@@ -16,6 +16,7 @@ const ImageViewer = ({ fotoData, className, alt }) => {
       width={500}
       height={500}
       style={{ objectFit: "cover", width: "100%", height: "100%" }}
+      priority={priority}
     />
   );
 };

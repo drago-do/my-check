@@ -35,6 +35,7 @@ export default function Home() {
             fotoData={businessPicture}
             alt="Logo restaurant-bar"
             className="rounded-xl w-full h-34 object-cover"
+            priority
           />
         </Link>
       </Container>
