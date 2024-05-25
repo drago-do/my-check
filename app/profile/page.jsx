@@ -7,9 +7,15 @@ import useUser from "@/hooks/useUser";
 import Skeleton from "@/components/general/Skeleton";
 import useActualBusiness from "@/hooks/useBusiness";
 import useBusiness from "@/hooks/useBusiness";
+import ValidateBusinessSelected from "@/components/businessAccess/ValidateBusinessSelected";
 
 export default function Profile() {
+  const { istABusinessSelected } = useBusiness();
   const { user, userError, userIsLoading } = useUser();
+
+  if (!istABusinessSelected()) {
+    return <ValidateBusinessSelected />;
+  }
 
   if (userIsLoading) {
     return (

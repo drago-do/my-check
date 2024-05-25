@@ -9,10 +9,13 @@ import PendentTickets from "@/components/index/PendentTickets";
 import CompleteTickets from "@/components/index/CompleteTickets";
 import SwipeDrawer from "@/components/general/SwipeDrawer";
 import MaterialIcon from "@/components/general/MaterialIcon";
+import ValidateBusinessSelected from "@/components/businessAccess/ValidateBusinessSelected";
+import useBusiness from "@/hooks/useBusiness";
 
 import useOrderList from "@/hooks/useOrderList";
 import useActualBusiness from "@/hooks/useBusiness";
 export default function Home() {
+  const { istABusinessSelected } = useBusiness();
   const { actualBusiness } = useActualBusiness();
   const [businessPicture, setBusinessPicture] = useState({
     url: true,
@@ -25,6 +28,10 @@ export default function Home() {
   useEffect(() => {
     actualBusiness?.logo && setBusinessPicture(actualBusiness?.logo);
   }, [actualBusiness]);
+
+  if (!istABusinessSelected()) {
+    return <ValidateBusinessSelected />;
+  }
 
   return (
     <>

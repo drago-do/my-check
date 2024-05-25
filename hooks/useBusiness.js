@@ -1,3 +1,4 @@
+"use client";
 import axios from "axios";
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
@@ -57,6 +58,10 @@ export const useActualBusiness = () => {
     }
   };
 
+  const istABusinessSelected = () => {
+    return actualBusiness ? true : false;
+  };
+
   return {
     businessesAccess,
     errorBusinessesAccess,
@@ -68,6 +73,7 @@ export const useActualBusiness = () => {
     setActualBusiness,
     acceptBusinessInvitation,
     choseActualBusiness,
+    istABusinessSelected,
   };
 };
 

@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { Image, IImage } from "./../imageCommon";
+import Image, { IImage } from "./../imageCommon";
 
 // Define la interfaz para el tipo de documento Category
 export interface ICategory extends Document {

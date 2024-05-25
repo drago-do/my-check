@@ -1,8 +1,18 @@
+"use client";
 import React from "react";
 import ButtonLink from "@/components/general/ButtonLink";
 import MaterialIcon from "@/components/general/MaterialIcon";
 import Typography from "@/components/general/Typography";
-export default function page() {
+import useBusiness from "@/hooks/useBusiness";
+import ValidateBusinessSelected from "@/components/businessAccess/ValidateBusinessSelected";
+
+export default function Page() {
+  const { istABusinessSelected } = useBusiness();
+
+  if (!istABusinessSelected()) {
+    return <ValidateBusinessSelected />;
+  }
+
   return (
     <div className="flex flex-col flex-nowrap w-full">
       <Typography variant={"title"}>Configuraciones</Typography>

@@ -8,7 +8,7 @@ export const config = {
     "/prepare/:path*",
     "/profile/:path*",
     "/settings/:path*",
-    "/businessAccess/:path*",
+    //"/businessAccess/:path*",
     // "/api/v1/:path*",
   ],
 };
