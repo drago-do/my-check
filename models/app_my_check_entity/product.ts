@@ -10,13 +10,13 @@ export interface IUnitMeasurementAndPrice extends Document {
     | "g"
     | "l"
     | "ml"
-    | "unit"
+    | "unidad"
     | "oz"
     | "fl oz"
-    | "cup"
-    | "bottle"
+    | "taza"
+    | "botella"
     | "shot"
-    | "pack";
+    | "paquete";
 }
 
 // Define el esquema para UnitMeasurementAndPrice
@@ -31,13 +31,13 @@ const unitMeasurementAndPriceSchema: Schema = new Schema({
       "g",
       "l",
       "ml",
-      "unit",
+      "unidad",
       "oz",
       "fl oz",
-      "cup",
-      "bottle",
+      "taza",
+      "botella",
       "shot",
-      "pack",
+      "paquete",
     ],
   },
 });

@@ -3,6 +3,7 @@ import { connect } from "@/lib/mongodb"; // Importando la función connect del a
 import userSchema from "./user";
 import businessSchema from "./business";
 import categorySchema from "./app_my_check_entity/category";
+import productSchema from "./app_my_check_entity/product";
 
 export const getUserModel = async () => {
   const dbName = "App_MyCheck"; // Define el nombre de la DB para el modelo Usuario
@@ -26,4 +27,10 @@ export const getBusinessModel = async () => {
 export const getCategoriesModel = async (dbName: string) => {
   const connection = await connect(dbName);
   return connection.model("Category", categorySchema);
+};
+
+//GetProductModel
+export const getProductModel = async (dbName: string) => {
+  const connection = await connect(dbName);
+  return connection.model("Product", productSchema);
 };

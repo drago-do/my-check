@@ -78,9 +78,14 @@ export async function DELETE(
     const response = await CategoriesModel.findByIdAndDelete(params.idCategory);
 
     if (!response) {
-      return NextResponse.json({
-        error: "Category not found",
-      });
+      return NextResponse.json(
+        {
+          error: "Category not found",
+        },
+        {
+          status: 500,
+        }
+      );
     }
 
     return NextResponse.json({
