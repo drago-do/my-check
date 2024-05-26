@@ -3,16 +3,22 @@ import MaterialIcons from "../../general/MaterialIcon";
 import Typography from "../../general/Typography";
 import ButtonFunction from "../../general/ButtonFunction";
 import ImageViewer from "../../general/ImageViewer";
+import useCategories from "../../../hooks/useCategories";
 export default function DeleteCategoryForm({ handleClose, categoriesInfo }) {
+  const { deleteCategory } = useCategories();
   const [loading, setLoading] = useState(false);
+
   const handleDelete = () => {
-    //TODO realizar eliminado
     setLoading(true);
-    setTimeout(() => {
-      console.log("Eliminado");
-      setLoading(false);
-      handleClose();
-    }, 2000);
+    deleteCategory(categoriesInfo._id)
+      .then(() => {
+        setLoading(false);
+        handleClose();
+      })
+      .catch(() => {
+        setLoading(false);
+        handleClose();
+      });
   };
 
   return (

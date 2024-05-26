@@ -7,11 +7,12 @@ import CategoriesTable from "@/components/settings/products-and-categories/Categ
 import Modal from "@/components/general/Modal";
 import AddCategoryForm from "@/components/settings/products-and-categories/AddCategoryForm";
 import DeleteCategoryForm from "@/components/settings/products-and-categories/DeleteCategoryForm";
+import FullScreenLoader from "@/components/general/FullScreenLoader";
 
 import useCategories from "@/hooks/useCategories";
 
 export default function CategoriesPage() {
-  const { categories } = useCategories();
+  const { categories, categoriesError, categoriesIsLoading } = useCategories();
   const [addCategoryModal, setAddCategoryModal] = useState(false);
   const [deleteCategoryModal, setDeleteCategoryModal] = useState(false);
   const [categoryToAction, setCategoryToAction] = useState(null);
@@ -34,9 +35,28 @@ export default function CategoriesPage() {
     handleDeleteCategories();
   };
 
+  if (categoriesIsLoading) {
+    return <FullScreenLoader />;
+  }
+
+  if (categoriesError) {
+    return (
+      <div className="w-full flex flex-col flex-nowrap justify-center dark:bg-gray-700 rounded-md">
+        <MaterialIcon
+          iconName="error"
+          className="text-8xl text-center"
+          fontSize={55}
+        />
+        <Typography variant="p" className="text-center">
+          Error al cargar las categorías
+        </Typography>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col w-full">
-      <SearchField />
+      <SearchField list={categories} handleViewResult={handleEdit} />
       <Typography variant={"subtitle"}>Añade nuevos elementos</Typography>
       <section className="w-full flex justify-between flex-nowrap">
         <ButtonAdd

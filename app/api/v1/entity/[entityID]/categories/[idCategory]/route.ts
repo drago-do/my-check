@@ -55,10 +55,15 @@ export async function PUT(
       parent: response?.parent,
     });
   } catch (error: any) {
-    return NextResponse.json({
-      error: "Internal Server Error",
-      message: error.message,
-    });
+    return NextResponse.json(
+      {
+        error: "Internal Server Error",
+        message: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }
 
@@ -82,9 +87,14 @@ export async function DELETE(
       message: "Category deleted successfully",
     });
   } catch (error: any) {
-    return NextResponse.json({
-      error: "Internal Server Error",
-      message: error.message,
-    });
+    return NextResponse.json(
+      {
+        error: "Internal Server Error",
+        message: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }

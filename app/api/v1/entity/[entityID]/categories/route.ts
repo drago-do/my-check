@@ -12,10 +12,15 @@ export async function GET(
       categories,
     });
   } catch (error: any) {
-    return NextResponse.json({
-      error: "Internal Server Error",
-      message: error.message,
-    });
+    return NextResponse.json(
+      {
+        error: "Internal Server Error",
+        message: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }
 
@@ -36,9 +41,14 @@ export async function POST(
       response,
     });
   } catch (error: any) {
-    return NextResponse.json({
-      error: "Internal Server Error",
-      message: error.message,
-    });
+    return NextResponse.json(
+      {
+        error: "Internal Server Error",
+        message: error.message,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }

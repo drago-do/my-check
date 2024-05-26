@@ -59,7 +59,7 @@ export const useActualBusiness = () => {
   };
 
   const istABusinessSelected = () => {
-    return actualBusiness ? true : false;
+    return actualBusiness ? actualBusiness._id : false;
   };
 
   return {

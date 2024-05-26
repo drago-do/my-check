@@ -11,7 +11,7 @@ import MaterialIcon from "@/components/general/MaterialIcon";
 import useCategories from "../../../hooks/useCategories";
 
 export default function CategoriesForm({ handleClose, categoriesInfo }) {
-  const { categories } = useCategories();
+  const { categories, createCategory, updateCategory } = useCategories();
   const methods = useForm({ mode: "all" });
   const [loading, setLoading] = useState(false);
   const [categoriesOptions, _] = useState(
@@ -20,13 +20,30 @@ export default function CategoriesForm({ handleClose, categoriesInfo }) {
     })
   );
   const onSubmit = (data) => {
-    //TODO replace with real data transaction.
     setLoading(true);
-    setTimeout(() => {
-      console.log(data);
-      setLoading(false);
-      handleClose();
-    }, 3000);
+    if (categoriesInfo) {
+      updateCategory(categoriesInfo._id, data)
+        .then((response) => {
+          setLoading(false);
+          handleClose();
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+          handleClose();
+        });
+    } else {
+      createCategory(data)
+        .then((response) => {
+          setLoading(false);
+          handleClose();
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+          handleClose();
+        });
+    }
   };
 
   //!UploadPicture
@@ -105,7 +122,7 @@ export default function CategoriesForm({ handleClose, categoriesInfo }) {
         </ButtonFunction>
         <ButtonFunction type="submit" onLoading={loading}>
           <MaterialIcon iconName="category" />
-          Crear nueva categoría
+          {`${categoriesInfo ? "Actualizar" : "Crear nueva"}`} categoría
         </ButtonFunction>
       </div>
     </form>
