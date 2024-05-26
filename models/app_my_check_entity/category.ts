@@ -14,7 +14,7 @@ const categorySchema: Schema = new Schema({
   name: { type: String, required: true, unique: true },
   description: { type: String },
   image: Image,
-  parent: { type: Schema.Types.Mixed },
+  parent: { type: Schema.Types.ObjectId, ref: "categories" },
 });
 
 // Exporta el modelo utilizando el esquema
