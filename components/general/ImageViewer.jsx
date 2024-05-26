@@ -7,8 +7,8 @@ const ImageViewer = ({ fotoData, className, alt, priority = false }) => {
       className={className}
       src={
         fotoData
-          ? fotoData.url
-            ? fotoData.link
+          ? fotoData.contentType === "online"
+            ? fotoData.data
             : `data:${fotoData.contentType};base64, ${fotoData.data}`
           : "/404.png"
       }

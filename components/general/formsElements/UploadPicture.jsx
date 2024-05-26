@@ -37,7 +37,7 @@ export default function UploadPicture({
 
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedValue, setSelectedValue] = useState(
-    pictureData?.url ? "web" : "local"
+    pictureData?.contentType === "online" ? "web" : "local"
   );
 
   const handleClickDialog = (value) => {
@@ -69,7 +69,7 @@ export default function UploadPicture({
                 src={
                   selectedValue === "local"
                     ? `data:${fotoData.contentType};base64, ${fotoData.data}`
-                    : fotoData.link
+                    : fotoData.data
                 }
                 alt="Selected image"
                 width={200}
@@ -137,7 +137,6 @@ function LocalOrWebImage({ onClose, open, selectedValue }) {
 }
 
 const WebUploadDialog = ({ handleCloseDialog }) => {
-  //TODO, agregar hook del sistema para obtener imágenes de internet
   const { getImagesFromServer } = useSystem();
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState("inicio");
@@ -223,7 +222,7 @@ const RenderSearchResults = ({
   };
 
   const handleSelectImage = (image) => {
-    setFotoData({ data: "", contentType: "", url: true, link: image.url });
+    setFotoData({ data: image.url, contentType: "online" });
     handleCloseDialog();
   };
 
@@ -309,7 +308,7 @@ function LocalUploadDialog({ handleCloseDialog }) {
     let foto = await files[0].file.arrayBuffer();
     //Convertir foto a base64
     foto = arrayBufferToBase64(foto);
-    setFotoData({ data: foto, contentType: files[0].file.type, url: false });
+    setFotoData({ data: foto, contentType: files[0].file.type });
     handleCloseDialog();
   };
 
@@ -328,7 +327,6 @@ function LocalUploadDialog({ handleCloseDialog }) {
   const updateFile = (newFiles) => {
     // Establece el nuevo estado de los archivos
     setFiles(newFiles);
-
     // Comprueba la validez del archivo, por ejemplo, por tipo MIME si es una imagen
     const isValid = newFiles.every((file) => file.type.startsWith("image/"));
     setIsFileTypeValid(isValid);
