@@ -7,12 +7,12 @@ import ProductsTable from "@/components/settings/products-and-categories/Product
 import Modal from "@/components/general/Modal";
 import AddProductForm from "@/components/settings/products-and-categories/AddProductForm";
 import DeleteProductForm from "@/components/settings/products-and-categories/DeleteProductForm";
-
+import FullScreenLoader from "@/components/general/FullScreenLoader";
 
 import useProducts from "@/hooks/useProducts";
 
 export default function ProductsPage() {
-  const { products: Products } = useProducts();
+  const { products, productsError, productsIsLoading } = useProducts();
   const [addProductModal, setAddProductModal] = useState(false);
   const [deleteProductModal, setDeleteProductModal] = useState(false);
   const [productToAction, setProductToAction] = useState(null);
@@ -36,9 +36,28 @@ export default function ProductsPage() {
     handleDeleteProduct();
   };
 
+  if (productsIsLoading) {
+    return <FullScreenLoader />;
+  }
+
+  if (productsError) {
+    return (
+      <div className="w-full flex flex-col flex-nowrap justify-center dark:bg-gray-700 rounded-md">
+        <MaterialIcon
+          iconName="error"
+          className="text-8xl text-center"
+          fontSize={55}
+        />
+        <Typography variant="p" className="text-center">
+          Error al cargar los productos
+        </Typography>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col w-full">
-      <SearchField />
+      <SearchField list={products} handleViewResult={handleEdit} />
       <Typography variant={"subtitle"}>Añade nuevos elementos</Typography>
       <section className="w-full flex justify-between flex-nowrap">
         <ButtonAdd
@@ -48,7 +67,7 @@ export default function ProductsPage() {
         />
       </section>
       <ProductsTable
-        products={Products}
+        products={products}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />

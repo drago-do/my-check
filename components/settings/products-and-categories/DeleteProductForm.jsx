@@ -3,16 +3,20 @@ import MaterialIcons from "./../../general/MaterialIcon";
 import Typography from "./../../general/Typography";
 import ButtonFunction from "./../../general/ButtonFunction";
 import ImageViewer from "./../../general/ImageViewer";
+import useProducts from "@/hooks/useProducts";
 export default function DeleteProductForm({ handleClose, productInfo }) {
+  const { deleteProduct } = useProducts();
   const [loading, setLoading] = useState(false);
   const handleDelete = () => {
-    //TODO realizar eliminado
     setLoading(true);
-    setTimeout(() => {
-      console.log("Eliminado");
-      setLoading(false);
-      handleClose();
-    }, 2000);
+    deleteProduct(productInfo._id)
+      .then(() => {
+        setLoading(false);
+        handleClose();
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -21,7 +25,11 @@ export default function DeleteProductForm({ handleClose, productInfo }) {
       <Typography>
         ¿Estas seguro que deseas eliminar {productInfo.name}?
       </Typography>
-      <ImageViewer fotoData={productInfo.image} className="rounded-lg my-3" />
+      <ImageViewer
+        fotoData={productInfo.image}
+        className="rounded-lg my-3"
+        alt={productInfo.name}
+      />
       <div className="flex flex-nowrap">
         <ButtonFunction type="button" variant="light" onClick={handleClose}>
           No, cancelar

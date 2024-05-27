@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getProductModel } from "@/models/index";
+import { getProductModel, getCategoriesModel } from "@/models/index";
 
 //Get All products
 export async function GET(
@@ -7,8 +7,12 @@ export async function GET(
   { params }: { params: { entityID: string } }
 ) {
   try {
+    const CategoriesModel = await getCategoriesModel(params.entityID);
     const ProductsModel = await getProductModel(params.entityID);
-    const products = await ProductsModel.find();
+    const products = await ProductsModel.find().populate({
+      path: "category",
+      model: CategoriesModel,
+    });
     return NextResponse.json({
       products,
     });

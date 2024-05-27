@@ -62,12 +62,22 @@ const ProductsTable = ({ products, onEdit, onDelete }) => {
                   {product.name}
                 </td>
                 <td className="px-6 py-2">
-                  ${product.UnitMeasurementAndPrice.price} por{" "}
-                  {product.UnitMeasurementAndPrice.size}{" "}
-                  {product.UnitMeasurementAndPrice.UnitMeasurement}
+                  <ul>
+                    {product.UnitMeasurementAndPrice.map(
+                      (unitMeasurementAndPrice, index) => (
+                        <li key={index} className="list-disc whitespace-nowrap">
+                          ${unitMeasurementAndPrice.price} por{" "}
+                          {unitMeasurementAndPrice.size}{" "}
+                          {unitMeasurementAndPrice.UnitMeasurement}
+                        </li>
+                      )
+                    )}
+                  </ul>
                 </td>
                 <td className="px-6 py-2">{product.units}</td>
-                <td className="px-6 py-2">Pomos</td>
+                <td className="px-6 py-2">
+                  {product?.category?.name || "Sin categoría"}
+                </td>
                 <td className="flex items-center px-6 py-2">
                   <button
                     onClick={() => onEdit(product)}
