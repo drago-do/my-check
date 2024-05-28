@@ -6,11 +6,20 @@ import FilterByRole from "@/components/settings/users/FilterByRole";
 import MaterialIcon from "@/components/general/MaterialIcon";
 import UserForm from "@/components/settings/users/UserForm";
 import Modal from "@/components/general/Modal";
+import useUser from "@/hooks/useUser";
+import useBusiness from "@/hooks/useBusiness";
+import { thisUserIsAdmin } from "@/utils/userUtils";
+import FullScreenLoader from "@/components/general/FullScreenLoader";
+import ButtonLink from "@/components/general/ButtonLink";
 
 export default function UsersPage() {
+  const { getUserPermissions } = useUser();
+  const { actualBusiness } = useBusiness();
   // const { usersList, getUserPerRole } = useUsersList();
   // const [userListState, setUserListState] = useState(usersList);
   const [addUserModal, setAddUserModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState("");
 
   const handleFilterChange = (role) => {
     if (role === "all") {
@@ -23,6 +32,42 @@ export default function UsersPage() {
   const handleAddUser = () => {
     setAddUserModal(!addUserModal);
   };
+
+  //Check if user can access to this page
+  useEffect(() => {
+    const permissions = getUserPermissions();
+    const businessId = actualBusiness?._id;
+    if (!permissions || !businessId) {
+      window.location.href = "/";
+    }
+    if (!thisUserIsAdmin(permissions, businessId)) {
+      setIsError("No tienes permisos para acceder a esta página");
+      setIsLoading(false);
+    } else {
+      setIsLoading(false);
+    }
+  }, [getUserPermissions(), actualBusiness]);
+
+  if (isLoading) {
+    return <FullScreenLoader />;
+  }
+
+  if (isError) {
+    return (
+      <>
+        <Typography variant={"title"}>Error</Typography>
+        <Typography variant={"p"}>{isError}</Typography>
+        <div className="w-full sm:w-1/2 ">
+          <ButtonLink
+            title="Regresar"
+            subtitle="Regresar a la pagina principal"
+            href="/main"
+            icon={<MaterialIcon iconName="home" />}
+          />
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="flex flex-col flex-nowrap w-full">

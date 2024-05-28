@@ -11,7 +11,7 @@ export const useActualBusiness = () => {
   const { email } = user || "";
   const [actualBusiness, setActualBusiness] = useState(() => {
     try {
-      const savedBusinessData = sessionStorage.getItem("businessInfo");
+      const savedBusinessData = localStorage.getItem("businessInfo");
       return savedBusinessData ? JSON.parse(savedBusinessData) : null;
     } catch (_) {}
   });
@@ -45,10 +45,7 @@ export const useActualBusiness = () => {
     try {
       const response = await axios.get(`/api/v1/business/crud/${_idBusiness}`);
       setActualBusiness(response.data.data);
-      sessionStorage.setItem(
-        "businessInfo",
-        JSON.stringify(response.data.data)
-      );
+      localStorage.setItem("businessInfo", JSON.stringify(response.data.data));
       return response.data.data;
     } catch (error) {
       toast.error("Error al obtener el negocio", {

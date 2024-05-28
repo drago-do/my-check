@@ -47,12 +47,17 @@ export const useUser = () => {
     }
   };
 
+  const getUserPermissions = () => {
+    return user?.permissions || [];
+  };
+
   return {
     user,
     userError,
     userIsLoading,
     signOutUser,
     createNewUser,
+    getUserPermissions,
   };
 };
 
