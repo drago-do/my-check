@@ -36,6 +36,10 @@ export async function POST(
 ) {
   try {
     const productData = await request.json();
+    //Delete productData.category if it is empty
+    if (productData.category === "") {
+      delete productData.category;
+    }
 
     const ProductsModel = await getProductModel(params.entityID);
 

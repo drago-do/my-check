@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -36,17 +36,20 @@ export default function RootLayout({
         <Provider store={store}>
           <SessionProvider>
             <body className={`${inter.className}`}>
-              {!isIndex && <NavBar />}
-              <Container className={"mt-10 pt-12"}>
-                {!isIndex && (
-                  <div className="w-full flex justify-around">
-                    <BreadCrumb />
-                  </div>
-                )}
-                <main className="flex flex-col flex-nowrap w-full px-2 pb-2 md:px-4 md:pb-4">
-                  {children}
-                </main>
-              </Container>
+              <Suspense fallback={<div>Loading...</div>}>
+                {!isIndex && <NavBar />}
+                <Container className={"mt-10 pt-12"}>
+                  {!isIndex && (
+                    <div className="w-full flex justify-around">
+                      <BreadCrumb />
+                    </div>
+                  )}
+                  <main className="flex flex-col flex-nowrap w-full px-2 pb-2 md:px-4 md:pb-4">
+                    {children}
+                  </main>
+                </Container>
+              </Suspense>
+
               <Toaster richColors closeButton />
             </body>
           </SessionProvider>

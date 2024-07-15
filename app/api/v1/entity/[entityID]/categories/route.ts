@@ -31,6 +31,10 @@ export async function POST(
 ) {
   try {
     const categoryData = await request.json();
+    //Delete categoryData.parent if is a empty string
+    if (categoryData.parent === "") {
+      categoryData.parent = null;
+    }
 
     const CategoriesModel = await getCategoriesModel(params.entityID);
 

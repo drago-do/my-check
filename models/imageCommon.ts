@@ -12,7 +12,7 @@ export interface IImage extends Document {
 const Image = new Schema<IImage>({
   data: {
     type: String,
-    default: "",
+    default: "/noimage.jpg",
   },
   contentType: {
     type: String,
