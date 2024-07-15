@@ -14,7 +14,7 @@ const colorRole = {
   cajero: "indigo",
 };
 
-export default function UserInvitedList({ userList }) {
+export default function UserInvitedList({ userList, fetchUserInvited }) {
   const [loading, setLoading] = useState(false);
   const { deleteUserInvitedToBusiness } = useActualBusiness();
 
@@ -22,6 +22,7 @@ export default function UserInvitedList({ userList }) {
     setLoading(true);
     try {
       await deleteUserInvitedToBusiness(email);
+      fetchUserInvited();
     } catch (error) {
       console.log(error);
     } finally {
