@@ -3,18 +3,24 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
-
+import { useRouter } from "next/navigation";
 import useUser from "./useUser";
 
+const getSavedBusinessData = () => {
+  try {
+    const savedBusinessData = localStorage.getItem("businessInfo");
+    return savedBusinessData ? JSON.parse(savedBusinessData) : null;
+  } catch (_) {
+    return null;
+  }
+};
+
 export const useActualBusiness = () => {
+  const { push } = useRouter();
   const { user } = useUser();
   const { email } = user || "";
-  const [actualBusiness, setActualBusiness] = useState(() => {
-    try {
-      const savedBusinessData = localStorage.getItem("businessInfo");
-      return savedBusinessData ? JSON.parse(savedBusinessData) : null;
-    } catch (_) {}
-  });
+  const [actualBusiness, setActualBusiness] = useState(getSavedBusinessData);
+
   const {
     data: businessesAccess,
     error: errorBusinessesAccess,
@@ -59,6 +65,28 @@ export const useActualBusiness = () => {
     return actualBusiness ? actualBusiness._id : false;
   };
 
+  const getAllUsersWithAccesToBussines = async () => {
+    const bussines = getSavedBusinessData();
+    const bussinesID = bussines ? bussines._id : false;
+    if (!bussinesID) {
+      toast.error("Error", {
+        description: `Primero seleccione un negocio`,
+      });
+      return false;
+    }
+    try {
+      const response = await axios.get(
+        `/api/v1/business/${bussinesID}/user-with-access`
+      );
+      return response.data;
+    } catch (error) {
+      toast.error("Error al obtener los usuarios con acceso a los negocios", {
+        description: `Parece que hubo un error. ${error.message} ${error.response.data.message}`,
+      });
+      return [];
+    }
+  };
+
   return {
     businessesAccess,
     errorBusinessesAccess,
@@ -71,6 +99,7 @@ export const useActualBusiness = () => {
     acceptBusinessInvitation,
     choseActualBusiness,
     istABusinessSelected,
+    getAllUsersWithAccesToBussines,
   };
 };
 

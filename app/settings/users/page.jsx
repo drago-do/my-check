@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Typography from "@/components/general/Typography";
 import FilterByRole from "@/components/settings/users/FilterByRole";
-// import UserList from "@/components/settings/users/UserList";
+import UserList from "@/components/settings/users/UserList";
 import MaterialIcon from "@/components/general/MaterialIcon";
 import UserForm from "@/components/settings/users/UserForm";
 import Modal from "@/components/general/Modal";
@@ -14,9 +14,8 @@ import ButtonLink from "@/components/general/ButtonLink";
 
 export default function UsersPage() {
   const { getUserPermissions } = useUser();
-  const { actualBusiness } = useBusiness();
-  // const { usersList, getUserPerRole } = useUsersList();
-  // const [userListState, setUserListState] = useState(usersList);
+  const { actualBusiness, getAllUsersWithAccesToBussines } = useBusiness();
+  const [userWithAccess, setUserWithAccess] = useState(null);
   const [addUserModal, setAddUserModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState("");
@@ -35,17 +34,27 @@ export default function UsersPage() {
 
   //Check if user can access to this page
   useEffect(() => {
-    const permissions = getUserPermissions();
-    const businessId = actualBusiness?._id;
-    if (!permissions || !businessId) {
-      window.location.href = "/";
-    }
-    if (!thisUserIsAdmin(permissions, businessId)) {
-      setIsError("No tienes permisos para acceder a esta página");
-      setIsLoading(false);
-    } else {
-      setIsLoading(false);
-    }
+    const fetchInfo = async () => {
+      const permissions = getUserPermissions();
+      const businessId = actualBusiness?._id;
+      if (!permissions || !businessId) {
+        window.location.href = "/";
+      }
+      if (!thisUserIsAdmin(permissions, businessId)) {
+        setIsError("No tienes permisos para acceder a esta página");
+        setIsLoading(false);
+      } else {
+        if (businessId) {
+          const userList = await getAllUsersWithAccesToBussines();
+          if (!userList) {
+            return;
+          }
+          setUserWithAccess(userList);
+          setIsLoading(false);
+        }
+      }
+    };
+    fetchInfo();
   }, [getUserPermissions(), actualBusiness]);
 
   if (isLoading) {
@@ -80,10 +89,10 @@ export default function UsersPage() {
         />
       </section>
       <FilterByRole
-        // userList={userListState}
+        userList={userWithAccess}
         onFilterChange={handleFilterChange}
       />
-      {/* <UserList userList={userListState} /> */}
+      <UserList userList={userWithAccess} />
       <Modal
         title={"Añadir nuevo usuario"}
         handleClose={handleAddUser}
