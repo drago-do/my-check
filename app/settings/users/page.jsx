@@ -12,15 +12,22 @@ import { thisUserIsAdmin } from "@/utils/userUtils";
 import FullScreenLoader from "@/components/general/FullScreenLoader";
 import ButtonLink from "@/components/general/ButtonLink";
 import UserInviteForm from "@/components/settings/users/UserInviteForm";
+import UserInvitedList from "@/components/settings/users/UserInvitedList";
 
 export default function UsersPage() {
   const { getUserPermissions } = useUser();
-  const { actualBusiness, getAllUsersWithAccesToBussines } = useBusiness();
+  const {
+    actualBusiness,
+    getAllUsersWithAccesToBussines,
+    getUserInvitedToBusiness,
+  } = useBusiness();
   const [userWithAccess, setUserWithAccess] = useState(null);
   const [addUserModal, setAddUserModal] = useState(false);
   const [inviteUserModal, setInviteUserModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState("");
+
+  const [userInvitedList, setUserInvitedList] = useState(null);
 
   const handleFilterChange = (role) => {
     if (role === "all") {
@@ -36,6 +43,14 @@ export default function UsersPage() {
 
   const handleInviteUser = () => {
     setInviteUserModal(!inviteUserModal);
+    fetchUserInvited();
+  };
+
+  const fetchUserInvited = async () => {
+    setIsLoading(true);
+    const userList = await getUserInvitedToBusiness();
+    setUserInvitedList(userList);
+    setIsLoading(false);
   };
 
   //Check if user can access to this page
@@ -52,6 +67,7 @@ export default function UsersPage() {
       } else {
         if (businessId) {
           const userList = await getAllUsersWithAccesToBussines();
+          await fetchUserInvited();
           if (!userList) {
             return;
           }
@@ -99,6 +115,8 @@ export default function UsersPage() {
         onFilterChange={handleFilterChange}
       />
       <UserList userList={userWithAccess} />
+      <Typography variant={"subtitle"}>Usuarios invitados</Typography>
+      <UserInvitedList userList={userInvitedList} />
       <Modal
         title={"Añadir nuevo usuario"}
         handleClose={handleAddUser}

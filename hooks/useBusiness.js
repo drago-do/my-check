@@ -101,7 +101,6 @@ export const useActualBusiness = () => {
         businessId: bussinesID,
         invitedUser,
       };
-      console.log(data);
       try {
         const response = await axios.post(
           `/api/v1/business/user-invited`,
@@ -120,6 +119,21 @@ export const useActualBusiness = () => {
     });
   };
 
+  const getUserInvitedToBusiness = async () => {
+    const bussines = getSavedBusinessData();
+    const bussinesID = bussines ? bussines._id : false;
+    if (!bussinesID) {
+      toast.error("Error", {
+        description: `Primero seleccione un negocio`,
+      });
+      return false;
+    }
+    const response = await axios.get(
+      `/api/v1/business/${bussinesID}/user-invitation`
+    );
+    return response.data;
+  };
+
   return {
     businessesAccess,
     errorBusinessesAccess,
@@ -134,6 +148,7 @@ export const useActualBusiness = () => {
     istABusinessSelected,
     getAllUsersWithAccesToBussines,
     sendInvitationToActualBusiness,
+    getUserInvitedToBusiness,
   };
 };
 

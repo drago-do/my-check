@@ -1,7 +1,12 @@
 import Image from "next/image";
 import React from "react";
 
-const ImageViewer = ({ fotoData, className, alt, priority = false }) => {
+const ImageViewer = ({
+  fotoData,
+  className,
+  alt = "no description",
+  priority = false,
+}) => {
   return (
     <Image
       className={className}
