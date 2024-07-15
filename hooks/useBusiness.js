@@ -134,6 +134,37 @@ export const useActualBusiness = () => {
     return response.data;
   };
 
+  const deleteUserInvitedToBusiness = async (email) => {
+    const bussines = getSavedBusinessData();
+    const bussinesID = bussines ? bussines._id : false;
+    if (!bussinesID) {
+      toast.error("Error", {
+        description: `Primero seleccione un negocio`,
+      });
+      return false;
+    }
+    const data = {
+      businessId: bussinesID,
+      invitedUser: {
+        email: email,
+      },
+    };
+    try {
+      await axios.delete(`/api/v1/business/user-invited`, {
+        data: data,
+      });
+      toast.success("Invitacion eliminada", {
+        description: `Email ${email} eliminado`,
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Error", {
+        description: `Error al eliminar la invitacion del email ${email}`,
+      });
+      return false;
+    }
+  };
+
   return {
     businessesAccess,
     errorBusinessesAccess,
@@ -149,6 +180,7 @@ export const useActualBusiness = () => {
     getAllUsersWithAccesToBussines,
     sendInvitationToActualBusiness,
     getUserInvitedToBusiness,
+    deleteUserInvitedToBusiness,
   };
 };
 

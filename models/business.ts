@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import Image, { IImage } from "./imageCommon";
 
-
 const locationSchema = new mongoose.Schema({
   address: { type: String, required: true },
   city: { type: String, required: true },
@@ -57,18 +56,21 @@ const businessSchema = new mongoose.Schema({
     ref: "users",
     required: true,
   },
-  invitedUser: [
-    {
-      email: {
-        type: String,
-        required: true,
-        index: true,
-        unique: true,
-        match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+  invitedUser: {
+    type: [
+      {
+        email: {
+          type: String,
+          required: true,
+          index: true,
+          unique: true,
+          match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+        },
+        role: { type: String, required: true },
       },
-      role: { type: String, required: true },
-    },
-  ],
+    ],
+    default: [],
+  },
   name: { type: String, required: true, unique: true },
   description: { type: String },
   category: { type: String, required: true },

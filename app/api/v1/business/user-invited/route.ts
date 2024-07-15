@@ -45,14 +45,26 @@ export async function DELETE(request: Request) {
     }
 
     // Asume que body.invitedUser.email contiene el correo electrónico a eliminar
-    business.invitedUser.pull({ email: body.invitedUser.email });
-    await business.save();
+    if (business.invitedUser.length === 1) {
+      //Delete array
+      console.log(business.invitedUser);
+      business.invitedUser.shift();
+      console.log("User removed");
 
-    return NextResponse.json({
-      success: true,
-      message: "User removed",
-      business: business.toObject(), // Para devolver un objeto simple, no un documento de Mongoose
-    });
+      await business.save();
+
+      return NextResponse.json({
+        success: true,
+        message: "User removed",
+      });
+    } else {
+      business.invitedUser.pull({ email: body.invitedUser.email });
+      await business.save();
+      return NextResponse.json({
+        success: true,
+        message: "User removed",
+      });
+    }
   } catch (error: any) {
     console.error(error); // Mejor práctica: registra el error en el servidor
     return NextResponse.json({

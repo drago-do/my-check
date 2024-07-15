@@ -5,6 +5,8 @@ import ImageViewer from "../../general/ImageViewer";
 import Badge from "../../general/Badge";
 import MaterialIcon from "../../general/MaterialIcon";
 import ButtonFunction from "./../../general/ButtonFunction";
+import useActualBusiness from "@/hooks/useBusiness";
+
 const colorRole = {
   admin: "green",
   mesero: "blue",
@@ -14,13 +16,17 @@ const colorRole = {
 
 export default function UserInvitedList({ userList }) {
   const [loading, setLoading] = useState(false);
+  const { deleteUserInvitedToBusiness } = useActualBusiness();
 
-  const handleDeleteInvitation = (id) => {
+  const handleDeleteInvitation = async (email) => {
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await deleteUserInvitedToBusiness(email);
+    } catch (error) {
+      console.log(error);
+    } finally {
       setLoading(false);
-      console.log("delete user", id);
-    }, 3000);
+    }
   };
 
   return (
@@ -53,10 +59,10 @@ export default function UserInvitedList({ userList }) {
 
                     <ButtonFunction
                       onLoading={loading}
-                      className="h-full"
+                      className="h-full py-2"
                       type="button"
                       variant="red"
-                      onClick={() => handleDeleteInvitation(user._id)}
+                      onClick={() => handleDeleteInvitation(user.email)}
                     >
                       <MaterialIcon iconName="delete" />
                     </ButtonFunction>

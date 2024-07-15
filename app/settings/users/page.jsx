@@ -48,9 +48,11 @@ export default function UsersPage() {
 
   const fetchUserInvited = async () => {
     setIsLoading(true);
-    const userList = await getUserInvitedToBusiness();
-    setUserInvitedList(userList);
-    setIsLoading(false);
+    setTimeout(async () => {
+      const userList = await getUserInvitedToBusiness();
+      setUserInvitedList(userList);
+      setIsLoading(false);
+    }, 2000);
   };
 
   //Check if user can access to this page
@@ -116,7 +118,10 @@ export default function UsersPage() {
       />
       <UserList userList={userWithAccess} />
       <Typography variant={"subtitle"}>Usuarios invitados</Typography>
-      <UserInvitedList userList={userInvitedList} />
+      <UserInvitedList
+        userList={userInvitedList}
+        fetchUserInvited={fetchUserInvited}
+      />
       <Modal
         title={"Añadir nuevo usuario"}
         handleClose={handleAddUser}
