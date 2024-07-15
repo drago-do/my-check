@@ -87,6 +87,39 @@ export const useActualBusiness = () => {
     }
   };
 
+  const sendInvitationToActualBusiness = (invitedUser) => {
+    return new Promise(async (resolve, reject) => {
+      const bussines = getSavedBusinessData();
+      const bussinesID = bussines ? bussines._id : false;
+      if (!bussinesID) {
+        toast.error("Error", {
+          description: `Primero seleccione un negocio`,
+        });
+        return resolve(false);
+      }
+      const data = {
+        businessId: bussinesID,
+        invitedUser,
+      };
+      console.log(data);
+      try {
+        const response = await axios.post(
+          `/api/v1/business/user-invited`,
+          data
+        );
+        toast.success("Usuario invitado", {
+          description: `Se ha enviado la invitation a ${data?.invitedUser?.email}`,
+        });
+        resolve(response.data.message);
+      } catch (error) {
+        toast.error("Error al enviar la invitation", {
+          description: `Parece que hubo un error. ${error.message} ${error.response.data.message}`,
+        });
+        resolve(false);
+      }
+    });
+  };
+
   return {
     businessesAccess,
     errorBusinessesAccess,
@@ -100,6 +133,7 @@ export const useActualBusiness = () => {
     choseActualBusiness,
     istABusinessSelected,
     getAllUsersWithAccesToBussines,
+    sendInvitationToActualBusiness,
   };
 };
 

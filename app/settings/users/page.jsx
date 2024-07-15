@@ -11,12 +11,14 @@ import useBusiness from "@/hooks/useBusiness";
 import { thisUserIsAdmin } from "@/utils/userUtils";
 import FullScreenLoader from "@/components/general/FullScreenLoader";
 import ButtonLink from "@/components/general/ButtonLink";
+import UserInviteForm from "@/components/settings/users/UserInviteForm";
 
 export default function UsersPage() {
   const { getUserPermissions } = useUser();
   const { actualBusiness, getAllUsersWithAccesToBussines } = useBusiness();
   const [userWithAccess, setUserWithAccess] = useState(null);
   const [addUserModal, setAddUserModal] = useState(false);
+  const [inviteUserModal, setInviteUserModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState("");
 
@@ -30,6 +32,10 @@ export default function UsersPage() {
 
   const handleAddUser = () => {
     setAddUserModal(!addUserModal);
+  };
+
+  const handleInviteUser = () => {
+    setInviteUserModal(!inviteUserModal);
   };
 
   //Check if user can access to this page
@@ -83,7 +89,7 @@ export default function UsersPage() {
       <Typography variant={"title"}>Gestión de usuarios</Typography>
       <section className="w-full my-3 flex justify-between flex-nowrap">
         <ButtonAdd
-          onClick={handleAddUser}
+          onClick={handleInviteUser}
           text={"Usuario"}
           icon={<MaterialIcon iconName="add" />}
         />
@@ -99,6 +105,13 @@ export default function UsersPage() {
         isOpen={addUserModal}
       >
         <UserForm handleClose={handleAddUser} />
+      </Modal>
+      <Modal
+        title={"Invitar usuario"}
+        handleClose={handleInviteUser}
+        isOpen={inviteUserModal}
+      >
+        <UserInviteForm handleClose={handleInviteUser} />
       </Modal>
     </div>
   );
